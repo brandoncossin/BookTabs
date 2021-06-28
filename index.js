@@ -19,12 +19,12 @@ app.get('/', (req, res) => {
     const [book, setBook] = useState("");
 const [result, setResult] = useState([]);
 const [apiKey, setApiKey] = useState("AIzaSyBm-Omi3o6U4tNvT445DyT-eH4suqeDYTs");
-    axios.get("https://www.googleapis.com/books/v1/volumes?q=The Stand&key=" + apiKey + "&maxResults=40")
+    axios.get("https://www.googleapis.com/books/v1/volumes?q=The Stand&key=AIzaSyBm-Omi3o6U4tNvT445DyT-eH4suqeDYTs&maxResults=40")
     .then(data => {
-      //console.log(data.data.items);
+      console.log(data.data.items);
       setResult(data.data.items);
     });
-    res.send({ data});
+    //res.send({ data});
 });
 
 const PORT = process.env.PORT || 5000;
