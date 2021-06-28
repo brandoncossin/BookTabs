@@ -23,8 +23,8 @@ const [apiKey, setApiKey] = useState("AIzaSyBm-Omi3o6U4tNvT445DyT-eH4suqeDYTs");
     .then(data => {
       //console.log(data.data.items);
       setResult(data.data.items);
-      res.send({ data});
     });
+    res.send({ data});
 });
 
 const PORT = process.env.PORT || 5000;
