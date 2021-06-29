@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
       console.log(data.data.items);
       setResult(data.data.items);
     });
-    res.send("Hello");
+    res.send(data);
 });
 
 const PORT = process.env.PORT || 5000;
