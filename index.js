@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
       setResult(data.data.items);
     });
     */
-   console.log(fetch("https://www.googleapis.com/books/v1/volumes?q=The Stand&key=AIzaSyBm-Omi3o6U4tNvT445DyT-eH4suqeDYTs&maxResults=40"))
+   console.log(axios.get("https://www.googleapis.com/books/v1/volumes?q=The Stand&key=AIzaSyBm-Omi3o6U4tNvT445DyT-eH4suqeDYTs&maxResults=40"))
     res.send("hello");
 });
 
