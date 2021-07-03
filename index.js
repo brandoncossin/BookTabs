@@ -24,7 +24,7 @@ app.get('/bookItem', function(req, res){
 
 app.get('/', function(req, res){
     let param = req.query.book
-    axios.get('https://www.googleapis.com/books/v1/volumes?q='+ param+'&key='+ apiKey+ '&maxResults=40')
+    axios.get('https://www.googleapis.com/books/v1/volumes?q='+ param+'&key='+ apiKey+ '&maxResults=30')
     .then(function (response) {
         response = response.data;
         console.log(response);
