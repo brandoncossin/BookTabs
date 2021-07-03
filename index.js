@@ -5,11 +5,22 @@ var cors = require('cors');
 const apiKey = "AIzaSyBm-Omi3o6U4tNvT445DyT-eH4suqeDYTs";
 
 var corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "http://localhost:3000/BookList",
   optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
+
+app.get('/bookItem', function(req, res){
+  let param = req.query.book;
+  axios.get('https://www.googleapis.com/books/v1/volumes/7qylv1KYf0kC?key=AIzaSyBm-Omi3o6U4tNvT445DyT-eH4suqeDYTs')
+  .then(function (response) {
+    response = response.data;
+    console.log(response);
+    //console.log(response[0].volumeInfo);
+    res.send(response);
+});
+})
 
 app.get('/', function(req, res){
     let param = req.query.book
