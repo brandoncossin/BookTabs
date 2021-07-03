@@ -5,7 +5,7 @@ var cors = require('cors');
 const apiKey = "AIzaSyBm-Omi3o6U4tNvT445DyT-eH4suqeDYTs";
 
 var corsOptions = {
-  origin: "http://localhost:3000/BookList",
+  origin: "http://localhost:3000",
   optionsSuccessStatus: 200,
 };
 
