@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 const HomePage = () =>{
   const [book, setBook] = useState("");
-  //const [apiKey, setApiKey] = useState("AIzaSyBm-Omi3o6U4tNvT445DyT-eH4suqeDYTs");
   function handleChange(event) {
     const book = event.target.value;
     setBook(book);
@@ -25,10 +24,8 @@ const HomePage = () =>{
         <h4>Search for a book today</h4>
         <button class="HomeButton" type=" button" >Sign Up Today</button>
             </div>
-            <div class="col-2">
-                
+            <div class="col-2">   
             </div>
-            
         </div>
         <div class="SearchBarRow">
         <form onSubmit={handleSubmit}>
