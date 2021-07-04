@@ -11,17 +11,6 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.get('/bookItem', function(req, res){
-  let param = req.query.book;
-  axios.get('https://www.googleapis.com/books/v1/volumes/7qylv1KYf0kC?key=AIzaSyBm-Omi3o6U4tNvT445DyT-eH4suqeDYTs')
-  .then(function (response) {
-    response = response.data;
-    console.log(response);
-    //console.log(response[0].volumeInfo);
-    res.send(response);
-});
-})
-
 app.get('/', function(req, res){
     let param = req.query.book
     axios.get('https://www.googleapis.com/books/v1/volumes?q='+ param+'&key='+ apiKey+ '&maxResults=30')
@@ -32,5 +21,7 @@ app.get('/', function(req, res){
         res.send(response);
     });
 });
+
 const PORT = process.env.PORT || 8080;
-app.listen(PORT);
+//app.listen(PORT);
+app.listen(8080);
