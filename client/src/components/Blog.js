@@ -1,9 +1,8 @@
-import { render } from '@testing-library/react';
-import React, { useState } from 'react';
+import React from 'react';
 
 const Blog = () =>{
     return(
-        <div class="container">
+        <div className="container">
         <p>This is the Blog</p>
         </div>
     );

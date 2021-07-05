@@ -12,22 +12,23 @@ const HomePage = () =>{
     localStorage.setItem("book", book);
     localStorage.setItem("result", []);
     localStorage.setItem("InitialSearch", "initialized");    
-    //this.props.history.push('/BookList');
     window.location.href = "/BookList"
   }
   //If nothing is input, returns the homepage
     return (
-        <div class="HomeContainer"> 
-        <div class="HomeRow">
-            <div class="column-1">
+        <div className="HomeContainer"> 
+        <div className="HomeRow">
+            <div className="column-1">
         <h1>Keep Tabs on Your Books <br></br>-With Book Tabs</h1>
         <h4>Search for a book today</h4>
-        <button class="HomeButton" type=" button" >Sign Up Today</button>
+        <button className="HomeButton" type=" button" >Sign Up Today</button>
             </div>
-            <div class="col-2">   
+            <div className="col-2">
+                
             </div>
+            
         </div>
-        <div class="SearchBarRow">
+        <div className="SearchBarRow">
         <form onSubmit={handleSubmit}>
         <input type="text"
               onChange={handleChange}

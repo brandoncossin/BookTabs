@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import NavBar from './components/NavBar';
 import BookList from './components/BookList';
@@ -10,15 +10,13 @@ import Blog from './components/Blog.js'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
-
 function App() {
 
   return (
     <Router>
-    <div class="container">
+    <div className="container">
       <NavBar/>
       <Switch>
       <Route path="/" exact component={HomePage} />

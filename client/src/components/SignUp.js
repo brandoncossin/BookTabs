@@ -5,11 +5,11 @@ import '../App.css';
 
 const SignUp = () => {
     return (
-        <section class="container-fluid">
-        <section class= "row justify-content-center">
-        <form method="post" class="form-container"> 
+        <section className="container-fluid">
+        <section className= "row justify-content-center">
+        <form method="post" className="form-container"> 
         <h3>Sign up with Book Tabs</h3>
-        <h6 class="card-subtitle mb-2 text-muted">Create your account. It's free and only takes a minute.</h6>
+        <h6 className="card-subtitle mb-2 text-muted">Create your account. It's free and only takes a minute.</h6>
         <p>Name</p>
         <input type="text" name="name" placeholder="Type your name"></input>
         <p>Email</p>
@@ -21,7 +21,7 @@ const SignUp = () => {
         <p>Re-enter Password</p>
         <input type="password" name="pwdRepeat" placeholder="Re-enter username"></input>
         <br></br>
-        <button type="submit" class="btn btn-secondary" name="submit">Sign Up</button>
+        <button type="submit" className="btn btn-secondary" name="submit">Sign Up</button>
         <br></br>
         <Link to="/Login">Already a member? Sign in!</Link>
     </form>

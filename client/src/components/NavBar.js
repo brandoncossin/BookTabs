@@ -1,17 +1,12 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar, Nav, NavDropdown, NavItem} from "react-bootstrap";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const NavBar = () => {
     return (
       
-        <Navbar class="navbar" expand="lg">
+        <Navbar className="navbar" expand="lg">
   <Navbar.Brand as={Link} to="/" className="ml-2">Book Tabs</Navbar.Brand>
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">

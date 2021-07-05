@@ -117,6 +117,7 @@ button{
 }
 .HomeButton{
     border: 0;
+    margin-top: 10px;
     outline: none;
     background: Linear-gradient(to right, #fb5283, #ff3527);
     border-radius: 10px;
