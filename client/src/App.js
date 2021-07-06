@@ -7,6 +7,7 @@ import LogIn from './components/LogIn';
 import BookItem from './components/BookResult';
 import HomePage from './components/HomePage.js';
 import Blog from './components/Blog.js'
+import Footer from './components/Footer.js'
 import {
   BrowserRouter as Router,
   Switch,
@@ -26,6 +27,7 @@ function App() {
       <Route path="/Blog" component={Blog} />
       <Route path="/BookResult" component={BookItem} />
       </Switch>
+      <Footer/>
     </div>
     </Router>
   );

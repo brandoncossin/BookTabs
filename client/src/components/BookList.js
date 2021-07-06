@@ -10,6 +10,8 @@ function BookList(props) {
   const [book, setBook] = useState(SearchBeenLoaded);
   let ResultsBeenLoaded = JSON.parse(localStorage.getItem("result") || '[]');
   let SearchToken = localStorage.getItem("InitialSearch");
+  //UseEffect runs on site load
+  //Checks if tokens for search are set
   useEffect(() => {
     if(book !== null && SearchToken === "initialized"){
       axios.get("https://serene-spire-91674.herokuapp.com/", {

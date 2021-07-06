@@ -6,6 +6,7 @@ Started on 6/23/2021
 * {
     background-color: #C1C1C1;
 }
+
 .form-container{
     position: relative;
     top: 6vh;
@@ -13,6 +14,7 @@ Started on 6/23/2021
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px 0px #000;
+    margin-bottom: 50%;
 }
 .form-container p{
     margin-bottom: 5px;
@@ -126,6 +128,9 @@ button{
     height: 0px;
     border: none;
     border-top: 1px  solid #212121;
+}
+.HomeFooter{
+    background-color: black !important;
 }
 @media only screen and (max-width: 700px){
     .HomeRow{
