@@ -29,11 +29,16 @@ const db = mongoose.connection;
 debug.on('error', error => console.error(error))
 debug.once('opnn', error => console.log('Connected to Mongoose'));
 */
+app.post('/api/login', function(req, res){
+  let user = req.body
+  console.log(user);
+  res.send({requestBody: req.body.uid})
+})
 
 app.post('/api/signup', function(req, res){
   let user = req.body
   console.log(user);
-  res.send({requestBody: req.body.username})
+  res.send({requestBody: req.body.uid})
 })
 
 
