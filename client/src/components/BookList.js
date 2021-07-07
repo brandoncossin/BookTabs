@@ -24,7 +24,6 @@ function BookList(props) {
       });
       localStorage.setItem("InitialSearch", "");    
     }
-    
   }, [SearchToken, book]
     
 );
@@ -53,6 +52,7 @@ const [result, setResult] = useState(ResultsBeenLoaded);
        <div className="SearchBarRow">
         <form onSubmit={handleSubmit}>
         <input type="text"
+              value={book}
               onChange={handleChange}
               className="SearchBar"
               placeholder="Search for Books"
