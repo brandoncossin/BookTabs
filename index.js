@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
 const keys = require('./config/keys')
 const User = require('./models/User')
+const jwt = require('jsonwebtoken')
 
 var corsOptions = {
   credentials: true,
@@ -26,11 +27,20 @@ mongoose.connect(keys.mongoURI, {
 });
 
 app.post('/api/login', async(req, res) => {
-  let user = req.body
-  console.log(user);
-  const{uid, pwd} = req.body
-  console.log(await bcrypt.hash(pwd, 10))
-  res.send({requestBody: req.body.uid})
+  const{uid, pwd} = req.body;
+  const user = await User.findOne({ uid}).lean()
+
+  if(!user){
+    return res.json({status: 'error', error: 'Invalid username'})
+   }
+  if(await bcrypt.compare(pwd, user.password)){
+    const token = jwt.sign({
+      id: user._id, 
+      uid: user.uid
+    }, keys.ACCESS_TOKEN_SECRET)
+    return res.json({token: token})
+  }
+  res.json({status: 'error', error: 'Invalid username/password'})
 })
 
 app.post('/api/signup', async(req, res) =>{
@@ -75,5 +85,4 @@ app.get('/', function(req, res){
 });
 
 const PORT = process.env.PORT || 8080;
-//app.listen(PORT);
 app.listen(PORT);

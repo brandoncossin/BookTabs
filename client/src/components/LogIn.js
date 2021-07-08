@@ -14,18 +14,33 @@ export default class LogIn extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 }
+//Long validation function, validates whole form.
+handleValidation(){
+  let formIsValid = true;
+  document.getElementById("errormessage").innerHTML = "";
+  if(!this.state.uid){
+      document.getElementById("errormessage").innerHTML = "**Please enter a username";
+      return formIsValid = false;
+  }
+  if(!this.state.pwd){
+      document.getElementById("errormessage").innerHTML = "**Please enter a password";
+      return formIsValid = false;
+  }
+  return formIsValid;
+}
 handleChange(event) {
     this.setState({[event.target.name] : event.target.value});
   }
 handleSubmit(e) {
     e.preventDefault();
-    console.log(JSON.stringify(this.state))
-    axios.post("http://localhost:8080/api/signup", this.state, 
+    if(this.handleValidation()){
+    axios.post("http://localhost:8080/api/login", this.state, 
     {headers: {"Content-Type": "application/json"}}
-        //axios.get("https://serene-spire-91674.herokuapp.com/api/signup", { 
+        //axios.get("https://serene-spire-91674.herokuapp.com/api/login", { 
         ).then(function (response) {
         console.log(response);
     });
+  }
 }
 
 render(){
@@ -38,6 +53,7 @@ render(){
         onSubmit={this.handleSubmit}> 
         <h3>Sign in to Book Tabs</h3>
         <h6 className="card-subtitle mb-2 text-muted">Welcome back. Sign in with your account.</h6>
+        <span id = "errormessage" style ={{color: "red" , background: "transparent"}}></span>
         <p> Username</p>
         <input type="text" autoComplete="off"
         name="uid" placeholder="Type your username" 
