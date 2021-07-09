@@ -8,7 +8,7 @@ export default class LogIn extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-            name : "",
+            uid : "",
             pwd : ""
     }
     this.handleChange = this.handleChange.bind(this);
@@ -37,8 +37,15 @@ handleSubmit(e) {
     axios.post("http://localhost:8080/api/login", this.state, 
     {headers: {"Content-Type": "application/json"}}
         //axios.get("https://serene-spire-91674.herokuapp.com/api/login", { 
-        ).then(function (response) {
-        console.log(response);
+        ).then((res) => {
+          if(res.data.status !== 'error'){
+            console.log(res.data.data); 
+            sessionStorage.setItem('token', JSON.stringify(res.data.data));          
+            alert('Success');
+          }
+          else{
+              alert(res.data.error);
+          }
     });
   }
 }

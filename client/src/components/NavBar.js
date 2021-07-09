@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar, Nav, NavDropdown, NavItem} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
-const NavBar = () => {
-    return (
+function NavBar() {
+  useEffect(() => {
+    if(sessionStorage.getItem('token')){
+      const token = sessionStorage.getItem('token')
+      axios.get("http://localhost:8080/profile",{
+    params: {
+    token: token
+  }})
+    .then(data => {
+      console.log(data.data.token.uid);
+    });
+    }
+  }
+  )
+  
+  
+  return (
       
         <Navbar className="navbar" expand="lg">
   <Navbar.Brand as={Link} to="/" className="ml-2">Book Tabs</Navbar.Brand>

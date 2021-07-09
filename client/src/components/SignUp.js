@@ -50,15 +50,20 @@ export default class SignUp extends React.Component {
     handleChange(event) {
         this.setState({[event.target.name] : event.target.value});
       }
-    handleSubmit(e) {
+    async handleSubmit(e) {
         e.preventDefault();
         //If Handle Validation is false, request is not sent
         if(this.handleValidation()){
-        axios.post("http://localhost:8080/api/signup", this.state, 
+        await axios.post("http://localhost:8080/api/signup", this.state, 
         {headers: {"Content-Type": "application/json"}}
             //axios.get("https://serene-spire-91674.herokuapp.com/api/signup", { 
-            ).then(function (response) {
-            
+            ).then((res) => {
+            if(res.data.status === 'success'){
+                alert('Success');
+            }
+            else{
+                alert(res.data.error);
+            }
         });
     }
     }

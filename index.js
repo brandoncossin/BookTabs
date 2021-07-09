@@ -15,9 +15,9 @@ var corsOptions = {
   optionsSuccessStatus: 200,
   
 };
+app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
-app.use(express.json());
 
 
 mongoose.connect(keys.mongoURI, {
@@ -29,7 +29,7 @@ mongoose.connect(keys.mongoURI, {
 app.post('/api/login', async(req, res) => {
   const{uid, pwd} = req.body;
   const user = await User.findOne({ uid}).lean()
-
+  console.log(user)
   if(!user){
     return res.json({status: 'error', error: 'Invalid username'})
    }
@@ -38,7 +38,8 @@ app.post('/api/login', async(req, res) => {
       id: user._id, 
       uid: user.uid
     }, keys.ACCESS_TOKEN_SECRET)
-    return res.json({token: token})
+    console.log(token)
+    return res.json({status: 'ok', data: token});
   }
   res.json({status: 'error', error: 'Invalid username/password'})
 })
@@ -62,6 +63,7 @@ app.post('/api/signup', async(req, res) =>{
   }catch(error){
     if(error.code === 11000){
       //duplicate key
+      console.log(error)
       return res.json({status: 'error', error: 'Username or email already in use'})
     }
     throw error;
@@ -83,6 +85,10 @@ app.get('/', function(req, res){
     res.cookie(SameSite = 'none' );
     
 });
-
+app.get('/profile', function (req, res){
+  let profile = JSON.parse(atob(req.query.token.split('.')[1]))
+  console.log(profile);
+  res.send({status: 'success', token: profile});
+})
 const PORT = process.env.PORT || 8080;
 app.listen(PORT);
