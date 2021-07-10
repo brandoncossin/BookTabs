@@ -85,6 +85,16 @@ app.get('/', function(req, res){
     res.cookie(SameSite = 'none' );
     
 });
+app.get('/authCheck', async (req, res) =>{
+  //let profile = JSON.parse(atob(req.query.token.split('.')[1]))
+  console.log(req.query.token);
+  try {
+    jwt.verify(JSON.parse(req.query.token), keys.ACCESS_TOKEN_SECRET);
+    return res.send({status: 'success', data: "hello"});
+  } catch(err) {
+    return res.send({status: 'error', error: 'Improper Token'});
+  }
+})
 app.get('/profile', function (req, res){
   let profile = JSON.parse(atob(req.query.token.split('.')[1]))
   console.log(profile);

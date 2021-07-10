@@ -14,7 +14,8 @@ function BookList(props) {
   //Checks if tokens for search are set
   useEffect(() => {
     if(book !== null && SearchToken === "initialized"){
-      axios.get("https://serene-spire-91674.herokuapp.com/", {
+      axios.get("http://localhost:8080/", {
+      //axios.get("https://serene-spire-91674.herokuapp.com/", {
       params: {
       book: book
     }})

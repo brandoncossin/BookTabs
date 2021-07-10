@@ -1,24 +1,9 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar, Nav, NavDropdown, NavItem} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
-function NavBar() {
-  useEffect(() => {
-    if(sessionStorage.getItem('token')){
-      const token = sessionStorage.getItem('token')
-      axios.get("http://localhost:8080/profile",{
-    params: {
-    token: token
-  }})
-    .then(data => {
-      console.log(data.data.token.uid);
-    });
-    }
-  }
-  )
-  
+function NavBar(props) {
   
   return (
       
@@ -27,12 +12,24 @@ function NavBar() {
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">
+      
       <NavItem className="ml-2">
+      {!props.isLoggedIn && (
           <Nav.Link as={Link} to="/SignUp" >Sign Up</Nav.Link>
+          )}
+      {props.isLoggedIn && (
+        <Nav.Link as={Link} to="/Profile" >Profile</Nav.Link>
+      )}
       </NavItem>
       <NavItem className="ml-2">
+        {!props.isLoggedIn && (
           <Nav.Link as={Link} to="/LogIn" >Log In</Nav.Link>
+        )}
+        {props.isLoggedIn && (
+           <Nav.Link as={Link} to="/LogIn" >Log Out</Nav.Link>
+        )}
       </NavItem>
+      
       <NavItem className="ml-2">
           <Nav.Link as={Link} to="/Blog" >Blog</Nav.Link>
       </NavItem>

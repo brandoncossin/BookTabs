@@ -40,7 +40,9 @@ handleSubmit(e) {
         ).then((res) => {
           if(res.data.status !== 'error'){
             console.log(res.data.data); 
-            sessionStorage.setItem('token', JSON.stringify(res.data.data));          
+            sessionStorage.setItem('token', JSON.stringify(res.data.data));
+            this.props.history.push("/");
+            window.location.reload();          
             alert('Success');
           }
           else{
