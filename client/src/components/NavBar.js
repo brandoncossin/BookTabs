@@ -1,12 +1,18 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar, Nav, NavDropdown, NavItem} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 function NavBar(props) {
-  
+  let history = useHistory();
+  function logOut(){
+    sessionStorage.clear();
+    console.log("logged out");
+    history.push("/");    
+    window.location.reload();
+  }
+
   return (
-      
         <Navbar className="navbar" expand="lg">
   <Navbar.Brand as={Link} to="/" className="ml-2">Book Tabs</Navbar.Brand>
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -26,7 +32,7 @@ function NavBar(props) {
           <Nav.Link as={Link} to="/LogIn" >Log In</Nav.Link>
         )}
         {props.isLoggedIn && (
-           <Nav.Link as={Link} to="/LogIn" >Log Out</Nav.Link>
+           <Nav.Link onClick={logOut} >Log Out</Nav.Link>
         )}
       </NavItem>
       

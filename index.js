@@ -95,10 +95,12 @@ app.get('/authCheck', async (req, res) =>{
     return res.send({status: 'error', error: 'Improper Token'});
   }
 })
-app.get('/profile', function (req, res){
+app.get('/profile', async (req, res)=>{
   let profile = JSON.parse(atob(req.query.token.split('.')[1]))
-  console.log(profile);
-  res.send({status: 'success', token: profile});
+  let uid = profile.uid
+  const user = await User.findOne({ uid}).lean()
+  console.log(user);
+  res.send({status: 'success', profile: user});
 })
 const PORT = process.env.PORT || 8080;
 app.listen(PORT);

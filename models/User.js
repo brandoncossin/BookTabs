@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+//userSchema for MongoDb
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -19,6 +19,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    //Array of books that user has added to their list.
+    //MongoDb will return this for the user on their profile
+    myList: [{
+        bookId: {type: String, required: true},
+        bookImage: {type: String, required: true},
+    }]
 }, {timestamps: true})
 
 const User = mongoose.model('User', userSchema)

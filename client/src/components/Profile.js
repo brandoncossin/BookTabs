@@ -1,11 +1,14 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import axios from 'axios';
+import {Redirect} from 'react-router-dom'
 
 export default class Profile extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-                uid : ""
+                uid : "",
+                name: "",
+                myList: [],
         }  
     }
     componentDidMount() {
@@ -16,15 +19,17 @@ export default class Profile extends React.Component {
         token: token
       }})
         .then(data => {
-          const user = data.data.token.uid;
-          this.setState({uid : user})
+          this.setState({uid : data.data.profile.uid})
+          this.setState({name : data.data.profile.name})
+          this.setState({myList : data.data.profile.myList})
         });
         }
       }
     render(){
     return(
         <div className="container">
-        <p>Profile Page of {this.state.uid}</p>
+        <h1>Welcome {this.state.uid}</h1>
+        <h3>{this.state.name}</h3>
         </div>
     );
     }

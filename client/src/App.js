@@ -47,14 +47,15 @@ function App() {
       <Switch>
       <Route path="/" exact component={HomePage} />
       <Route path="/BookList" component={BookList} />
-      {isLoggedIn && (
       <Route path="/Profile" isLoggedIn={isLoggedIn} 
       component={Profile} />
-      )}
-      <Route path="/SignUp" component={SignUp} />
-      <Route path="/LogIn" component={LogIn} />
+      <Route path="/SignUp" isLoggedIn={isLoggedIn} 
+      component={SignUp} />
+      <Route path="/LogIn" isLoggedIn={isLoggedIn} 
+      component={LogIn} />
       <Route path="/Blog" component={Blog} />
       <Route path="/BookResult" component={BookItem} />
+      <Route path="*" component={() => "404 NOT FOUND"} />
       </Switch>
       <Footer/>
     </div>
