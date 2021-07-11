@@ -42,7 +42,7 @@ handleSubmit(e) {
             console.log(res.data.data); 
             sessionStorage.setItem('token', JSON.stringify(res.data.data));
             <Redirect to={{
-              pathname: "/login" }} />
+              pathname: "/" }} />
             window.location.reload();          
             alert('Success');
           }

@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
+import {
+  Link,
+  Redirect, 
+  useHistory
+} from "react-router-dom";
 
 const HomePage = () =>{
+  let history = useHistory();
   const [book, setBook] = useState("");
   function handleChange(event) {
     const book = event.target.value;
@@ -12,7 +18,7 @@ const HomePage = () =>{
     localStorage.setItem("book", book);
     localStorage.setItem("result", []);
     localStorage.setItem("InitialSearch", "initialized");    
-    window.location.href = "/BookList"
+    history.push("/BookList", {state: book})
   }
   //If nothing is input, returns the homepage
     return (

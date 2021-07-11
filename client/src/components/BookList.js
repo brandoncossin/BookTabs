@@ -2,17 +2,24 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 
-function BookList(props) {
-  let SearchBeenLoaded = localStorage.getItem("book");
-  const [book, setBook] = useState(SearchBeenLoaded);
+function BookList (props) {
+  console.log(props.location.book)
+  const [book, setBook] = useState("");
   let ResultsBeenLoaded = JSON.parse(localStorage.getItem("result") || '[]');
   let SearchToken = localStorage.getItem("InitialSearch");
   //UseEffect runs on site load
   //Checks if tokens for search are set
   useEffect(() => {
+    if(props.location.state){
+      setBook(props.location.state)
+    }
+    if(props.isLoggedIn){
+      console.log("logged in")
+    }
     if(book !== null && SearchToken === "initialized"){
       axios.get("http://localhost:8080/", {
       //axios.get("https://serene-spire-91674.herokuapp.com/", {
@@ -30,8 +37,7 @@ function BookList(props) {
 );
 const [result, setResult] = useState(ResultsBeenLoaded);
   function handleChange(event) {
-    const book = event.target.value;
-    setBook(book);
+    setBook(event.target.value);
   }
 
   function handleSubmit(event) {
@@ -74,6 +80,9 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                       </div>
                     <div className="BookResultInformation">
                       <h3><b>{book.volumeInfo.title}</b></h3>{book.volumeInfo.authors}
+                      {props.isLoggedIn && (
+                        <div> Add to List </div>
+                      )}
                       </div>
                       </div>
                     </Link>

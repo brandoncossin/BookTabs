@@ -29,7 +29,8 @@ function App() {
   .then((res) => {
     if(res.data.status !== 'error'){
       console.log(res.data.data); 
-      SetLoggedIn(true);         
+      SetLoggedIn(true);  
+      console.log(isLoggedIn)       
     }
     else{
         window.location.href = "/";
@@ -46,8 +47,8 @@ function App() {
     <div className="container">
       <NavBar isLoggedIn={isLoggedIn}/>
       <Switch>
-      <Route path="/" exact component={HomePage} />
-      <Route path="/BookList" component={BookList} />
+      <Route exact path="/" isLoggedIn={isLoggedIn} exact component={HomePage} />
+      <Route path="/BookList" isLoggedIn={isLoggedIn} component={BookList} />
       <ProtectedRoute path="/Profile" isLoggedIn={isLoggedIn} 
       component={Profile} />
       <ProtectedRoute path="/SignUp" isLoggedIn={!isLoggedIn} 
@@ -55,8 +56,8 @@ function App() {
       <ProtectedRoute path="/LogIn" 
       isLoggedIn={!isLoggedIn} 
       component={LogIn} />
-      <Route path="/Blog" component={Blog} />
-      <Route path="/BookResult" component={BookItem} />
+      <Route path="/Blog" isLoggedIn={isLoggedIn} component={Blog} />
+      <Route path="/BookResult" isLoggedIn={isLoggedIn} component={BookItem} />
       <Route path="*" component={() => "404 NOT FOUND"} />
       </Switch>
       <Footer/>
