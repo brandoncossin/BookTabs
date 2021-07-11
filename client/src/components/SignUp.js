@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import '../App.css';
 import axios from 'axios';
 
@@ -60,6 +60,8 @@ export default class SignUp extends React.Component {
             ).then((res) => {
             if(res.data.status === 'success'){
                 alert('Success');
+                <Redirect to={{
+                    pathname: "/login" }} />
             }
             else{
                 alert(res.data.error);

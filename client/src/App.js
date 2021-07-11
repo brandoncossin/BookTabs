@@ -15,6 +15,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import ProtectedRoute  from './components/ProtectedRoute';
 function App() {
   const[isLoggedIn, SetLoggedIn] = useState(false);
   useEffect(() => {
@@ -47,11 +48,12 @@ function App() {
       <Switch>
       <Route path="/" exact component={HomePage} />
       <Route path="/BookList" component={BookList} />
-      <Route path="/Profile" isLoggedIn={isLoggedIn} 
+      <ProtectedRoute path="/Profile" isLoggedIn={isLoggedIn} 
       component={Profile} />
-      <Route path="/SignUp" isLoggedIn={isLoggedIn} 
+      <ProtectedRoute path="/SignUp" isLoggedIn={!isLoggedIn} 
       component={SignUp} />
-      <Route path="/LogIn" isLoggedIn={isLoggedIn} 
+      <ProtectedRoute path="/LogIn" 
+      isLoggedIn={!isLoggedIn} 
       component={LogIn} />
       <Route path="/Blog" component={Blog} />
       <Route path="/BookResult" component={BookItem} />

@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import axios from 'axios';
 
 
@@ -41,7 +41,8 @@ handleSubmit(e) {
           if(res.data.status !== 'error'){
             console.log(res.data.data); 
             sessionStorage.setItem('token', JSON.stringify(res.data.data));
-            this.props.history.push("/");
+            <Redirect to={{
+              pathname: "/login" }} />
             window.location.reload();          
             alert('Success');
           }
