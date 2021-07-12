@@ -15,7 +15,6 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import ProtectedRoute  from './components/ProtectedRoute';
 function App() {
   const[isLoggedIn, SetLoggedIn] = useState(false);
   useEffect(() => {
@@ -29,8 +28,7 @@ function App() {
   .then((res) => {
     if(res.data.status !== 'error'){
       console.log(res.data.data); 
-      SetLoggedIn(true);  
-      console.log(isLoggedIn)       
+      SetLoggedIn(true);         
     }
     else{
         window.location.href = "/";
@@ -47,16 +45,20 @@ function App() {
     <div className="container">
       <NavBar isLoggedIn={isLoggedIn}/>
       <Switch>
-      <Route exact path="/" isLoggedIn={isLoggedIn} exact component={HomePage} />
-      <Route path="/BookList" isLoggedIn={isLoggedIn} component={BookList} />
-      <ProtectedRoute path="/Profile" isLoggedIn={isLoggedIn} 
+      <Route path="/" exact component={HomePage} />
+      <Route path="/BookList" render={(props) => (
+        <BookList {...props} isLoggedIn={isLoggedIn} />
+      )} />
+      <Route path="/Profile" isLoggedIn={isLoggedIn} 
       component={Profile} />
-      <ProtectedRoute path="/SignUp" isLoggedIn={!isLoggedIn} 
+      <Route path="/SignUp" isLoggedIn={isLoggedIn} 
       component={SignUp} />
-      <ProtectedRoute path="/LogIn" 
-      isLoggedIn={!isLoggedIn} 
+      <Route path="/LogIn" isLoggedIn={isLoggedIn} 
       component={LogIn} />
-      <Route path="/Blog" isLoggedIn={isLoggedIn} component={Blog} />
+      <Route path="/Blog" render={(props) => (
+        <Blog {...props} isLoggedIn={isLoggedIn} />
+      )}
+      />
       <Route path="/BookResult" isLoggedIn={isLoggedIn} component={BookItem} />
       <Route path="*" component={() => "404 NOT FOUND"} />
       </Switch>

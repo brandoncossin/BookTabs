@@ -2,24 +2,17 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
-  Link,
-  Redirect
+  Link
 } from "react-router-dom";
 
-function BookList (props) {
-  console.log(props.location.book)
-  const [book, setBook] = useState("");
+function BookList(props) {
+  let SearchBeenLoaded = localStorage.getItem("book");
+  const [book, setBook] = useState(SearchBeenLoaded);
   let ResultsBeenLoaded = JSON.parse(localStorage.getItem("result") || '[]');
   let SearchToken = localStorage.getItem("InitialSearch");
   //UseEffect runs on site load
   //Checks if tokens for search are set
   useEffect(() => {
-    if(props.location.state){
-      setBook(props.location.state)
-    }
-    if(props.isLoggedIn){
-      console.log("logged in")
-    }
     if(book !== null && SearchToken === "initialized"){
       axios.get("http://localhost:8080/", {
       //axios.get("https://serene-spire-91674.herokuapp.com/", {
@@ -37,9 +30,23 @@ function BookList (props) {
 );
 const [result, setResult] = useState(ResultsBeenLoaded);
   function handleChange(event) {
-    setBook(event.target.value);
+    const book = event.target.value;
+    setBook(book);
   }
 
+  function handleAdd(book, i){
+    console.log(i)
+    axios.post("http://localhost:8080/api/add", book, 
+    {headers: {"Content-Type": "application/json"}})
+    .then((res) => {
+      if(res.data.status !== 'error'){
+        document.getElementById("addmessage" + i).innerHTML = "Added To List";
+      }
+      else{
+        document.getElementById("addmessage" + i).innerHTML = "Error";
+      }
+    })     
+  }
   function handleSubmit(event) {
     event.preventDefault();
     localStorage.setItem("book", book);
@@ -70,24 +77,40 @@ const [result, setResult] = useState(ResultsBeenLoaded);
         <div className="container">
         <hr></hr>
           <div className="row ">
-            {result.map(book => (
-                <div className="BookResult">  
-                <Link className="BookResultLink" as={Link} to={{pathname: '/BookResult/', state: {book: book}}} >
+            {result.map((book, i) => ( 
+                <div className="BookResult" key={i}>  
                 <div className="row">
                   <div className="BookResultImage ">
+                  <Link className="BookResultLink" as={Link} to={{pathname: '/BookResult/', state: {book: book}}} >
                     <img src={
                       book.volumeInfo.imageLinks === undefined ? "" : `${book.volumeInfo.imageLinks.thumbnail}`} alt={book.title} />
+                       </Link>
                       </div>
                     <div className="BookResultInformation">
+                    <Link className="BookResultLink" as={Link} to={{pathname: '/BookResult/', state: {book: book}}} >
                       <h3><b>{book.volumeInfo.title}</b></h3>{book.volumeInfo.authors}
+                      </Link>
+                      
+                      <br></br>
+                      <br></br>
+                      
                       {props.isLoggedIn && (
-                        <div> Add to List </div>
-                      )}
+                       <div>
+                    <button type="submit" className="btn btn-secondary" 
+                    onClick = {() => {
+                      handleAdd(book, i);
+                    }} 
+                    name="submit">Add To List
+                    </button>
+                    <span id = {"addmessage"+ i} style ={{color: "black" , background: "transparent"}}></span>
+                    </div>
+                    )}
                       </div>
-                      </div>
-                    </Link>
+                      </div> 
+                      
                     <hr></hr>
                 </div>
+                
             ))}
           </div>
         </div>

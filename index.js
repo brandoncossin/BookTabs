@@ -25,7 +25,10 @@ mongoose.connect(keys.mongoURI, {
   useCreateIndex: true,
   useUnifiedTopology: true,
 });
-
+app.post('/api/add', async(req, res) => {
+  console.log(req);
+  res.json({status: 'success', data: 'successfully added to'})
+})
 app.post('/api/login', async(req, res) => {
   const{uid, pwd} = req.body;
   const user = await User.findOne({ uid}).lean()
@@ -90,7 +93,7 @@ app.get('/authCheck', async (req, res) =>{
   console.log(req.query.token);
   try {
     jwt.verify(JSON.parse(req.query.token), keys.ACCESS_TOKEN_SECRET);
-    return res.send({status: 'success', data: "hello"});
+    return res.send({status: 'success', data: "Welcome"});
   } catch(err) {
     return res.send({status: 'error', error: 'Improper Token'});
   }
