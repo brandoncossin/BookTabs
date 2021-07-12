@@ -61,7 +61,9 @@ export default class SignUp extends React.Component {
             if(res.data.status === 'success'){
                 alert('Success');
                 <Redirect to={{
-                    pathname: "/login" }} />
+                    pathname: "/" }} />
+                  window.location.reload();          
+                  alert('Success');
             }
             else{
                 alert(res.data.error);

@@ -6,7 +6,9 @@ Started on 6/23/2021
 * {
     background-color: #C1C1C1;
 }
-
+/*
+Home Page CSS
+*/
 .form-container{
     position: relative;
     top: 6vh;
@@ -69,7 +71,9 @@ margin-bottom: 20px;
     width: 85%;
     height: 15%;
 }
-
+/*
+Book Result Page CSS
+*/
 .BookResult{
     width: 100%;
     max-height: 20%; 
@@ -79,6 +83,7 @@ margin-bottom: 20px;
     display: flex;
     width: 75%;
 }
+
 .BookResultInformation{
     max-width: 70%;
     display: inline;
@@ -107,7 +112,7 @@ button{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 100px 0;
+    margin: 80px 0;
 
 }
 .column-1{
@@ -136,6 +141,17 @@ button{
 .HomeFooter{
     background-color: black !important;
 }
+/*
+Profile CSS
+*/
+.ProfileBookList{
+    padding-right: 5%;
+    display: flex;
+    width: 75%;
+}
+/*
+Mobile CSS
+*/
 @media only screen and (max-width: 700px){
     .HomeRow{
         flex-direction: column-reverse;

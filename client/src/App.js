@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import './App.css';
 import NavBar from './components/NavBar';
@@ -15,55 +16,57 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import ProtectedRoute from './components/ProtectedRoute';
 function App() {
-  const[isLoggedIn, SetLoggedIn] = useState(false);
+  const [isLoggedIn, SetLoggedIn] = useState(false);
   useEffect(() => {
-    if(sessionStorage.getItem('token')){
+    if (sessionStorage.getItem('token')) {
       const token = sessionStorage.getItem('token')
       console.log(token);
-      axios.get("http://localhost:8080/authCheck",{
-    params: {
-    token: token
-  }})
-  .then((res) => {
-    if(res.data.status !== 'error'){
-      console.log(res.data.data); 
-      SetLoggedIn(true);         
-    }
-    else{
-        window.location.href = "/";
-        alert(res.data.error);
-        sessionStorage.removeItem('token');
-        window.location.reload();
-    }
-});
+      axios.get("http://localhost:8080/authCheck", {
+        params: {
+          token: token
+        }
+      })
+        .then((res) => {
+          if (res.data.status !== 'error') {
+            console.log(res.data.data);
+            SetLoggedIn(true);
+          }
+          else {
+            window.location.href = "/";
+            alert(res.data.error);
+            sessionStorage.removeItem('token');
+            window.location.reload();
+          }
+        });
     }
   }
   )
   return (
     <Router>
-    <div className="container">
-      <NavBar isLoggedIn={isLoggedIn}/>
-      <Switch>
-      <Route path="/" exact component={HomePage} />
-      <Route path="/BookList" render={(props) => (
-        <BookList {...props} isLoggedIn={isLoggedIn} />
-      )} />
-      <Route path="/Profile" isLoggedIn={isLoggedIn} 
-      component={Profile} />
-      <Route path="/SignUp" isLoggedIn={isLoggedIn} 
-      component={SignUp} />
-      <Route path="/LogIn" isLoggedIn={isLoggedIn} 
-      component={LogIn} />
-      <Route path="/Blog" render={(props) => (
-        <Blog {...props} isLoggedIn={isLoggedIn} />
-      )}
-      />
-      <Route path="/BookResult" isLoggedIn={isLoggedIn} component={BookItem} />
-      <Route path="*" component={() => "404 NOT FOUND"} />
-      </Switch>
-      <Footer/>
-    </div>
+      <div className="container">
+        <NavBar isLoggedIn={isLoggedIn} />
+        <Switch>
+          <Route path="/" exact component={HomePage} />
+          <Route path="/BookList" render={(props) => (
+            <BookList {...props} isLoggedIn={isLoggedIn} />
+          )} />
+          <ProtectedRoute path="/Profile" isLoggedIn={isLoggedIn}
+            component={Profile} />
+          <ProtectedRoute path="/SignUp" isLoggedIn={!isLoggedIn}
+            component={SignUp} />
+          <ProtectedRoute path="/LogIn" isLoggedIn={!isLoggedIn}
+            component={LogIn} />
+          <Route path="/Blog" render={(props) => (
+            <Blog {...props} isLoggedIn={isLoggedIn} />
+          )}
+          />
+          <Route path="/BookResult" isLoggedIn={isLoggedIn} component={BookItem} />
+          <Route path="*" component={() => "404 NOT FOUND"} />
+        </Switch>
+        <Footer />
+      </div>
     </Router>
   );
 }

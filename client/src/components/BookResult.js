@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function bookItem(props) {
     const {book} = props.location.state;
-    console.log(book)
     return (
       <div className="container">
         <br></br>

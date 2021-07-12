@@ -36,7 +36,8 @@ const [result, setResult] = useState(ResultsBeenLoaded);
 
   function handleAdd(book, i){
     console.log(i)
-    axios.post("http://localhost:8080/api/add", book, 
+    const token = sessionStorage.getItem('token');
+    axios.post("http://localhost:8080/api/add", {book: book, token: token}, 
     {headers: {"Content-Type": "application/json"}})
     .then((res) => {
       if(res.data.status !== 'error'){
@@ -59,6 +60,7 @@ const [result, setResult] = useState(ResultsBeenLoaded);
     .then(data => {
       setResult(data.data.items);
       localStorage.setItem("result", JSON.stringify(data.data.items));
+      window.location.reload();
     });
   }
     return ( 

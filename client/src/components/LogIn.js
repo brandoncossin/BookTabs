@@ -32,7 +32,7 @@ handleChange(event) {
     this.setState({[event.target.name] : event.target.value});
   }
 handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault(); 
     if(this.handleValidation()){
     axios.post("http://localhost:8080/api/login", this.state, 
     {headers: {"Content-Type": "application/json"}}

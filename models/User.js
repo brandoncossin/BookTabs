@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema({
     myList: [{
         bookId: {type: String, required: true},
         bookImage: {type: String, required: true},
+        bookTitle: {type: String, required: true},
     }]
 }, {timestamps: true})
 
