@@ -59,11 +59,11 @@ export default class SignUp extends React.Component {
             //axios.get("https://serene-spire-91674.herokuapp.com/api/signup", { 
             ).then((res) => {
             if(res.data.status === 'success'){
-                alert('Success');
                 <Redirect to={{
-                    pathname: "/" }} />
-                  window.location.reload();          
+                    pathname: "/LogIn" }} />
+                  window.location.reload(); 
                   alert('Success');
+         
             }
             else{
                 alert(res.data.error);

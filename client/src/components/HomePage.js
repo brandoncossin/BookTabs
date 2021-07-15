@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useHistory} from "react-router-dom";
+import {useHistory, Link} from "react-router-dom";
 
 const HomePage = () =>{
   let history = useHistory();
@@ -23,7 +23,9 @@ const HomePage = () =>{
             <div className="column-1">
         <h1>Keep Tabs on Your Books <br></br>-With Book Tabs</h1>
         <h4>Search for a book today</h4>
+        <Link as={Link} to={{pathname: '/SignUp'}} >
         <button className="HomeButton" type=" button" >Sign Up Today</button>
+        </Link>
             </div>
             <div className="col-2">
                 

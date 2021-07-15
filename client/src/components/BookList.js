@@ -35,7 +35,6 @@ const [result, setResult] = useState(ResultsBeenLoaded);
   }
 
   function handleAdd(book, i){
-    console.log(i)
     const token = sessionStorage.getItem('token');
     axios.post("http://localhost:8080/api/add", {book: book, token: token}, 
     {headers: {"Content-Type": "application/json"}})
@@ -44,7 +43,7 @@ const [result, setResult] = useState(ResultsBeenLoaded);
         document.getElementById("addmessage" + i).innerHTML = "Added To List";
       }
       else{
-        document.getElementById("addmessage" + i).innerHTML = "Error";
+        document.getElementById("addmessage" + i).innerHTML = res.data.error;
       }
     })     
   }

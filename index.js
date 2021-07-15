@@ -23,26 +23,59 @@ mongoose.connect(keys.mongoURI, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
+  autoIndex: false
 });
+//Allows users to add book to List
 app.post('/api/add', async (req, res) => {
-  console.log(req.body.book.volumeInfo.title);
+  console.log(req.body.book.volumeInfo);
   let profile = JSON.parse(atob(req.body.token.split('.')[1]))
   let uid = profile.uid
+  console.log(uid)
+  const dateWithTime = new Date();
+  try {
+    const response = await User.findOneAndUpdate(
+      { 'uid': uid },
+      {
+        $addToSet: {
+          myList:
+          {
+            _id: req.body.book.id,
+            'bookId': req.body.book.id,
+            'bookImage': req.body.book.volumeInfo.imageLinks.thumbnail,
+            'bookTitle': req.body.book.volumeInfo.title,
+            'bookAuthor': req.body.book.volumeInfo.authors[0],
+          }
+    
+        }
+      })  
+    console.log('Added', response)
+  }
+  catch (error) {
+    if (error.code === 11000) {
+      //duplicate key
+      console.log(error)
+      return res.json({ status: 'error', error: 'Already in list' })
+    }
+    throw error;
+  }
+  res.json({ status: 'success', data: 'successfully added to' })
+
+})
+//Allows user to remove item in their list
+app.post('/api/remove', async (req, res) => {
+  let uid = req.body.uid
   try {
     const response = await User.updateOne(
       { uid: uid },
       {
-        $push: {
+        $pull: {
           myList:
           {
-            'bookId': req.body.book.id,
-            'bookImage': req.body.book.volumeInfo.imageLinks.thumbnail,
-            'bookTitle': req.body.book.volumeInfo.title
+            'bookId': req.body.book.bookId,
           }
-
         }
       })
-    console.log('Added', response)
+    console.log('Removed', response)
   }
   catch (error) {
     if (error.code === 11000) {
@@ -52,7 +85,7 @@ app.post('/api/add', async (req, res) => {
     }
     throw error;
   }
-  res.json({ status: 'success', data: 'successfully added to' })
+  res.json({ status: 'success', data: 'successfully removed' })
 
 })
 //Allows user to login
@@ -89,7 +122,8 @@ app.post('/api/signup', async (req, res) => {
       name,
       email,
       uid,
-      password
+      password,
+      
     })
     console.log('User created successfully:', response)
   } catch (error) {

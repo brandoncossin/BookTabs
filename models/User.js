@@ -21,10 +21,14 @@ const userSchema = new mongoose.Schema({
     },
     //Array of books that user has added to their list.
     //MongoDb will return this for the user on their profile
-    myList: [{
+    myList: [
+        
+        {
         bookId: {type: String, required: true},
         bookImage: {type: String, required: true},
         bookTitle: {type: String, required: true},
+        bookAuthor: {type: String, required: true},
+        dateAdded: {type: String, required: true},
     }]
 }, {timestamps: true})
 

@@ -144,11 +144,18 @@ button{
 /*
 Profile CSS
 */
-.ProfileBookList{
+.ProfileBookList img{
     padding-right: 5%;
+    padding-top: 0;
+    margin-top: 0;
+    margin-left: 10%;
     display: flex;
-    width: 75%;
+    width: 45%;
 }
+.ProfileContainer{
+    display: block;
+
+    }
 /*
 Mobile CSS
 */
@@ -173,4 +180,38 @@ Mobile CSS
     .BookResultInformation h3{
         font-size: 1.6rem;
     }
+    .ProfileBookList{
+        padding-right: 5%;
+        margin-left: 10%;
+        display: flex;
+        width: 100%;
+    }
+    .HomeContainer{
+        width: 100%;
+        min-height: 100vh;
+        padding-left: 5%;
+        padding-right: 8%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    .HomeFooter{
+        width: 100%;
+    }
+    .navbar{
+        width: 90%;
+    }
+    .ProfileContainer{
+        width: 100%;
+        padding-left: 0;
+    }
+    .ProfileBookList img{
+        width: 110%;
+    }
+    .ProfileContainer td:nth-child(3) {
+        display:none;
+      }
+      .ProfileContainer th:nth-child(3) {
+        display:none;
+      }
+   
 }
