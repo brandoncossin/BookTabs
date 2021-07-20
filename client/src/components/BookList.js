@@ -96,14 +96,13 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                       <br></br>
                       
                       {props.isLoggedIn && (
-                       <div>
+                       <div id={"addmessage"+ i}>
                     <button type="submit" className="btn btn-secondary" 
                     onClick = {() => {
                       handleAdd(book, i);
                     }} 
                     name="submit">Add To List
                     </button>
-                    <span id = {"addmessage"+ i} style ={{color: "black" , background: "transparent"}}></span>
                     </div>
                     )}
                       </div>

@@ -18,14 +18,16 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
 
-
+//Allows mongodb connection
 mongoose.connect(keys.mongoURI, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
-  autoIndex: false
 });
 //Allows users to add book to List
+//Finds book and Updates one
+//First matches by uid
+//Then adds to set to prevent duplicates
 app.post('/api/add', async (req, res) => {
   console.log(req.body.book.volumeInfo);
   let profile = JSON.parse(atob(req.body.token.split('.')[1]))

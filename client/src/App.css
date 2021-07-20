@@ -148,18 +148,25 @@ Profile CSS
     padding-right: 5%;
     padding-top: 0;
     margin-top: 0;
-    margin-left: 10%;
     display: flex;
     width: 45%;
 }
 .ProfileContainer{
     display: block;
-
     }
+
+@media only screen and (min-width: 720px){
+    .ProfileContainer td:nth-child(2) {
+        display:none;
+      }
+      .ProfileContainer th:nth-child(2) {
+        display:none;
+      }
+}
 /*
 Mobile CSS
 */
-@media only screen and (max-width: 700px){
+@media only screen and (max-width: 720px){
     .HomeRow{
         flex-direction: column-reverse;
         margin: 50px 0;
@@ -200,6 +207,9 @@ Mobile CSS
     .navbar{
         width: 90%;
     }
+    /*
+    Profile CSS mobile
+    */
     .ProfileContainer{
         width: 100%;
         padding-left: 0;
@@ -213,5 +223,10 @@ Mobile CSS
       .ProfileContainer th:nth-child(3) {
         display:none;
       }
-   
+      .ProfileContainer td:nth-child(4) {
+        display:none;
+      }
+      .ProfileContainer th:nth-child(4) {
+        display:none;
+      }
 }

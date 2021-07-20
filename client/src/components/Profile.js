@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { withRouter } from "react-router";
+import {Link} from "react-router-dom";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -37,26 +38,26 @@ class Profile extends React.Component {
     {headers: {"Content-Type": "application/json"}})
     .then((res) => {
       if(res.data.status !== 'error'){
-        document.getElementById("removemessage" + i).innerHTML = "Removed";
+        document.getElementById("removeDiv" + i).innerHTML = "Removed";
       }
       else{
-        document.getElementById("removemessage" + i).innerHTML = "Error";
+        document.getElementById("removeDiv" + i).innerHTML = "Error";
       }
     })     
   }
   render() {
     return (
       <div className="ProfileContainer">
-        <h1>Welcome {this.state.uid}</h1>
+        <h1>{this.state.uid}'s List</h1>
         <hr></hr>
-        <h3>My List</h3>
         <div className="ProfileContainer">
         <table className="table ml-0">
           <thead className="thead-dark">
             <tr>
               <th scope="col">Cover</th>
               <th scope="col">Title/Author</th>
-              <th scope="col">Date Added</th>
+              <th scope="col">Title</th>
+              <th scope="col">Author</th>
               <th scope="col">Remove From List</th>
             </tr>
           </thead>
@@ -68,15 +69,19 @@ class Profile extends React.Component {
           
                   <tr key={i}>
                     <td className="ProfileBookList ">
-                      <img src={`${book.bookImage}`} alt={book.title} /></td>
+                    <Link className="BookResultLink" 
+                    as={Link} to={{pathname: '/BookResult/', state: {book: book}}} >
+                      <img src={`${book.bookImage}`} alt={book.title} />
+                      </Link></td>
+                      
                     <td><h5><b>{book.bookTitle}</b><br></br>{book.bookAuthor}</h5></td>
-                    <td>Data Added</td>
-                    <td><button type="submit" className="btn btn-secondary" 
+                    <td><h5>{book.bookTitle}</h5></td>
+                    <td><h5>{book.bookAuthor}</h5></td>
+                    <td id={"removeDiv"+ i}><button type="submit" className="btn btn-secondary" 
                     onClick = {(e) => this.handleRemove(i, e)} 
                     name="submit">Remove From List
                     </button>
-                    <span id = {"removemessage"+ i} style ={{color: "black" , background: "transparent"}}>
-                      </span></td>
+                    </td>
                   </tr>
 
                   
