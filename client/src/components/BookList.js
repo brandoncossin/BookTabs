@@ -36,7 +36,9 @@ const [result, setResult] = useState(ResultsBeenLoaded);
 
   function handleAdd(book, i){
     const token = sessionStorage.getItem('token');
-    axios.post("http://localhost:8080/api/add", {book: book, token: token}, 
+    axios.post("http://localhost:8080/api/add", 
+    { book: book,
+      token: token}, 
     {headers: {"Content-Type": "application/json"}})
     .then((res) => {
       if(res.data.status !== 'error'){
@@ -59,7 +61,7 @@ const [result, setResult] = useState(ResultsBeenLoaded);
     .then(data => {
       setResult(data.data.items);
       localStorage.setItem("result", JSON.stringify(data.data.items));
-      window.location.reload();
+      //window.location.reload();
     });
   }
     return ( 
@@ -82,14 +84,23 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                 <div className="BookResult" key={i}>  
                 <div className="row">
                   <div className="BookResultImage ">
-                  <Link className="BookResultLink" as={Link} to={{pathname: '/BookResult/', state: {book: book}}} >
-                    <img src={
-                      book.volumeInfo.imageLinks === undefined ? "" : `${book.volumeInfo.imageLinks.thumbnail}`} alt={book.title} />
+                    {/*
+                    Link to Result/Individual Book Page.
+                    Sents over individual components as the prop
+                    */}
+                  <Link className="BookResultLink" as={Link} to={{pathname: '/BookResult/', 
+                  state: {
+                  book : book,
+                  isLoggedIn: props.isLoggedIn
+                  }}} >
+                    <img src={book.bookImage} alt={book.bookTitle} />
                        </Link>
                       </div>
                     <div className="BookResultInformation">
                     <Link className="BookResultLink" as={Link} to={{pathname: '/BookResult/', state: {book: book}}} >
-                      <h3><b>{book.volumeInfo.title}</b></h3>{book.volumeInfo.authors}
+                      <h3><b>{book.bookTitle}</b>
+                      </h3>
+                      <h5>{book.bookAuthor.join(', ')}</h5>
                       </Link>
                       
                       <br></br>

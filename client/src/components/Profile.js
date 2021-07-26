@@ -13,8 +13,8 @@ class Profile extends React.Component {
       myList: [],
     }
     this.handleRemove = this.handleRemove.bind(this);
-  }
-  
+    console.log(this.myList);
+  };
   componentDidMount() {
     if (sessionStorage.getItem('token')) {
       const token = sessionStorage.getItem('token')
@@ -76,7 +76,7 @@ class Profile extends React.Component {
                       
                     <td><h5><b>{book.bookTitle}</b><br></br>{book.bookAuthor}</h5></td>
                     <td><h5>{book.bookTitle}</h5></td>
-                    <td><h5>{book.bookAuthor}</h5></td>
+                    <td><h5>{book.bookAuthor.join(', ')}</h5></td>
                     <td id={"removeDiv"+ i}><button type="submit" className="btn btn-secondary" 
                     onClick = {(e) => this.handleRemove(i, e)} 
                     name="submit">Remove From List

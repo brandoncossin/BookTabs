@@ -179,6 +179,9 @@ Mobile CSS
         height: 10%;
         width: auto;
     }
+    .BookResultInformation h5{
+        margin-bottom: -20%;
+    }
     .BookResultInformation{
         font-size: 1.4rem;
         display: block;

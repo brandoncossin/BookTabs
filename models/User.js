@@ -27,8 +27,11 @@ const userSchema = new mongoose.Schema({
         bookId: {type: String, required: true},
         bookImage: {type: String, required: true},
         bookTitle: {type: String, required: true},
-        bookAuthor: {type: String, required: true},
-        dateAdded: {type: String, required: true},
+        bookAuthor: {type: Array, required: true},
+        bookInformation: {type: String, required: true},
+        bookISBN10: {type: String, required: true},
+        bookISBN13: {type: String, required: true},
+        bookPreviewLink: {type: String, required: true},
     }]
 }, {timestamps: true})
 

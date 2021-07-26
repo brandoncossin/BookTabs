@@ -29,11 +29,9 @@ mongoose.connect(keys.mongoURI, {
 //First matches by uid
 //Then adds to set to prevent duplicates
 app.post('/api/add', async (req, res) => {
-  console.log(req.body.book.volumeInfo);
   let profile = JSON.parse(atob(req.body.token.split('.')[1]))
   let uid = profile.uid
-  console.log(uid)
-  const dateWithTime = new Date();
+  console.log(req.body.book.bookImage)
   try {
     const response = await User.findOneAndUpdate(
       { 'uid': uid },
@@ -41,11 +39,15 @@ app.post('/api/add', async (req, res) => {
         $addToSet: {
           myList:
           {
-            _id: req.body.book.id,
-            'bookId': req.body.book.id,
-            'bookImage': req.body.book.volumeInfo.imageLinks.thumbnail,
-            'bookTitle': req.body.book.volumeInfo.title,
-            'bookAuthor': req.body.book.volumeInfo.authors[0],
+            _id: req.body.book.bookId,
+            'bookId': req.body.book.bookId,
+            'bookImage': req.body.book.bookImage,
+            'bookTitle': req.body.book.bookTitle,
+            'bookAuthor': req.body.book.bookAuthor,
+            'bookInformation': req.body.book.bookInformation,
+            'bookISBN10' : req.body.book.bookISBN10,
+            'bookISBN13' : req.body.book.bookISBN13,
+            'bookPreviewLink': req.body.book.bookPreviewLink
           }
     
         }
@@ -154,8 +156,33 @@ app.get('/', function (req, res) {
   let param = req.query.book
   axios.get('https://www.googleapis.com/books/v1/volumes?q=' + param + '&key=' + keys.apiKey + '&maxResults=30')
     .then(function (response) {
-      response = response.data;
-      res.send(response);
+      response.data.items.forEach(function(data) {
+        data['bookId'] = data['id'];
+        data['bookImage'] = data.volumeInfo['imageLinks'] === undefined ? "" : data.volumeInfo.imageLinks['thumbnail'] 
+        data['bookTitle'] = data.volumeInfo['title'];
+        data['bookAuthor'] = data.volumeInfo['authors'] === undefined ? [] :  data.volumeInfo.authors;
+        data['bookInformation'] = data.volumeInfo['description'];
+        if (data.volumeInfo['industryIdentifiers'] === undefined){
+          data['bookISBN10'] = "" ;
+          data['bookISBN13'] = "" 
+        }  
+        else{
+          data['bookISBN10'] = data.volumeInfo.industryIdentifiers[1] === undefined ? "" :  
+          data.volumeInfo.industryIdentifiers[1]['identifier'];
+          data['bookISBN13'] = data.volumeInfo.industryIdentifiers[0] === undefined ? "" :  
+          data.volumeInfo.industryIdentifiers[0]['identifier'];
+        } 
+        data['bookPreviewLink'] = data.volumeInfo['previewLink'];
+        //destructures everything not needed
+        delete data['kind'];
+        delete data['volumeInfo'];
+        delete data['saleInfo'];
+        delete data['accessInfo'];
+        delete data['searchInfo'];
+        //console.log(data.bookAuthor)
+      });
+      console.log(response);
+      res.send(response.data);
     });
   //Same Site Set to none
   //Was Getting error messages from google 
