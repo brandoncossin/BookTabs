@@ -38,7 +38,8 @@ class Profile extends React.Component {
     {headers: {"Content-Type": "application/json"}})
     .then((res) => {
       if(res.data.status !== 'error'){
-        document.getElementById("removeDiv" + i).innerHTML = "Removed";
+        document.getElementById("removeDiv" + i).style.color = 'red';
+        document.getElementById("removeDiv" + i).innerHTML = "Removed from list";
       }
       else{
         document.getElementById("removeDiv" + i).innerHTML = "Error";
@@ -77,10 +78,12 @@ class Profile extends React.Component {
                     <td><h5><b>{book.bookTitle}</b><br></br>{book.bookAuthor}</h5></td>
                     <td><h5>{book.bookTitle}</h5></td>
                     <td><h5>{book.bookAuthor.join(', ')}</h5></td>
-                    <td id={"removeDiv"+ i}><button type="submit" className="btn btn-secondary" 
+                    <td><div id={"removeDiv"+ i}>
+                      <button type="submit" className="btn btn-secondary" 
                     onClick = {(e) => this.handleRemove(i, e)} 
                     name="submit">Remove From List
                     </button>
+                    </div>
                     </td>
                   </tr>
 

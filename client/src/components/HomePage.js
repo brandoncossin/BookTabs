@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {useHistory, Link} from "react-router-dom";
 
-const HomePage = () =>{
+const HomePage = (props) =>{
   let history = useHistory();
   const [book, setBook] = useState("");
   function handleChange(event) {
@@ -23,9 +23,11 @@ const HomePage = () =>{
             <div className="column-1">
         <h1>Keep Tabs on Your Books <br></br>-With Book Tabs</h1>
         <h4>Search for a book today</h4>
+        {!props.isLoggedIn && (
         <Link as={Link} to={{pathname: '/SignUp'}} >
         <button className="HomeButton" type=" button" >Sign Up Today</button>
         </Link>
+        )}
             </div>
             <div className="col-2">
                 
