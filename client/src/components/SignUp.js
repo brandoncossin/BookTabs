@@ -100,7 +100,7 @@ export default class SignUp extends React.Component {
                         <input type="password" name="pwdCheck" value={this.state.pwdCheck} autoComplete="off"
                         onChange={this.handleChange} placeholder="Type your name"></input>
                         <br></br>
-                        <button type="submit" className="btn btn-secondary" name="submit">Sign Up</button>
+                        <button type="submit" className="HomeButton" name="submit">Sign Up</button>
                         <br></br>
                         <Link to="/Login">Already a member? Sign in!</Link>
                     </form>

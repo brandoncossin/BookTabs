@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { withRouter } from "react-router";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -30,11 +30,16 @@ class Profile extends React.Component {
           console.log(this.state.myList)
         });
     }
+    else{
+      <Redirect to={{pathname: "/" }} />
+      window.location.reload();  
+    }
   }
   handleRemove (i, e){
     e.preventDefault();
+    const token = sessionStorage.getItem('token');
     axios.post("http://localhost:8080/api/remove", 
-    {uid: this.state.uid, book: this.state.myList[i]}, 
+    {token: token, book: this.state.myList[i]}, 
     {headers: {"Content-Type": "application/json"}})
     .then((res) => {
       if(res.data.status !== 'error'){

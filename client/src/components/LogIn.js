@@ -73,7 +73,7 @@ render(){
         name="pwd" placeholder="Type your password" 
         value={this.state.pwd} onChange={this.handleChange}></input>
         <br></br>
-        <button type="submit" className="btn btn-secondary" name="submit">Log In</button>
+        <button type="submit" className="HomeButton" name="submit">Log In</button>
         <br></br>
         <Link to="/SignUp">Not a member? Sign up today!</Link>
         </form>

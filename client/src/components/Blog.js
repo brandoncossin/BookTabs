@@ -17,6 +17,12 @@ const Blog = (props) =>{
                 -7/11/2021
             </p>
         </div>
+        <div>
+            <p>Site is close to deployment. Just waiting on the UX design to implement. The Review 
+                portion is also in the works. Very excited for what is to come.
+                -8/01/2021
+            </p>
+        </div>
         </div>
     );
 }

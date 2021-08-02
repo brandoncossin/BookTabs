@@ -29,7 +29,9 @@ mongoose.connect(keys.mongoURI, {
 //First matches by uid
 //Then adds to set to prevent duplicates
 app.post('/api/add', async (req, res) => {
-  let profile = JSON.parse(atob(req.body.token.split('.')[1]))
+  const base64String = req.body.token.split('.')[1];
+  let profile = JSON.parse(Buffer.from(req.body.token.split('.')[1], 
+    'base64').toString('ascii'));
   let uid = profile.uid
   console.log(req.body.book.bookImage)
   try {
@@ -67,7 +69,10 @@ app.post('/api/add', async (req, res) => {
 })
 //Allows user to remove item in their list
 app.post('/api/remove', async (req, res) => {
-  let uid = req.body.uid
+  const base64String = req.body.token.split('.')[1];
+  let profile = JSON.parse(Buffer.from(base64String, 
+    'base64').toString('ascii'));  
+  let uid = profile.uid; 
   try {
     const response = await User.updateOne(
       { uid: uid },
@@ -192,8 +197,10 @@ app.get('/', function (req, res) {
 });
 
 app.get('/profile', async (req, res) => {
-  let profile = JSON.parse(atob(req.query.token.split('.')[1]))
-  let uid = profile.uid
+  const base64String = req.query.token.split('.')[1];
+  let profile = JSON.parse(Buffer.from(base64String, 
+    'base64').toString('ascii'));  
+  let uid = profile.uid;
   const user = await User.findOne({ uid }).lean()
   res.send({ status: 'success', profile: user });
 })
