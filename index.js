@@ -29,7 +29,9 @@ mongoose.connect(keys.mongoURI, {
 //First matches by uid
 //Then adds to set to prevent duplicates
 app.post('/api/add', async (req, res) => {
-  let profile = JSON.parse(atob(req.body.token.split('.')[1]))
+  const base64String = req.body.token.split('.')[1];
+  let profile = JSON.parse(Buffer.from(req.body.token.split('.')[1], 
+    'base64').toString('ascii'));
   let uid = profile.uid
   console.log(req.body.book.bookImage)
   try {
@@ -67,7 +69,10 @@ app.post('/api/add', async (req, res) => {
 })
 //Allows user to remove item in their list
 app.post('/api/remove', async (req, res) => {
-  let uid = req.body.uid
+  const base64String = req.body.token.split('.')[1];
+  let profile = JSON.parse(Buffer.from(base64String, 
+    'base64').toString('ascii'));  
+  let uid = profile.uid; 
   try {
     const response = await User.updateOne(
       { uid: uid },
@@ -157,6 +162,7 @@ app.get('/', function (req, res) {
   axios.get('https://www.googleapis.com/books/v1/volumes?q=' + param + '&key=' + keys.apiKey + '&maxResults=30')
     .then(function (response) {
       response.data.items.forEach(function(data) {
+        console.log(response.data);
         data['bookId'] = data['id'];
         data['bookImage'] = data.volumeInfo['imageLinks'] === undefined ? "" : data.volumeInfo.imageLinks['thumbnail'] 
         data['bookTitle'] = data.volumeInfo['title'];
@@ -181,7 +187,6 @@ app.get('/', function (req, res) {
         delete data['searchInfo'];
         //console.log(data.bookAuthor)
       });
-      console.log(response);
       res.send(response.data);
     });
   //Same Site Set to none
@@ -194,9 +199,9 @@ app.get('/', function (req, res) {
 app.get('/profile', async (req, res) => {
   console.log(req.query.token);
   const base64String = req.query.token.split('.')[1];
-  let profile = JSON.parse(Buffer.from(base64String,
-    'base64').toString('ascii'));
-  let uid = profile.uid
+  let profile = JSON.parse(Buffer.from(base64String, 
+    'base64').toString('ascii'));  
+  let uid = profile.uid;
   const user = await User.findOne({ uid }).lean()
   res.send({ status: 'success', profile: user });
 })

@@ -60,12 +60,12 @@ Home Page CSS
 .form-container button[type="submit"]{
     border: none;
     outline: none;
-    height: 40px;
-    width: 90%;
-    background: #fb2525;
-    color: #fff;
-border-radius: 16px;
-margin-bottom: 20px;
+    width: 85%;
+    background: Linear-gradient(to right, #fb5283, #ff3527);
+    text-align: center;
+    margin-left: 7.5%;
+    border-radius: 16px;
+    margin-bottom: 20px;
 }
 .navbar{
     width: 85%;

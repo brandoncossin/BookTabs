@@ -21,7 +21,7 @@ const HomePage = (props) =>{
         <div className="HomeContainer"> 
         <div className="HomeRow">
             <div className="column-1">
-        <h1>Keep Tabs on Your Books <br></br>-With Book Tabs</h1>
+        <h1>Keep Tabs on Your Books <br></br>-With BookTabs</h1>
         <h4>Search for a book today</h4>
         {!props.isLoggedIn && (
         <Link as={Link} to={{pathname: '/SignUp'}} >

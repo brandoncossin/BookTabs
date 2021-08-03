@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { withRouter } from "react-router";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -24,17 +24,23 @@ class Profile extends React.Component {
         }
       })
         .then(data => {
-          this.setState({ uid: data.data.profile.uid })
-          this.setState({ name: data.data.profile.name })
-          this.setState({ myList: data.data.profile.myList })
+          
+          this.setState({ uid: data.data.profile.uid });
+          this.setState({ name: data.data.profile.name });
+          this.setState({ myList: data.data.profile.myList });
           console.log(this.state.myList)
         });
+    }
+    else{
+      <Redirect to={{pathname: "/" }} />
+      window.location.reload();  
     }
   }
   handleRemove (i, e){
     e.preventDefault();
+    const token = sessionStorage.getItem('token');
     axios.post("http://localhost:8080/api/remove", 
-    {uid: this.state.uid, book: this.state.myList[i]}, 
+    {token: token, book: this.state.myList[i]}, 
     {headers: {"Content-Type": "application/json"}})
     .then((res) => {
       if(res.data.status !== 'error'){
@@ -71,12 +77,14 @@ class Profile extends React.Component {
                   <tr key={i}>
                     <td className="ProfileBookList ">
                     <Link className="BookResultLink" 
-                    as={Link} to={{pathname: '/BookResult/', state: {book: book}}} >
+                    as={Link} to={{pathname: '/BookResult/', state: {book: book, isLoggedIn: true}}} >
                       <img src={`${book.bookImage}`} alt={book.title} />
                       </Link></td>
                       
                     <td><h5><b>{book.bookTitle}</b><br></br>{book.bookAuthor}</h5></td>
-                    <td><h5>{book.bookTitle}</h5></td>
+                    <td><h5> <Link className="BookResultLink" 
+                    as={Link} to={{pathname: '/BookResult/', state: {book: book, isLoggedIn: true}}} >
+                      {book.bookTitle}</Link></h5></td>
                     <td><h5>{book.bookAuthor.join(', ')}</h5></td>
                     <td><div id={"removeDiv"+ i}>
                       <button type="submit" className="btn btn-secondary" 

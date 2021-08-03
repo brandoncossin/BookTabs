@@ -13,8 +13,9 @@ module.exports = app => {
   //Allows user to add items to their "List"
   app.post('/api/add', async (req, res) => {
     console.log(req.body.book.volumeInfo.title);
-    let profile = JSON.parse(atob(req.body.token.split('.')[1]))
-    let uid = profile.uid
+    const base64String = req.body.token.split('.')[1];
+    let profile = JSON.parse(Buffer.from(base64String, 
+      'base64').toString('ascii'));    let uid = profile.uid
     try {
       const response = await User.updateOne(
         { uid: uid },

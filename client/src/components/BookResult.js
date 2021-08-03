@@ -3,18 +3,35 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function bookItem(props) {
-    const {book, bookTitle, bookAuthor, isLoggedIn} = props.location.state;
-
+    const {book, isLoggedIn} = props.location.state;
+  //Function adds Book
     function handleAdd(book){
       const token = sessionStorage.getItem('token');
       axios.post("http://localhost:8080/api/add", {book: book, token: token}, 
       {headers: {"Content-Type": "application/json"}})
       .then((res) => {
         if(res.data.status !== 'error'){
-          document.getElementById("addmessage").innerHTML = "Added To List";
+          document.getElementById("listmessage").innerHTML = "Added To List";
         }
         else{
-          document.getElementById("addmessage").innerHTML = res.data.error;
+          document.getElementById("listmessage").innerHTML = res.data.error;
+        }
+      })
+    }
+    //Function Removes book
+    function handleRemove (book){
+      axios.post("http://localhost:8080/api/remove", 
+      {uid: this.state.uid, book: book}, 
+      {headers: {"Content-Type": "application/json"}})
+      .then((res) => {
+        if(res.data.status !== 'error'){
+          //document.getElementById("listmessage").style.color = 'red';
+          //document.getElementById("listmessage").innerHTML = "Removed from list";
+          document.getElementById("listmessage").innerHTML = "Error";
+
+        }
+        else{
+          document.getElementById("listmessage").innerHTML = "Error";
         }
       })     
     }
@@ -33,19 +50,23 @@ function bookItem(props) {
           </div>
           <div className="col">
           <h1>{book.bookTitle}</h1>
-          <h3>by: {book.bookAuthor.join(', ')}</h3>
+          <h3>{book.bookAuthor.join(', ')}</h3>
           <hr></hr>
+          <div>
+            <h5>Description</h5>
           <p>
             {book.bookInformation}
           </p>
+          </div>
           {isLoggedIn && (
-          <div id={"addmessage"}>
-                    <button type="submit" className="btn btn-secondary" 
+          <div id={"listmessage"}>
+                    <button type="submit" className="HomeButton" 
                     onClick = {() => {
                       handleAdd(book);
                     }} 
                     name="submit">Add To List
                     </button>
+                    <button type="submit" className="HomeButton" name="submit">Submit a Review</button>
                     </div>
                     )}
           </div>
