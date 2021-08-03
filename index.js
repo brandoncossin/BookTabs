@@ -144,7 +144,7 @@ app.post('/api/signup', async (req, res) => {
 //Checks the token matches the key
 app.get('/authCheck', async (req, res) => {
   //let profile = JSON.parse(atob(req.query.token.split('.')[1]))
-  console.log(req.query.token);
+  console.log(req.query.token, "authChecked");
   try {
     jwt.verify(JSON.parse(req.query.token), keys.ACCESS_TOKEN_SECRET);
     return res.send({ status: 'success', data: "Welcome" });
@@ -192,7 +192,10 @@ app.get('/', function (req, res) {
 });
 
 app.get('/profile', async (req, res) => {
-  let profile = JSON.parse(atob(req.query.token.split('.')[1]))
+  console.log(req.query.token);
+  const base64String = req.query.token.split('.')[1];
+  let profile = JSON.parse(Buffer.from(base64String,
+    'base64').toString('ascii'));
   let uid = profile.uid
   const user = await User.findOne({ uid }).lean()
   res.send({ status: 'success', profile: user });

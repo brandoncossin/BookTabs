@@ -68,7 +68,7 @@ function App() {
         <NavBar isLoggedIn={isLoggedIn} />
         <Switch>
         
-          <Route path="/" render={(props) => (
+          <Route exact path="/" render={(props) => (
             <HomePage {...props} isLoggedIn={isLoggedIn} />
           )}/>
           <Route path="/BookList" render={(props) => (
