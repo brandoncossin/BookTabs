@@ -88,7 +88,7 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                     Link to Result/Individual Book Page.
                     Sents over individual components as the prop
                     */}
-                  <Link className="BookResultLink" as={Link} to={{pathname: '/BookResult/', 
+                  <Link className="BookResultLink" as={Link} to={{pathname: `/BookResult/${book.bookId}`, 
                   state: {
                   book : book,
                   isLoggedIn: props.isLoggedIn
@@ -97,7 +97,7 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                        </Link>
                       </div>
                     <div className="BookResultInformation">
-                    <Link className="BookResultLink" as={Link} to={{pathname: '/BookResult/', state: {book: book}}} >
+                    <Link className="BookResultLink" as={Link} to={{pathname: `/BookResult/${book.bookId}`, state: {book: book}}} >
                       <h3><b>{book.bookTitle}</b>
                       </h3>
                       <h5>{book.bookAuthor.join(', ')}</h5>

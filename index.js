@@ -157,12 +157,13 @@ app.get('/authCheck', async (req, res) => {
     return res.send({ status: 'error', error: 'Improper Token' });
   }
 })
-app.get('/', function (req, res) {
-  let param = req.query.book
-  axios.get('https://www.googleapis.com/books/v1/volumes?q=' + param + '&key=' + keys.apiKey + '&maxResults=30')
+//Returns single book information
+app.get('/book', function (req, res) {
+  let param = req.query.id;
+  console.log(param)
+  axios.get('https://www.googleapis.com/books/v1/volumes/' + param + '?key=' + keys.apiKey)
     .then(function (response) {
-      response.data.items.forEach(function(data) {
-        console.log(response.data);
+        const data = response.data;
         data['bookId'] = data['id'];
         data['bookImage'] = data.volumeInfo['imageLinks'] === undefined ? "" : data.volumeInfo.imageLinks['thumbnail'] 
         data['bookTitle'] = data.volumeInfo['title'];
@@ -179,13 +180,40 @@ app.get('/', function (req, res) {
           data.volumeInfo.industryIdentifiers[0]['identifier'];
         } 
         data['bookPreviewLink'] = data.volumeInfo['previewLink'];
-        //destructures everything not needed
-        delete data['kind'];
-        delete data['volumeInfo'];
-        delete data['saleInfo'];
-        delete data['accessInfo'];
-        delete data['searchInfo'];
-        //console.log(data.bookAuthor)
+        data['bookPageCount'] = data.volumeInfo['pageCount'];
+      res.send(response.data);
+    });
+  res.cookie(SameSite = 'none');
+});
+
+//All Books
+app.get('/', function (req, res) {
+  //Sends back books based on the title search request
+  //Cleans up the products returned
+  let param = req.query.book
+  //performance query limits what is being sent back.
+  axios.get('https://www.googleapis.com/books/v1/volumes?q=' + param + '&key=' + keys.apiKey + 
+  '&maxResults=30&fields=kind,items(id, volumeInfo/*)')
+    .then(function (response) {
+      response.data.items.forEach(function(data) {
+        console.log(data);
+        data['bookId'] = data['id'];
+        data['bookImage'] = data.volumeInfo['imageLinks'] === undefined ? "" : data.volumeInfo.imageLinks['thumbnail'] 
+        data['bookTitle'] = data.volumeInfo['title'];
+        data['bookAuthor'] = data.volumeInfo['authors'] === undefined ? [] :  data.volumeInfo.authors;
+        data['bookInformation'] = data.volumeInfo['description'];
+        if (data.volumeInfo['industryIdentifiers'] === undefined){
+          data['bookISBN10'] = "" ;
+          data['bookISBN13'] = "" 
+        }  
+        else{
+          data['bookISBN10'] = data.volumeInfo.industryIdentifiers[1] === undefined ? "" :  
+          data.volumeInfo.industryIdentifiers[1]['identifier'];
+          data['bookISBN13'] = data.volumeInfo.industryIdentifiers[0] === undefined ? "" :  
+          data.volumeInfo.industryIdentifiers[0]['identifier'];
+        } 
+        data['bookPreviewLink'] = data.volumeInfo['previewLink'];
+        data['bookPageCount'] = data.volumeInfo['pageCount'];
       });
       res.send(response.data);
     });
@@ -195,7 +223,8 @@ app.get('/', function (req, res) {
   res.cookie(SameSite = 'none');
 
 });
-
+//gets profile page for logged in user
+//This uses JWT token
 app.get('/profile', async (req, res) => {
   console.log(req.query.token);
   const base64String = req.query.token.split('.')[1];

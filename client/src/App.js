@@ -11,13 +11,13 @@ import HomePage from './components/HomePage.js';
 import Profile from './components/Profile.js'
 import Blog from './components/Blog.js'
 import Footer from './components/Footer.js'
+import WriteReview from './components/WriteReview.js'
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
 import ProtectedRoute from './components/ProtectedRoute';
-import {Spinner} from 'react-bootstrap'
 function App() {
   const [isLoggedIn, SetLoggedIn] = useState(false);
   //This prevents the site from routing before the user
@@ -55,9 +55,11 @@ function App() {
 }, [isLoading])
   //If loading is incomplete renders a spinner
   if(isLoading){
-    return <Spinner animation="border" role="status">
-    <span className="visually-hidden">Loading...</span>
-  </Spinner>
+    return <div className="text-center">
+      <div className="spinner-border" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    </div>
   }
   else{
   return (
@@ -85,7 +87,10 @@ function App() {
             <Blog {...props} isLoggedIn={isLoggedIn} />
           )}
           />
-          <Route path="/BookResult" isLoggedIn={isLoggedIn} component={BookItem} />
+          <Route path="/BookResult/:bookId" render={(props) => (
+          <BookItem {...props} isLoggedIn={isLoggedIn} />
+          )}/>
+          <Route path="/WriteReview" isLoggedIn={isLoggedIn} component={WriteReview} />
           <Route path="*" component={() => "404 NOT FOUND"} />
 
         </Switch>

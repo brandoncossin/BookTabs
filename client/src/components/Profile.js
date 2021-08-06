@@ -77,13 +77,13 @@ class Profile extends React.Component {
                   <tr key={i}>
                     <td className="ProfileBookList ">
                     <Link className="BookResultLink" 
-                    as={Link} to={{pathname: '/BookResult/', state: {book: book, isLoggedIn: true}}} >
+                    as={Link} to={{pathname: `/BookResult/${book.bookId}`, state: {book: book, isLoggedIn: true}}} >
                       <img src={`${book.bookImage}`} alt={book.title} />
                       </Link></td>
                       
                     <td><h5><b>{book.bookTitle}</b><br></br>{book.bookAuthor}</h5></td>
                     <td><h5> <Link className="BookResultLink" 
-                    as={Link} to={{pathname: '/BookResult/', state: {book: book, isLoggedIn: true}}} >
+                    as={Link} to={{pathname: `/BookResult/${book.bookId}`, state: {book: book, isLoggedIn: true}}} >
                       {book.bookTitle}</Link></h5></td>
                     <td><h5>{book.bookAuthor.join(', ')}</h5></td>
                     <td><div id={"removeDiv"+ i}>
