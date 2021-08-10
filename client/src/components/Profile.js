@@ -85,7 +85,11 @@ class Profile extends React.Component {
                     <td><h5> <Link className="BookResultLink" 
                     as={Link} to={{pathname: `/BookResult/${book.bookId}`, state: {book: book, isLoggedIn: true}}} >
                       {book.bookTitle}</Link></h5></td>
-                    <td><h5>{book.bookAuthor.join(', ')}</h5></td>
+                    <td>{book.bookAuthor.map((author) => (
+                      <h5><Link className="BookResultLink" 
+                      as={Link} to={{pathname: `/AuthorList/${author}`, state: {author: author, isLoggedIn: true}}}>
+                        {author}</Link></h5>
+                    ))}</td>
                     <td><div id={"removeDiv"+ i}>
                       <button type="submit" className="btn btn-secondary" 
                     onClick = {(e) => this.handleRemove(i, e)} 

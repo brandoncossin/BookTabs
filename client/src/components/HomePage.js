@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import {useHistory, Link} from "react-router-dom";
+import globeSvg from '../icons/globeIcon.svg';
+import bookSvg from '../icons/bookIcon.svg';
+import noteSvg from '../icons/noteIcon.svg';
 
 const HomePage = (props) =>{
   let history = useHistory();
@@ -29,11 +32,10 @@ const HomePage = (props) =>{
         </Link>
         )}
             </div>
-            <div className="col-2">
-                
+            <div className="col-2">   
             </div>
-            
         </div>
+        
         <div className="SearchBarRow">
         <form onSubmit={handleSubmit}>
         <input type="text"
@@ -44,7 +46,22 @@ const HomePage = (props) =>{
                 </input>
                 </form>
       </div>
+      <div className="row">
+      <div className="homeLogos">
+      <img src={bookSvg}/>
+      <p>Build Your Library</p>
       </div>
+      <div className="homeLogos">
+      <img src={globeSvg}/>
+      <p>Explore &amp; Discover</p>
+      </div>
+      <div className="homeLogos">
+      <img src={noteSvg}/>
+      <p>Share Your Thoughts</p>
+      </div>
+      </div>
+      </div>
+      
     );
   }
 

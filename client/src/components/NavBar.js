@@ -20,22 +20,14 @@ function NavBar(props) {
         <Nav className="mr-auto">
 
           <NavItem className="ml-2">
-            {!props.isLoggedIn && (
-              <Nav.Link as={Link} to="/SignUp" >Sign Up</Nav.Link>
-            )}
             {props.isLoggedIn && (
               <Nav.Link as={Link} to="/Profile" >Profile</Nav.Link>
             )}
           </NavItem>
+          
           <NavItem className="ml-2">
-            {!props.isLoggedIn && (
-              <Nav.Link as={Link} to="/LogIn" >Log In</Nav.Link>
-            )}
-            {props.isLoggedIn && (
-              <Nav.Link onClick={logOut} >Log Out</Nav.Link>
-            )}
+            <Nav.Link as={Link} to="/Blog" >Discover</Nav.Link>
           </NavItem>
-
           <NavItem className="ml-2">
             <Nav.Link as={Link} to="/Blog" >Blog</Nav.Link>
           </NavItem>
@@ -46,7 +38,26 @@ function NavBar(props) {
             <NavDropdown.Divider />
             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
           </NavDropdown>
-        </Nav>
+          </Nav>
+          <Nav className="ml-auto">
+            <NavItem className="ml-2 mt-auto mb-auto" >
+            {!props.isLoggedIn && (
+              <Nav.Link as={Link} to="/SignUp" >Sign Up</Nav.Link>
+            )}
+            </NavItem>
+            <NavItem className="ml-2" >
+              {!props.isLoggedIn && (
+                <Nav.Link as={Link} to="/LogIn" >
+                  <button className="NavButton" type=" button" >Log In</button>
+                </Nav.Link>
+              )}
+            </NavItem>
+            <NavItem className="ml-2" >
+              {props.isLoggedIn && (
+                <Nav.Link onClick={logOut} >Log Out</Nav.Link>
+              )}
+            </NavItem>
+          </Nav>
 
       </Navbar.Collapse>
     </Navbar>

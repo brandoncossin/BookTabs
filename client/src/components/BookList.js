@@ -82,7 +82,7 @@ const [result, setResult] = useState(ResultsBeenLoaded);
           <div className="row ">
             {result.map((book, i) => ( 
                 <div className="BookResult" key={i}>  
-                <div className="row">
+                <div className="row" >
                   <div className="BookResultImage ">
                     {/*
                     Link to Result/Individual Book Page.
@@ -98,10 +98,13 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                       </div>
                     <div className="BookResultInformation">
                     <Link className="BookResultLink" as={Link} to={{pathname: `/BookResult/${book.bookId}`, state: {book: book}}} >
-                      <h3><b>{book.bookTitle}</b>
-                      </h3>
-                      <h5>{book.bookAuthor.join(', ')}</h5>
+                      <h2><b>{book.bookTitle}</b></h2>
                       </Link>
+                      <h5>{book.bookAuthor.map((author) => (
+                      <h5><Link className="BookResultLink" 
+                      as={Link} to={{pathname: `/AuthorList/${author}`, state: {author: author, isLoggedIn: true}}}>
+                        {author}</Link></h5>
+                    ))}</h5>
                       
                       <br></br>
                       <br></br>
@@ -118,10 +121,8 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                     )}
                       </div>
                       </div> 
-                      
                     <hr></hr>
                 </div>
-                
             ))}
           </div>
         </div>

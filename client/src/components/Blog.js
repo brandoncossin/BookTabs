@@ -21,6 +21,11 @@ const Blog = (props) =>{
                 portion is also in the works. Very excited for what is to come.
             </p>
         </div>
+        <div>
+            <p>-8/07/2021: Added functionality to search by author, and for books to have custom urls that 
+                can be used to find individual books.
+            </p>
+        </div>
         </div>
     );
 }

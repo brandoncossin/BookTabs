@@ -4,6 +4,7 @@ import axios from 'axios';
 import './App.css';
 import NavBar from './components/NavBar';
 import BookList from './components/BookList';
+import AuthorList from './components/AuthorList';
 import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
 import BookItem from './components/BookResult';
@@ -25,7 +26,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   //Use Effect to launch on page load
   useEffect(() => {
-    if (sessionStorage.getItem('token')) {
+    if (sessionStorage.getItem('token') && isLoading) {
       const token = sessionStorage.getItem('token')
       console.log(token);
       axios.get("http://localhost:8080/authCheck", {
@@ -75,6 +76,9 @@ function App() {
           )}/>
           <Route path="/BookList" render={(props) => (
             <BookList {...props} isLoggedIn={isLoggedIn} />
+          )} />
+          <Route path="/AuthorList/:author" render={(props) => (
+            <AuthorList {...props} isLoggedIn={isLoggedIn} />
           )} />
           <ProtectedRoute path="/Profile" 
           isLoggedIn={isLoggedIn}

@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link, useLocation, withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 class BookResult extends React.Component{
   constructor(props){
@@ -90,11 +89,13 @@ class BookResult extends React.Component{
           </p>
           </div>
           {this.state.isLoggedIn && (
-          <div id={"listmessage"}>
+          <div>
+                  <div id={"listmessage"}>
                     <button type="submit" className="HomeButton" 
                     onClick = {this.handleAdd}
                     name="submit">Add To List
                     </button>
+                    </div>
                     <Link className="BookResultLink" 
                     as={Link} to={{pathname: '/WriteReview/', state: {book: this.state.book, isLoggedIn: true}}} >
                     <button type="submit" className="HomeButton" name="submit">Submit a Review</button>
