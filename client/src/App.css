@@ -62,6 +62,7 @@ Home Page CSS
     outline: none;
     width: 85%;
     background: Linear-gradient(to right, #fb5283, #ff3527);
+    color: white;
     text-align: center;
     margin-left: 7.5%;
     border-radius: 16px;
@@ -73,34 +74,63 @@ Home Page CSS
 }
 .homeLogos{
     margin-top: 60px;
-    margin-left: 140px;
-    align-content: center;
     text-align: center;
+    margin: auto;
 }
 .homeLogos img{
+    margin-top: 50px;
     height: 80px;
 }
 /*
-Book Result Page CSS
+Book List
 */
-.BookResult{
-    
-    width: 100%;
-    max-height: 20%; 
-}
-.BookResultImage img{
-    padding-right: 5%;
-    display: flex;
-    width: 75%;
-}
-
-.BookResultInformation{
-    max-width: 70%;
-    display: inline;
-    font-size: 1.2rem;
-}
 .BookResultLink{
     color: black;
+}
+.Book{
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.BookResultInformation h2, .BookResultInformation h5, 
+.BookResultInformation b, .BookResultInformation{
+    background-color: white;
+}
+.BookResultImage{
+    background-color: white;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    max-width: 25%;
+    margin-right: -25px;
+}
+.BookResultButton{
+    padding: 5px 10px;
+    border: 0;
+    outline: none;
+    background: Linear-gradient(to right, #fb5283, #ff3527);
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.BookResultImage img{
+    padding-top: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;    
+    width: 40%;
+    background-color: white;
+}
+.BookResultInformation{
+    padding-top: 15px;
+    background-color: white;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 button{
     color: black;
@@ -125,6 +155,49 @@ button{
     margin: 60px 0;
 
 }
+/*
+Book Container for Book Result
+*/
+.BookContainer{
+    background-color: white;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 25%;
+    margin-right: 25px;
+}
+.BookContainer img{
+    padding-top: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;    
+    width: 60%;
+    background-color: white;
+}
+.BookContainer p{
+    background-color: white;
+}
+.BookContainer h5{
+    background-color: white;
+}
+
+.BookContainerInformation{
+    padding-top: 15px;
+    background-color: white;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.BookContainerInformation h1, 
+.BookContainerInformation h3, .BookContainerInformation h5, .BookContainerInformation p{
+    background-color: white;
+}
+#listmessage, #reviewmessage, .addmessage{
+    background-color: white;
+}
+
 .column-1{
     flex-basis: 40%;
     position: relative;
@@ -142,20 +215,20 @@ button{
     border: 0;
     outline: none;
     background: Linear-gradient(to right, #fb5283, #ff3527);
+    color: white;
+
     border-radius: 15px;
 }
 .HomeButton{
+    margin-bottom: 15px;
     border: 0;
     margin-top: 10px;
     outline: none;
     background: Linear-gradient(to right, #fb5283, #ff3527);
+    color: white;
     border-radius: 10px;
 }
-.BookResult hr{
-    height: 0px;
-    border: none;
-    border-top: 1px  solid #212121;
-}
+
 .HomeFooter{
     background-color: black !important;
 }
@@ -189,22 +262,37 @@ Mobile CSS
         flex-direction: column-reverse;
         margin: 50px 0;
     }
+    .homeLogos{
+        position: absolute center;
+        align-items: center;
+        display: block;
+    }
+    .homeLogos img{
+        height: 50px;
+    }
+    .row { flex-direction: column; }
     .SearchBar{
         width: 100%;
         margin-left: 0;
     }
-    .BookResultImage{
-        height: 10%;
-        width: auto;
+    .Book{
+        margin-bottom: 20px;
     }
-    .BookResultInformation h5{
-        margin-bottom: -20%;
+    .BookResultImage {
+        max-width: 100%;
+        margin-bottom: -20px;
     }
-    .BookResultInformation{
-        font-size: 1.4rem;
-        display: block;
-        max-width: 50%;
+    .BookResultImage img{
+        width: 50%;
     }
+    .BookContainer img{
+        width: 50%;
+    }
+    .BookContainer{
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+    
     .BookResultInformation h3{
         font-size: 1.6rem;
     }
@@ -227,13 +315,6 @@ Mobile CSS
     .navbar{
         width: 90%;
     }
-    .homeLogos{
-
-        margin-left: 40%;
-    }
-    .homeLogos img{
-        height: 50px;
-    }
     /*
     Profile CSS mobile
     */
@@ -244,10 +325,8 @@ Mobile CSS
     .ProfileBookList img{
         width: 110%;
     }
-    .ProfileContainer td:nth-child(3) {
-        display:none;
-      }
-      .ProfileContainer th:nth-child(3) {
+    .ProfileContainer td:nth-child(3), .ProfileContainer th:nth-child(3),
+    .ProfileContainer td:nth-child(4), .ProfileContainer th:nth-child(4) {
         display:none;
       }
       .ProfileContainer td:nth-child(4) {

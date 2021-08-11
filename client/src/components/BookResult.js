@@ -69,37 +69,37 @@ class BookResult extends React.Component{
       <div className="container">
         <br></br>
           <div className="row">
-          <div className="col">
+          <div className="BookContainer col">
           <img src={this.state.book.bookImage === undefined ? "" : `${this.state.book.bookImage}`} alt={this.state.book.bookTitle} />
           <hr></hr>
           <p>ISBN 10: {this.state.book.bookISBN10}</p>
           <p>ISBN 13: {this.state.book.bookISBN13}</p>
           <a target="_blank" rel="noreferrer nofollow" href={this.state.book.bookPreviewLink}><p>Link to buy on Google</p></a>
-          <a target="_blank" rel="noreferrer nofollow" href={"http://amzn.com/"+ this.state.book.bookISBN13}><p>Link to buy on Amazon</p></a>
-          <a target="_blank" rel="noreferrer nofollow" href={"https://abebooks.com/servlet/SearchResults?sts=t&isbn=" + this.state.book.bookISBN13}><p>Link to buy on Abe Books</p></a>
           </div>
-          <div className="col">
+          <div className="BookContainerInformation col">
           <h1>{this.state.book.bookTitle}</h1>
           <h3>{this.state.book.bookAuthor.join(', ')}</h3>
           <hr></hr>
-          <div>
+          
             <h5>Description</h5>
           <p>
             {this.state.book.bookInformation}
           </p>
-          </div>
+          
           {this.state.isLoggedIn && (
-          <div>
-                  <div id={"listmessage"}>
-                    <button type="submit" className="HomeButton" 
+          <div className="BookContainerInformation row m-auto">
+                  <div classname="mr-4" id={"listmessage"}>
+                    <button type="submit" className="mr-4 HomeButton" 
                     onClick = {this.handleAdd}
                     name="submit">Add To List
                     </button>
                     </div>
+                    <div classname="" id={"reviewmessage"}>
                     <Link className="BookResultLink" 
                     as={Link} to={{pathname: '/WriteReview/', state: {book: this.state.book, isLoggedIn: true}}} >
-                    <button type="submit" className="HomeButton" name="submit">Submit a Review</button>
+                    <button type="submit" className="mr-4 HomeButton" name="submit">Submit a Review</button>
                     </Link>
+                    </div>
                     </div>
                     )}
           </div>

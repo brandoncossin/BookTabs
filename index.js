@@ -33,7 +33,12 @@ app.post('/api/add', async (req, res) => {
   let profile = JSON.parse(Buffer.from(req.body.token.split('.')[1], 
     'base64').toString('ascii'));
   let uid = profile.uid
-  console.log(req.body.book.bookImage)
+  
+  var dateObject = new Date();
+  var date = dateObject.getDate();
+  var month = (dateObject.getMonth() + 1);
+  var year = dateObject.getFullYear();
+  let dateDisplay = `${month}/${date}/${year}`;  
   try {
     const response = await User.findOneAndUpdate(
       { 'uid': uid },
@@ -51,7 +56,6 @@ app.post('/api/add', async (req, res) => {
             'bookISBN13' : req.body.book.bookISBN13,
             'bookPreviewLink': req.body.book.bookPreviewLink
           }
-    
         }
       })  
     console.log('Added', response)
@@ -65,7 +69,7 @@ app.post('/api/add', async (req, res) => {
     throw error;
   }
   res.json({ status: 'success', data: 'successfully added to' })
-
+  
 })
 //Allows user to remove item in their list
 app.post('/api/remove', async (req, res) => {

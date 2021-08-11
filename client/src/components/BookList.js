@@ -77,55 +77,53 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                 </input>
                 </form>
       </div>
-        <div className="container">
         <hr></hr>
-          <div className="row ">
+        <div className="container">
             {result.map((book, i) => ( 
-                <div className="BookResult" key={i}>  
-                <div className="row" >
-                  <div className="BookResultImage ">
-                    {/*
-                    Link to Result/Individual Book Page.
-                    Sents over individual components as the prop
-                    */}
-                  <Link className="BookResultLink" as={Link} to={{pathname: `/BookResult/${book.bookId}`, 
+                 <div className="Book row" key={1}>
+                 <div className="BookResultImage col">
+                 <Link className="BookResultLink" as={Link} to={{pathname: `/BookResult/${book.bookId}`, 
                   state: {
                   book : book,
                   isLoggedIn: props.isLoggedIn
                   }}} >
                     <img src={book.bookImage} alt={book.bookTitle} />
                        </Link>
-                      </div>
-                    <div className="BookResultInformation">
-                    <Link className="BookResultLink" as={Link} to={{pathname: `/BookResult/${book.bookId}`, state: {book: book}}} >
-                      <h2><b>{book.bookTitle}</b></h2>
+                  </div>
+                 <div className="BookResultInformation col">
+                 <h2><b><Link className="BookResultLink" as={Link} to={{pathname: `/BookResult/${book.bookId}`, state: {book: book}}} >
+                      {book.bookTitle}
                       </Link>
+                      </b></h2>
                       <h5>{book.bookAuthor.map((author) => (
-                      <h5><Link className="BookResultLink" 
+                      <Link className="BookResultLink" 
                       as={Link} to={{pathname: `/AuthorList/${author}`, state: {author: author, isLoggedIn: true}}}>
-                        {author}</Link></h5>
+                        {author}</Link>
                     ))}</h5>
-                      
-                      <br></br>
-                      <br></br>
-                      
-                      {props.isLoggedIn && (
-                       <div id={"addmessage"+ i}>
-                    <button type="submit" className="btn btn-secondary" 
-                    onClick = {() => {
-                      handleAdd(book, i);
-                    }} 
-                    name="submit">Add To List
-                    </button>
-                    </div>
-                    )}
-                      </div>
-                      </div> 
-                    <hr></hr>
-                </div>
+                 
+                 
+                 {props.isLoggedIn && (
+                 <div className="BookResultInformation row ">
+                         <div classname="mr-4" id={"addmessage"+ i}>
+                           <button type="submit" className="mr-4 BookResultButton" 
+                           name="submit"
+                           onClick = {() => {
+                            handleAdd(book, i);
+                          }} >Add To List
+                           </button>
+                           </div>
+                           <div classname="" id={"reviewmessage"}>
+                           <Link className="BookResultLink" 
+                           as={Link} to={{pathname: '/WriteReview/', state: {book: book, isLoggedIn: true}}} >
+                           <button type="submit" className="BookResultButton" name="submit">Submit a Review</button>
+                           </Link>
+                           </div>
+                           </div>
+                           )}
+                 </div>
+                 </div>
             ))}
-          </div>
-        </div>
+      </div>
       </div>
     );
 }

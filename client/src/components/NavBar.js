@@ -18,13 +18,6 @@ function NavBar(props) {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-
-          <NavItem className="ml-2">
-            {props.isLoggedIn && (
-              <Nav.Link as={Link} to="/Profile" >Profile</Nav.Link>
-            )}
-          </NavItem>
-          
           <NavItem className="ml-2">
             <Nav.Link as={Link} to="/Blog" >Discover</Nav.Link>
           </NavItem>
@@ -38,6 +31,11 @@ function NavBar(props) {
             <NavDropdown.Divider />
             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
           </NavDropdown>
+          <NavItem className="ml-2">
+            {props.isLoggedIn && (
+              <Nav.Link as={Link} to="/Profile" >My Lists</Nav.Link>
+            )}
+          </NavItem>
           </Nav>
           <Nav className="ml-auto">
             <NavItem className="ml-2 mt-auto mb-auto" >
@@ -54,7 +52,9 @@ function NavBar(props) {
             </NavItem>
             <NavItem className="ml-2" >
               {props.isLoggedIn && (
-                <Nav.Link onClick={logOut} >Log Out</Nav.Link>
+                <Nav.Link onClick={logOut} >
+                   <button className="NavButton" type=" button" >Log Out</button>
+                </Nav.Link>
               )}
             </NavItem>
           </Nav>

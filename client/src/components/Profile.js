@@ -91,7 +91,7 @@ class Profile extends React.Component {
                         {author}</Link></h5>
                     ))}</td>
                     <td><div id={"removeDiv"+ i}>
-                      <button type="submit" className="btn btn-secondary" 
+                      <button type="submit" className="HomeButton" 
                     onClick = {(e) => this.handleRemove(i, e)} 
                     name="submit">Remove From List
                     </button>
