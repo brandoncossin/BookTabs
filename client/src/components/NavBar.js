@@ -37,20 +37,20 @@ function NavBar(props) {
             )}
           </NavItem>
           </Nav>
-          <Nav className="ml-auto">
+          <Nav className="ms-auto">
             <NavItem className="ml-2 mt-auto mb-auto" >
             {!props.isLoggedIn && (
               <Nav.Link as={Link} to="/SignUp" >Sign Up</Nav.Link>
             )}
             </NavItem>
-            <NavItem className="ml-2" >
+            <NavItem className="" >
               {!props.isLoggedIn && (
                 <Nav.Link as={Link} to="/LogIn" >
                   <button className="NavButton" type=" button" >Log In</button>
                 </Nav.Link>
               )}
             </NavItem>
-            <NavItem className="ml-2" >
+            <NavItem className="" >
               {props.isLoggedIn && (
                 <Nav.Link onClick={logOut} >
                    <button className="NavButton" type=" button" >Log Out</button>

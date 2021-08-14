@@ -6,7 +6,8 @@ const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
 const keys = require('./config/keys')
-const User = require('./models/User')
+const User = require('./models/User.js')
+const RecentActivity = require('./models/RecentActivity.js')
 const jwt = require('jsonwebtoken')
 var corsOptions = {
   credentials: true,
@@ -24,10 +25,15 @@ mongoose.connect(keys.mongoURI, {
   useCreateIndex: true,
   useUnifiedTopology: true,
 });
+app.post('/api/recentActivity', async (req, res) => {
+
+res.json({ status: 'success', data: 'successfully added to' })
+})
 //Allows users to add book to List
 //Finds book and Updates one
 //First matches by uid
 //Then adds to set to prevent duplicates
+
 app.post('/api/add', async (req, res) => {
   const base64String = req.body.token.split('.')[1];
   let profile = JSON.parse(Buffer.from(req.body.token.split('.')[1], 
@@ -57,7 +63,16 @@ app.post('/api/add', async (req, res) => {
             'bookPreviewLink': req.body.book.bookPreviewLink
           }
         }
-      })  
+      }) 
+      //adds book to recent activities 
+    const user=new RecentActivity({
+    uid: uid, 
+    bookId: req.body.book.bookId, 
+    bookImage: req.body.book.bookImage, 
+    bookActivity: uid + ' added ' + req.body.book.bookTitle + ' to their list'});
+  await user.save(function(err, data){
+    if(err) return console.log(err);
+  });
     console.log('Added', response)
   }
   catch (error) {
@@ -68,6 +83,7 @@ app.post('/api/add', async (req, res) => {
     }
     throw error;
   }
+  
   res.json({ status: 'success', data: 'successfully added to' })
   
 })
@@ -160,6 +176,26 @@ app.get('/authCheck', async (req, res) => {
   } catch (err) {
     return res.send({ status: 'error', error: 'Improper Token' });
   }
+})
+//Returns users bookList
+app.get('/userMyList', async (req, res) => {
+  const base64String = req.body.token.split('.')[1];
+  let profile = JSON.parse(Buffer.from(req.body.token.split('.')[1], 
+    'base64').toString('ascii'));
+  let uid = profile.uid
+  try {
+    const response = await User.findOne({ uid }).select('myList.bookId');
+    res.send({ status: 'success', userMyList: response });
+  } catch (error) {
+    if (error.code === 11000) {
+      //duplicate key
+      console.log(error)
+      return res.json({ status: 'error', error: 'Username or email already in use' })
+    }
+    throw error;
+  }
+  console.log(response);
+  res.send({ status: 'success' })
 })
 //Returns single book information
 app.get('/book', function (req, res) {

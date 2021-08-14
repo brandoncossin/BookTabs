@@ -39,7 +39,9 @@ function AuthorList(props) {
     {headers: {"Content-Type": "application/json"}})
     .then((res) => {
       if(res.data.status !== 'error'){
-        document.getElementById("addmessage" + i).innerHTML = "Added To List";
+        var button = document.getElementById("addmessage" + i);
+        button.className = "AddedListButton mr-4"
+        button.innerHTML = "Added To List"
       }
       else{
         document.getElementById("addmessage" + i).innerHTML = res.data.error;
@@ -76,20 +78,24 @@ function AuthorList(props) {
                 
                 
                 {props.isLoggedIn && (
-                <div className="BookResultInformation row ">
-                        <div classname="mr-4" id={"listmessage"}>
-                          <button type="submit" className="mr-4 BookResultButton" 
-                          name="submit">Add To List
-                          </button>
-                          </div>
-                          <div classname="" id={"reviewmessage"}>
-                          <Link className="BookResultLink" 
-                          as={Link} to={{pathname: '/WriteReview/', state: {book: book, isLoggedIn: true}}} >
-                          <button type="submit" className="BookResultButton" name="submit">Submit a Review</button>
-                          </Link>
-                          </div>
-                          </div>
-                          )}
+                 <div className="BookResultInformation row ">
+                         <div classname="mr-4" id={"reviewmessage"}>
+                           <button type="submit" className="mr-4 BookResultButton" 
+                           name="submit"
+                           id={"addmessage"+ i}
+                           onClick = {() => {
+                            handleAdd(book, i);
+                          }} >Add To List
+                           </button>
+                           </div>
+                           <div classname="" id={"reviewmessage"}>
+                           <Link className="BookResultLink" 
+                           as={Link} to={{pathname: '/WriteReview/', state: {book: book, isLoggedIn: true}}} >
+                           <button type="submit" className="BookResultButton" name="submit">Submit a Review</button>
+                           </Link>
+                           </div>
+                           </div>
+                           )}
                 </div>
                 </div>
             ))}

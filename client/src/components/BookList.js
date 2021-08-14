@@ -42,7 +42,9 @@ const [result, setResult] = useState(ResultsBeenLoaded);
     {headers: {"Content-Type": "application/json"}})
     .then((res) => {
       if(res.data.status !== 'error'){
-        document.getElementById("addmessage" + i).innerHTML = "Added To List";
+        var button = document.getElementById("addmessage" + i);
+        button.className = "AddedListButton mr-4"
+        button.innerHTML = "<span style=\" color: transparent; text-shadow: 0 0 0 #ff3527; background: white;\">&#10004;</span>Added To List"
       }
       else{
         document.getElementById("addmessage" + i).innerHTML = res.data.error;
@@ -104,12 +106,14 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                  
                  {props.isLoggedIn && (
                  <div className="BookResultInformation row ">
-                         <div classname="mr-4" id={"addmessage"+ i}>
+                         <div classname="mr-4" id={"reviewmessage"}>
                            <button type="submit" className="mr-4 BookResultButton" 
                            name="submit"
+                           id={"addmessage"+ i}
                            onClick = {() => {
                             handleAdd(book, i);
-                          }} >Add To List
+                          }} >  
+                           Add To List
                            </button>
                            </div>
                            <div classname="" id={"reviewmessage"}>

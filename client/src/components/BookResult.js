@@ -23,7 +23,9 @@ class BookResult extends React.Component{
       {headers: {"Content-Type": "application/json"}})
       .then((res) => {
         if(res.data.status !== 'error'){
-          document.getElementById("listmessage").innerHTML = "Added To List";
+          var button = document.getElementById("listmessage");
+          button.className = "AddedResultButton mr-4";
+        button.innerHTML = "<span style=\" color: transparent; text-shadow: 0 0 0 #ff3527; background: white;\">&#10004;</span>Added To List"
         }
         else{
           document.getElementById("listmessage").innerHTML = res.data.error;
@@ -88,9 +90,10 @@ class BookResult extends React.Component{
           
           {this.state.isLoggedIn && (
           <div className="BookContainerInformation row m-auto">
-                  <div classname="mr-4" id={"listmessage"}>
+                  <div classname="mr-4" id={"reviewmessage"}>
                     <button type="submit" className="mr-4 HomeButton" 
                     onClick = {this.handleAdd}
+                    id={"listmessage"}
                     name="submit">Add To List
                     </button>
                     </div>

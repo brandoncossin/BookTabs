@@ -44,9 +44,10 @@ class Profile extends React.Component {
     {headers: {"Content-Type": "application/json"}})
     .then((res) => {
       if(res.data.status !== 'error'){
-        document.getElementById("removeDiv" + i).style.color = 'red';
-        document.getElementById("removeDiv" + i).innerHTML = "Removed from list";
-      }
+        var button = document.getElementById("removemessage" + i);
+            button.className = "AddedResultButton mr-4";
+            button.innerHTML = "Removed From List"
+            button.onClick = null }
       else{
         document.getElementById("removeDiv" + i).innerHTML = "Error";
       }
@@ -91,9 +92,11 @@ class Profile extends React.Component {
                         {author}</Link></h5>
                     ))}</td>
                     <td><div id={"removeDiv"+ i}>
-                      <button type="submit" className="HomeButton" 
-                    onClick = {(e) => this.handleRemove(i, e)} 
-                    name="submit">Remove From List
+                      <button type="submit" 
+                      className="HomeButton" 
+                      id={"removemessage"+ i}
+                      onClick = {(e) => this.handleRemove(i, e)} 
+                      name="submit">Remove From List
                     </button>
                     </div>
                     </td>

@@ -69,7 +69,7 @@ Home Page CSS
     margin-bottom: 20px;
 }
 .navbar{
-    width: 85%;
+    width: 100%;
     height: 15%;
 }
 .homeLogos{
@@ -89,6 +89,8 @@ Book List
 }
 .Book{
     width: 100%;
+    margin-left: auto;
+    margin-right: auto;
     border: 1px solid transparent;
     border-radius: 10px;
     margin-bottom: 10px;
@@ -115,6 +117,19 @@ Book List
     color: white;
     border-radius: 10px;
     margin-bottom: 20px;
+}
+.AddedListButton{
+    pointer-events: none;
+    padding: 3px 10px;
+    margin-bottom: 20px;    
+    outline: none;
+    color: black;
+    background: 
+    linear-gradient(rgb(255, 255, 255),rgb(255, 254, 254)) padding-box, /*this is your grey background*/
+    linear-gradient(to right, #fb5283, #ff3527) border-box;
+   border: 2px solid transparent;
+   border-radius:10px;
+
 }
 .BookResultImage img{
     padding-top: 15px;
@@ -228,7 +243,20 @@ Book Container for Book Result
     color: white;
     border-radius: 10px;
 }
+.AddedResultButton{
+    pointer-events: none;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    outline: none;
+    color: black;
+    background: 
+    linear-gradient(rgb(255, 255, 255),rgb(255, 254, 254)) padding-box, /*this is your grey background*/
+    linear-gradient(to right, #fb5283, #ff3527) border-box;
+   padding: 6px 25px;
+   border: 4px solid transparent;
+   border-radius:10px;
 
+}
 .HomeFooter{
     background-color: black !important;
 }
