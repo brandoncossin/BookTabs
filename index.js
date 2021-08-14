@@ -231,12 +231,16 @@ app.get('/', function (req, res) {
   //Sends back books based on the title search request
   //Cleans up the products returned
   let param = req.query.book
+  console.log(param)
+  if(req.query.userId){
+    console.log(req.query.userId)
+  }
   //performance query limits what is being sent back.
   axios.get('https://www.googleapis.com/books/v1/volumes?q=' + param + '&key=' + keys.apiKey + 
   '&maxResults=30&fields=kind,items(id, volumeInfo/*)')
     .then(function (response) {
       response.data.items.forEach(function(data) {
-        console.log(data);
+        //console.log(data);
         data['bookId'] = data['id'];
         data['bookImage'] = data.volumeInfo['imageLinks'] === undefined ? "" : data.volumeInfo.imageLinks['thumbnail'] 
         data['bookTitle'] = data.volumeInfo['title'];

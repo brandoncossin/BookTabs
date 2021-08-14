@@ -25,6 +25,12 @@ function BookList(props) {
       });
       localStorage.setItem("InitialSearch", "");    
     }
+    /*
+    for(let j = 0; j < result.length; j++){
+      var button = document.getElementById("addmessage" + j);
+        button.className = "mr-4 BookResultButton"
+    }
+    */
   }, [SearchToken, book]
     
 );
@@ -37,7 +43,8 @@ const [result, setResult] = useState(ResultsBeenLoaded);
   function handleAdd(book, i){
     const token = sessionStorage.getItem('token');
     axios.post("http://localhost:8080/api/add", 
-    { book: book,
+    { 
+      book: book,
       token: token}, 
     {headers: {"Content-Type": "application/json"}})
     .then((res) => {
@@ -58,12 +65,13 @@ const [result, setResult] = useState(ResultsBeenLoaded);
     axios.get("http://localhost:8080/",{
     //axios.get("https://serene-spire-91674.herokuapp.com/", {
     params: {
+    userId: sessionStorage.getItem('token'),
     book: book
   }})
     .then(data => {
       setResult(data.data.items);
       localStorage.setItem("result", JSON.stringify(data.data.items));
-      //window.location.reload();
+      window.location.reload();
     });
   }
     return ( 
@@ -82,7 +90,7 @@ const [result, setResult] = useState(ResultsBeenLoaded);
         <hr></hr>
         <div className="container">
             {result.map((book, i) => ( 
-                 <div className="Book row" key={1}>
+                 <div className="Book row" key={i}>
                  <div className="BookResultImage col">
                  <Link className="BookResultLink" as={Link} to={{pathname: `/BookResult/${book.bookId}`, 
                   state: {
@@ -116,7 +124,7 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                            Add To List
                            </button>
                            </div>
-                           <div classname="" id={"reviewmessage"}>
+                           <div className="" id={"reviewmessage"}>
                            <Link className="BookResultLink" 
                            as={Link} to={{pathname: '/WriteReview/', state: {book: book, isLoggedIn: true}}} >
                            <button type="submit" className="BookResultButton" name="submit">Submit a Review</button>

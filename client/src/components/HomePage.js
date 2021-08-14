@@ -48,15 +48,15 @@ const HomePage = (props) =>{
       </div>
       <div className="row">
       <div className="homeLogos">
-      <img src={bookSvg}/>
+      <img src={bookSvg} alt="book logo"/>
       <p>Build Your Library</p>
       </div>
       <div className="homeLogos">
-      <img src={globeSvg}/>
+      <img src={globeSvg} alt="globe logo"/>
       <p>Explore &amp; Discover</p>
       </div>
       <div className="homeLogos">
-      <img src={noteSvg}/>
+      <img src={noteSvg} alt="note logo"/>
       <p>Share Your Thoughts</p>
       </div>
       </div>

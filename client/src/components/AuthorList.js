@@ -29,7 +29,7 @@ function AuthorList(props) {
       });
       setIsLoading(false)    
     }
-  }, [result]);
+  }, [result, isLoading, props]);
 
   function handleAdd(book, i){
     const token = sessionStorage.getItem('token');
@@ -55,7 +55,7 @@ function AuthorList(props) {
         <hr></hr>
           <div className="row ">
             {result.map((book, i) => ( 
-                <div className="Book row" key={1}>
+                <div className="Book row" key={i}>
                 <div className="BookResultImage col">
                 <Link className="BookResultLink" as={Link} to={{pathname: `/BookResult/${book.bookId}`, 
                  state: {
