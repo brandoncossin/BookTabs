@@ -13,7 +13,6 @@ class Profile extends React.Component {
       myList: [],
     }
     this.handleRemove = this.handleRemove.bind(this);
-    console.log(this.myList);
   };
   componentDidMount() {
     if (sessionStorage.getItem('token')) {
@@ -28,7 +27,6 @@ class Profile extends React.Component {
           this.setState({ uid: data.data.profile.uid });
           this.setState({ name: data.data.profile.name });
           this.setState({ myList: data.data.profile.myList });
-          console.log(this.state.myList)
         });
     }
     else{

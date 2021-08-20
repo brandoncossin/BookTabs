@@ -25,9 +25,16 @@ mongoose.connect(keys.mongoURI, {
   useCreateIndex: true,
   useUnifiedTopology: true,
 });
-app.post('/api/recentActivity', async (req, res) => {
+//sends the recent 12 activities done by users
 
-res.json({ status: 'success', data: 'successfully added to' })
+app.get('/recentActivity', async (req, res) => {
+  try{
+    const response = await RecentActivity.find().sort({_id: -1}).limit(12);
+    res.send({status: 'success', data: response});
+  }
+  catch(error){
+    res.send({status: 'error', data: error})
+  }
 })
 //Allows users to add book to List
 //Finds book and Updates one
@@ -68,12 +75,12 @@ app.post('/api/add', async (req, res) => {
     const user=new RecentActivity({
     uid: uid, 
     bookId: req.body.book.bookId, 
-    bookImage: req.body.book.bookImage, 
-    bookActivity: uid + ' added ' + req.body.book.bookTitle + ' to their list'});
+    bookTitle: req.body.book.bookTitle, 
+    bookActivity: ' added ',
+    activityLocation: ' to their list'});
   await user.save(function(err, data){
     if(err) return console.log(err);
   });
-    console.log('Added', response)
   }
   catch (error) {
     if (error.code === 11000) {
@@ -167,36 +174,26 @@ app.post('/api/signup', async (req, res) => {
 })
 //Checks authorization using JWT
 //Checks the token matches the key
+//Also sends book lists if it works
 app.get('/authCheck', async (req, res) => {
-  //let profile = JSON.parse(atob(req.query.token.split('.')[1]))
-  console.log(req.query.token, "authChecked");
   try {
     jwt.verify(JSON.parse(req.query.token), keys.ACCESS_TOKEN_SECRET);
-    return res.send({ status: 'success', data: "Welcome" });
+    let profile = JSON.parse(Buffer.from(req.query.token.split('.')[1], 
+      'base64').toString('ascii'));
+      let uid = profile.uid
+    try{
+      const response = await User.findOne({ uid }).select('myList.bookId');
+      console.log(response.myList);
+      return res.send({ status: 'success', userMyList: response.myList});
+    }
+    catch(error){
+      return res.send({status: 'error', error: 'no user'})
+    }
   } catch (err) {
     return res.send({ status: 'error', error: 'Improper Token' });
   }
 })
-//Returns users bookList
-app.get('/userMyList', async (req, res) => {
-  const base64String = req.body.token.split('.')[1];
-  let profile = JSON.parse(Buffer.from(req.body.token.split('.')[1], 
-    'base64').toString('ascii'));
-  let uid = profile.uid
-  try {
-    const response = await User.findOne({ uid }).select('myList.bookId');
-    res.send({ status: 'success', userMyList: response });
-  } catch (error) {
-    if (error.code === 11000) {
-      //duplicate key
-      console.log(error)
-      return res.json({ status: 'error', error: 'Username or email already in use' })
-    }
-    throw error;
-  }
-  console.log(response);
-  res.send({ status: 'success' })
-})
+
 //Returns single book information
 app.get('/book', function (req, res) {
   let param = req.query.id;

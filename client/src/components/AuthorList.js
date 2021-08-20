@@ -79,16 +79,23 @@ function AuthorList(props) {
                 
                 {props.isLoggedIn && (
                  <div className="BookResultInformation row ">
-                         <div classname="mr-4" id={"reviewmessage"}>
+                   {props.userMyList.some(thebook => thebook.bookId === book.bookId) ? 
+                   <div id={"reviewmessage"}>
+                           <button className="mr-4 AddedListButton" >  
+                           Inside List
+                           </button>
+                           </div>
+                   : <div id={"reviewmessage"}>
                            <button type="submit" className="mr-4 BookResultButton" 
                            name="submit"
                            id={"addmessage"+ i}
                            onClick = {() => {
                             handleAdd(book, i);
-                          }} >Add To List
+                          }} >  
+                           Add To List
                            </button>
-                           </div>
-                           <div classname="" id={"reviewmessage"}>
+                           </div> }
+                           <div className="" id={"reviewmessage"}>
                            <Link className="BookResultLink" 
                            as={Link} to={{pathname: '/WriteReview/', state: {book: book, isLoggedIn: true}}} >
                            <button type="submit" className="BookResultButton" name="submit">Submit a Review</button>

@@ -6,8 +6,9 @@ const recentActivitySchema = new mongoose.Schema({
     //That action is pushed inside that function for a push to this array
         uid: {type: String, required: true},
         bookId: {type: String, required: true},
-        bookImage: {type: String, required: true},
+        bookTitle: {type: String, required: true},
         bookActivity: {type: String, required: true},
+        activityLocation: {type: String, required: false},
 }, {timestamps: true})
 
 const RecentActivity = mongoose.model('RecentActivity', recentActivitySchema)

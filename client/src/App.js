@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import './App.css';
 import NavBar from './components/NavBar';
+import RecentActivity from './components/RecentActivity';
 import BookList from './components/BookList';
 import AuthorList from './components/AuthorList';
 import SignUp from './components/SignUp';
@@ -24,11 +25,12 @@ function App() {
   //This prevents the site from routing before the user
   //is marked as authenticated or not
   const [isLoading, setIsLoading] = useState(true);
+  const [userMyList, setUserMyList] = useState([]);
+
   //Use Effect to launch on page load
   useEffect(() => {
     if (sessionStorage.getItem('token') && isLoading) {
       const token = sessionStorage.getItem('token')
-      console.log(token);
       axios.get("http://localhost:8080/authCheck", {
         params: {
           token: token
@@ -37,7 +39,7 @@ function App() {
       //If data is authenticated user is logged in
         .then((res) => {
           if (res.data.status !== 'error') {
-            console.log(res.data.data);
+            setUserMyList(res.data.userMyList)
             SetLoggedIn(true);
             setIsLoading(false);
           }
@@ -53,7 +55,7 @@ function App() {
   else{
     setIsLoading(false);
   }
-}, [isLoading])
+}, [isLoading, userMyList])
   //If loading is incomplete renders a spinner
   if(isLoading){
     return <div className="text-center">
@@ -72,13 +74,23 @@ function App() {
         <Switch>
         
           <Route exact path="/" render={(props) => (
-            <HomePage {...props} isLoggedIn={isLoggedIn} />
+            <HomePage {...props} 
+            isLoggedIn={isLoggedIn} />
           )}/>
+          <Route path="/Discover" render={(props) => (
+            <RecentActivity {...props} 
+            isLoggedIn={isLoggedIn} 
+            userMyList={userMyList}/>
+          )} />
           <Route path="/BookList" render={(props) => (
-            <BookList {...props} isLoggedIn={isLoggedIn} />
+            <BookList {...props} 
+            isLoggedIn={isLoggedIn} 
+            userMyList={userMyList}/>
           )} />
           <Route path="/AuthorList/:author" render={(props) => (
-            <AuthorList {...props} isLoggedIn={isLoggedIn} />
+            <AuthorList {...props} 
+            isLoggedIn={isLoggedIn} 
+            userMyList = {userMyList}/>
           )} />
           <ProtectedRoute path="/Profile" 
           isLoggedIn={isLoggedIn}
@@ -94,7 +106,9 @@ function App() {
           <Route path="/BookResult/:bookId" render={(props) => (
           <BookItem {...props} isLoggedIn={isLoggedIn} />
           )}/>
-          <Route path="/WriteReview" isLoggedIn={isLoggedIn} component={WriteReview} />
+          <Route path="/WriteReview" 
+          isLoggedIn={isLoggedIn} 
+          component={WriteReview} />
           <Route path="*" component={() => "404 NOT FOUND"} />
 
         </Switch>

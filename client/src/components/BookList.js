@@ -108,13 +108,19 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                       <h5>{book.bookAuthor.map((author) => (
                       <Link className="BookResultLink" 
                       as={Link} to={{pathname: `/AuthorList/${author}`, state: {author: author, isLoggedIn: true}}}>
-                        {author}</Link>
+                        {author} </Link>
                     ))}</h5>
                  
                  
                  {props.isLoggedIn && (
                  <div className="BookResultInformation row ">
-                         <div classname="mr-4" id={"reviewmessage"}>
+                   {props.userMyList.some(thebook => thebook.bookId === book.bookId) ? 
+                   <div id={"reviewmessage"}>
+                           <button className="mr-4 AddedListButton" >  
+                           Inside List
+                           </button>
+                           </div>
+                   : <div id={"reviewmessage"}>
                            <button type="submit" className="mr-4 BookResultButton" 
                            name="submit"
                            id={"addmessage"+ i}
@@ -123,7 +129,8 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                           }} >  
                            Add To List
                            </button>
-                           </div>
+                           </div> }
+                         
                            <div className="" id={"reviewmessage"}>
                            <Link className="BookResultLink" 
                            as={Link} to={{pathname: '/WriteReview/', state: {book: book, isLoggedIn: true}}} >

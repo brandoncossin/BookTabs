@@ -30,7 +30,6 @@ module.exports = app => {
 
           }
         })
-      console.log('Added', response)
     }
     catch (error) {
       if (error.code === 11000) {

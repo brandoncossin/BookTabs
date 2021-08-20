@@ -6,10 +6,15 @@ Started on 6/23/2021
 * {
     background-color: #C1C1C1;
 }
+
 /*
 Home Page CSS
 */
-.form-container{
+.BookTabLogo {
+    display: block;
+}
+
+.form-container {
     position: relative;
     top: 6vh;
     background: #fff;
@@ -18,46 +23,56 @@ Home Page CSS
     box-shadow: 0px 0px 10px 0px #000;
     margin-bottom: 50%;
 }
-.form-container p{
+
+.form-container p {
     margin-bottom: 5px;
     padding-left: 10;
     font-weight: bold;
-    background-color: #fff;;
+    background-color: #fff;
+    ;
 }
-.form-container h3, h6{
+
+.form-container h3,
+h6 {
     background-color: #fff;
 }
-.form-container input{
+
+.form-container input {
     width: 100%;
     margin-bottom: 20px;
 }
-.SearchBarRow{
+
+.SearchBarRow {
     align-items: center;
 }
-.SearchBar{
+
+.SearchBar {
     width: 90%;
-  height: 3.2rem;
-  background: #f5f5f5;
-  outline: none;
-  border: none;
-  border-radius: 1.625rem;
-  padding: 0 3.5rem 0 1.5rem;
-  font-size: 1.2rem;
-  margin-left: 5%;
+    height: 3.2rem;
+    background: #f5f5f5;
+    outline: none;
+    border: none;
+    border-radius: 1.625rem;
+    padding: 0 3.5rem 0 1.5rem;
+    font-size: 1.2rem;
+    margin-left: 5%;
 }
-.SearchBar input:focus{
-    outline:none;
-    box-shadow:none;
+
+.SearchBar input:focus {
+    outline: none;
+    box-shadow: none;
 }
-.form-container input[type="text"], input[type="password"]
-{
+
+.form-container input[type="text"],
+input[type="password"] {
     border: none;
     border-bottom: 1px solid #191919;
     background: transparent;
     outline: none;
     height: 30px;
 }
-.form-container button[type="submit"]{
+
+.form-container button[type="submit"] {
     border: none;
     outline: none;
     width: 85%;
@@ -68,26 +83,31 @@ Home Page CSS
     border-radius: 16px;
     margin-bottom: 20px;
 }
-.navbar{
+
+.navbar {
     width: 100%;
     height: 15%;
 }
-.homeLogos{
+
+.homeLogos {
     margin-top: 60px;
     text-align: center;
     margin: auto;
 }
-.homeLogos img{
+
+.homeLogos img {
     margin-top: 50px;
     height: 80px;
 }
+
 /*
 Book List
 */
-.BookResultLink{
+.BookResultLink {
     color: black;
 }
-.Book{
+
+.Book {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -95,11 +115,15 @@ Book List
     border-radius: 10px;
     margin-bottom: 10px;
 }
-.BookResultInformation h2, .BookResultInformation h5, 
-.BookResultInformation b, .BookResultInformation{
+
+.BookResultInformation h2,
+.BookResultInformation h5,
+.BookResultInformation b,
+.BookResultInformation {
     background-color: white;
 }
-.BookResultImage{
+
+.BookResultImage {
     background-color: white;
     border: 1px solid transparent;
     border-radius: 8px;
@@ -109,7 +133,8 @@ Book List
     max-width: 25%;
     margin-right: -25px;
 }
-.BookResultButton{
+
+.BookResultButton {
     padding: 5px 10px;
     border: 0;
     outline: none;
@@ -118,28 +143,32 @@ Book List
     border-radius: 10px;
     margin-bottom: 20px;
 }
-.AddedListButton{
+
+.AddedListButton {
     pointer-events: none;
     padding: 3px 10px;
-    margin-bottom: 20px;    
+    margin-bottom: 20px;
     outline: none;
     color: black;
-    background: 
-    linear-gradient(rgb(255, 255, 255),rgb(255, 254, 254)) padding-box, /*this is your grey background*/
-    linear-gradient(to right, #fb5283, #ff3527) border-box;
-   border: 2px solid transparent;
-   border-radius:10px;
+    background:
+        linear-gradient(rgb(255, 255, 255), rgb(255, 254, 254)) padding-box,
+        /*this is your grey background*/
+        linear-gradient(to right, #fb5283, #ff3527) border-box;
+    border: 2px solid transparent;
+    border-radius: 10px;
 
 }
-.BookResultImage img{
+
+.BookResultImage img {
     padding-top: 15px;
     display: block;
     margin-left: auto;
-    margin-right: auto;    
+    margin-right: auto;
     width: 40%;
     background-color: white;
 }
-.BookResultInformation{
+
+.BookResultInformation {
     padding-top: 15px;
     background-color: white;
     border: 1px solid transparent;
@@ -147,7 +176,8 @@ Book List
     padding-left: 15px;
     padding-right: 15px;
 }
-button{
+
+button {
     color: black;
     padding: 10px 25px;
     background: transparent;
@@ -155,7 +185,8 @@ button{
     border-radius: 40px;
     outline: none;
 }
-.HomeContainer{
+
+.HomeContainer {
     width: 100%;
     min-height: 100vh;
     padding-left: 8%;
@@ -163,17 +194,19 @@ button{
     box-sizing: border-box;
     overflow: hidden;
 }
-.HomeRow{
+
+.HomeRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 60px 0;
 
 }
+
 /*
 Book Container for Book Result
 */
-.BookContainer{
+.BookContainer {
     background-color: white;
     border: 1px solid transparent;
     border-radius: 8px;
@@ -182,22 +215,25 @@ Book Container for Book Result
     max-width: 25%;
     margin-right: 25px;
 }
-.BookContainer img{
+
+.BookContainer img {
     padding-top: 15px;
     display: block;
     margin-left: auto;
-    margin-right: auto;    
+    margin-right: auto;
     width: 60%;
     background-color: white;
 }
-.BookContainer p{
-    background-color: white;
-}
-.BookContainer h5{
+
+.BookContainer p {
     background-color: white;
 }
 
-.BookContainerInformation{
+.BookContainer h5 {
+    background-color: white;
+}
+
+.BookContainerInformation {
     padding-top: 15px;
     background-color: white;
     border: 1px solid transparent;
@@ -205,26 +241,35 @@ Book Container for Book Result
     padding-left: 15px;
     padding-right: 15px;
 }
-.BookContainerInformation h1, 
-.BookContainerInformation h3, .BookContainerInformation h5, .BookContainerInformation p{
-    background-color: white;
-}
-#listmessage, #reviewmessage, .addmessage{
+
+.BookContainerInformation h1,
+.BookContainerInformation h3,
+.BookContainerInformation h5,
+.BookContainerInformation p {
     background-color: white;
 }
 
-.column-1{
+#listmessage,
+#reviewmessage,
+.addmessage {
+    background-color: white;
+}
+
+.column-1 {
     flex-basis: 40%;
     position: relative;
     margin-left: -10px;
 }
-.col-1 h2{
+
+.col-1 h2 {
     font-size: 54px;
 }
-.col-1 h3{
+
+.col-1 h3 {
     font-size: 30px;
 }
-.NavButton{
+
+.NavButton {
     vertical-align: middle;
     padding: 5px 10px;
     border: 0;
@@ -234,7 +279,8 @@ Book Container for Book Result
 
     border-radius: 15px;
 }
-.HomeButton{
+
+.HomeButton {
     margin-bottom: 15px;
     border: 0;
     margin-top: 10px;
@@ -243,93 +289,130 @@ Book Container for Book Result
     color: white;
     border-radius: 10px;
 }
-.AddedResultButton{
+
+.AddedResultButton {
     pointer-events: none;
     margin-bottom: 15px;
     margin-top: 10px;
     outline: none;
     color: black;
-    background: 
-    linear-gradient(rgb(255, 255, 255),rgb(255, 254, 254)) padding-box, /*this is your grey background*/
-    linear-gradient(to right, #fb5283, #ff3527) border-box;
-   padding: 6px 25px;
-   border: 4px solid transparent;
-   border-radius:10px;
+    background:
+        linear-gradient(rgb(255, 255, 255), rgb(255, 254, 254)) padding-box,
+        /*this is your grey background*/
+        linear-gradient(to right, #fb5283, #ff3527) border-box;
+    padding: 6px 25px;
+    border: 4px solid transparent;
+    border-radius: 10px;
 
 }
-.HomeFooter{
+
+.HomeFooter {
     background-color: black !important;
 }
+
 /*
 Profile CSS
 */
-.ProfileBookList img{
+.ProfileBookList img {
     padding-right: 5%;
     padding-top: 0;
     margin-top: 0;
     display: flex;
     width: 45%;
 }
-.ProfileContainer{
+
+.ProfileContainer {
     display: block;
+}
+
+/*
+Recent Activity
+*/
+.RecentActivity {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 60px;
+    padding-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    background-color: white;
+}
+.RecentActivity p, .RecentActivity h5, .RecentActivity b{
+    background-color: white;
+}
+@media only screen and (min-width: 720px) {
+    .ProfileContainer td:nth-child(2) {
+        display: none;
     }
 
-@media only screen and (min-width: 720px){
-    .ProfileContainer td:nth-child(2) {
-        display:none;
-      }
-      .ProfileContainer th:nth-child(2) {
-        display:none;
-      }
+    .ProfileContainer th:nth-child(2) {
+        display: none;
+    }
 }
+
 /*
 Mobile CSS
 */
-@media only screen and (max-width: 720px){
-    .HomeRow{
+@media only screen and (max-width: 720px) {
+    .HomeRow {
         flex-direction: column-reverse;
         margin: 50px 0;
     }
-    .homeLogos{
+
+    .homeLogos {
         position: absolute center;
         align-items: center;
         display: block;
     }
-    .homeLogos img{
+
+    .homeLogos img {
         height: 50px;
     }
-    .row { flex-direction: column; }
-    .SearchBar{
+
+    .row {
+        flex-direction: column;
+    }
+
+    .SearchBar {
         width: 100%;
         margin-left: 0;
     }
-    .Book{
+
+    .Book {
         margin-bottom: 20px;
     }
+
     .BookResultImage {
         max-width: 100%;
         margin-bottom: -20px;
     }
-    .BookResultImage img{
+
+    .BookResultImage img {
         width: 50%;
     }
-    .BookContainer img{
+
+    .BookContainer img {
         width: 50%;
     }
-    .BookContainer{
+
+    .BookContainer {
         max-width: 100%;
         margin-bottom: 20px;
     }
-    
-    .BookResultInformation h3{
+
+    .BookResultInformation h3 {
         font-size: 1.6rem;
     }
-    .ProfileBookList{
+
+    .ProfileBookList {
         padding-right: 5%;
         display: flex;
         width: 100%;
     }
-    .HomeContainer{
+
+    .HomeContainer {
         width: 100%;
         min-height: 100vh;
         padding-left: 5%;
@@ -337,30 +420,39 @@ Mobile CSS
         box-sizing: border-box;
         overflow: hidden;
     }
-    .HomeFooter{
+
+    .HomeFooter {
         width: 100%;
     }
-    .navbar{
+
+    .navbar {
         width: 90%;
     }
+
     /*
     Profile CSS mobile
     */
-    .ProfileContainer{
+    .ProfileContainer {
         width: 100%;
         padding-left: 0;
     }
-    .ProfileBookList img{
+
+    .ProfileBookList img {
         width: 110%;
     }
-    .ProfileContainer td:nth-child(3), .ProfileContainer th:nth-child(3),
-    .ProfileContainer td:nth-child(4), .ProfileContainer th:nth-child(4) {
-        display:none;
-      }
-      .ProfileContainer td:nth-child(4) {
-        display:none;
-      }
-      .ProfileContainer th:nth-child(4) {
-        display:none;
-      }
+
+    .ProfileContainer td:nth-child(3),
+    .ProfileContainer th:nth-child(3),
+    .ProfileContainer td:nth-child(4),
+    .ProfileContainer th:nth-child(4) {
+        display: none;
+    }
+
+    .ProfileContainer td:nth-child(4) {
+        display: none;
+    }
+
+    .ProfileContainer th:nth-child(4) {
+        display: none;
+    }
 }
