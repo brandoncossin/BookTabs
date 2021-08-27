@@ -11,6 +11,7 @@ class Profile extends React.Component {
       uid: "",
       name: "",
       myList: [],
+      likedList: [],
     }
     this.handleRemove = this.handleRemove.bind(this);
   };
@@ -23,10 +24,8 @@ class Profile extends React.Component {
         }
       })
         .then(data => {
-          
-          this.setState({ uid: data.data.profile.uid });
-          this.setState({ name: data.data.profile.name });
-          this.setState({ myList: data.data.profile.myList });
+          this.setState({ uid: data.data.profile.uid, name: data.data.profile.name,
+            myList: data.data.profile.myList, likedList: data.data.profile.likedList});
         });
     }
     else{
@@ -44,7 +43,7 @@ class Profile extends React.Component {
       if(res.data.status !== 'error'){
         var button = document.getElementById("removemessage" + i);
             button.className = "AddedResultButton mr-4";
-            button.innerHTML = "Removed From List"
+            button.innerHTML = "Removed"
             button.onClick = null }
       else{
         document.getElementById("removeDiv" + i).innerHTML = "Error";
@@ -105,7 +104,56 @@ class Profile extends React.Component {
           </tbody>
         </table>
         </div>
+        <h1>Liked Books</h1>
+        <div className="ProfileContainer">
+        <table className="table ml-0">
+          <thead className="thead-dark">
+            <tr>
+              <th scope="col">Cover</th>
+              <th scope="col">Title/Author</th>
+              <th scope="col">Title</th>
+              <th scope="col">Author</th>
+              <th scope="col">Remove From List</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.likedList.length === 0 && (
+              <p>No matching items!</p>
+            )}
+            {this.state.likedList.map((book, i) => (
+          
+                  <tr key={i}>
+                    <td className="ProfileBookList ">
+                    <Link className="BookResultLink" 
+                    as={Link} to={{pathname: `/BookResult/${book.bookId}`, state: {book: book, isLoggedIn: true}}} >
+                      <img src={`${book.bookImage}`} alt={book.title} />
+                      </Link></td>
+                      
+                    <td><h5><b>{book.bookTitle}</b><br></br>{book.bookAuthor}</h5></td>
+                    <td><h5> <Link className="BookResultLink" 
+                    as={Link} to={{pathname: `/BookResult/${book.bookId}`, state: {book: book, isLoggedIn: true}}} >
+                      {book.bookTitle}</Link></h5></td>
+                    <td>{book.bookAuthor.map((author) => (
+                      <h5><Link className="BookResultLink" 
+                      as={Link} to={{pathname: `/AuthorList/${author}`, state: {author: author, isLoggedIn: true}}}>
+                        {author}</Link></h5>
+                    ))}</td>
+                    <td><div id={"removeDiv"+ i}>
+                      <button type="submit" 
+                      className="HomeButton" 
+                      id={"removemessage"+ i}
+                      onClick = {(e) => this.handleRemove(i, e)} 
+                      name="submit">Unlike
+                    </button>
+                    </div>
+                    </td>
+                  </tr>
 
+                  
+            ))}
+          </tbody>
+        </table>
+        </div>
       </div>
     );
   }

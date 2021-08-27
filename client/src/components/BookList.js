@@ -4,9 +4,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   Link
 } from "react-router-dom";
+import thumbsUpSvg from '../icons/thumbsUpIcon.svg';
 
 function BookList(props) {
   let SearchBeenLoaded = localStorage.getItem("book");
+  console.log(props.userMyList)
+  console.log(props.userLikedList)
   const [book, setBook] = useState(SearchBeenLoaded);
   let ResultsBeenLoaded = JSON.parse(localStorage.getItem("result") || '[]');
   let SearchToken = localStorage.getItem("InitialSearch");
@@ -58,6 +61,24 @@ const [result, setResult] = useState(ResultsBeenLoaded);
       }
     })     
   }
+  function handleLike(book, i){
+    const token = sessionStorage.getItem('token');
+    axios.post("http://localhost:8080/api/like", 
+    { 
+      book: book,
+      token: token}, 
+    {headers: {"Content-Type": "application/json"}})
+    .then((res) => {
+      if(res.data.status !== 'error'){
+        var button = document.getElementById("likemessage" + i);
+        button.className = "AddedListButton mr-4"
+        button.innerHTML = "<span style=\" color: red; text-shadow: 0 0 0 #ff3527; background: white;\">&#9829;</span> Liked"
+      }
+      else{
+        document.getElementById("addmessage" + i).innerHTML = res.data.error;
+      }
+    })     
+  }
   function handleSubmit(event) {
     event.preventDefault();
     localStorage.setItem("book", book);
@@ -75,6 +96,7 @@ const [result, setResult] = useState(ResultsBeenLoaded);
     });
   }
     return ( 
+      
       <div className="container mt-10">
        <div className="SearchBarRow">
         <form onSubmit={handleSubmit}>
@@ -95,13 +117,21 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                  <Link className="BookResultLink" as={Link} to={{pathname: `/BookResult/${book.bookId}`, 
                   state: {
                   book : book,
-                  isLoggedIn: props.isLoggedIn
+                  isLoggedIn: props.isLoggedIn,
+                  inUserMyList: props.userMyList.some(thebook => thebook.bookId === book.bookId),
+                  inUserLikedList: props.userLikedList.some(thebook => thebook.bookId === book.bookId),
                   }}} >
                     <img src={book.bookImage} alt={book.bookTitle} />
                        </Link>
                   </div>
                  <div className="BookResultInformation col">
-                 <h2><b><Link className="BookResultLink" as={Link} to={{pathname: `/BookResult/${book.bookId}`, state: {book: book}}} >
+                 <h2><b><Link className="BookResultLink" as={Link} to={{pathname: `/BookResult/${book.bookId}`, 
+                  state: {
+                  book : book,
+                  isLoggedIn: props.isLoggedIn,
+                  inUserMyList: props.userMyList.some(thebook => thebook.bookId === book.bookId),
+                  inUserLikedList: props.userLikedList.some(thebook => thebook.bookId === book.bookId),
+                  }}} >
                       {book.bookTitle}
                       </Link>
                       </b></h2>
@@ -130,13 +160,24 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                            Add To List
                            </button>
                            </div> }
-                         
-                           <div className="" id={"reviewmessage"}>
-                           <Link className="BookResultLink" 
-                           as={Link} to={{pathname: '/WriteReview/', state: {book: book, isLoggedIn: true}}} >
-                           <button type="submit" className="BookResultButton" name="submit">Submit a Review</button>
-                           </Link>
+                           {props.userLikedList.some(thebook => thebook.bookId === book.bookId) ? 
+                   <div id={"reviewmessage"}>
+                           <button className="mr-4 AddedListButton" >  
+                           <span style= {{color: 'red', textShadow: '0 0 0 #ff3527', background: 'white'}}>&#9829;</span> Liked
+                           </button>
                            </div>
+                           : <div id={"reviewmessage"}>
+                           <button type="submit" className="mr-4 BookResultButton" 
+                           name="submit"
+                           id={"likemessage"+ i}
+                           onClick = {() => {
+                            handleLike(book, i);
+                          }} >  
+                          <span style={{color: 'white', textShadow: '0 0 0 #ff3527', background: 'transparent', height: '25px'}}>		
+                          &#9829; Like Book</span>
+                           </button>
+                           </div>
+                           } 
                            </div>
                            )}
                  </div>

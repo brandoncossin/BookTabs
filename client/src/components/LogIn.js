@@ -44,10 +44,9 @@ handleSubmit(e) {
             <Redirect to={{
               pathname: "/" }} />
             window.location.reload();          
-            alert('Success');
           }
           else{
-              alert(res.data.error);
+            document.getElementById("errormessage").innerHTML = res.data.error;
           }
     });
   }

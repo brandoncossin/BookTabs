@@ -46,12 +46,7 @@ app.post('/api/add', async (req, res) => {
   let profile = JSON.parse(Buffer.from(req.body.token.split('.')[1], 
     'base64').toString('ascii'));
   let uid = profile.uid
-  
-  var dateObject = new Date();
-  var date = dateObject.getDate();
-  var month = (dateObject.getMonth() + 1);
-  var year = dateObject.getFullYear();
-  let dateDisplay = `${month}/${date}/${year}`;  
+ 
   try {
     const response = await User.findOneAndUpdate(
       { 'uid': uid },
@@ -78,6 +73,53 @@ app.post('/api/add', async (req, res) => {
     bookTitle: req.body.book.bookTitle, 
     bookActivity: ' added ',
     activityLocation: ' to their list'});
+  await user.save(function(err, data){
+    if(err) return console.log(err);
+  });
+  }
+  catch (error) {
+    if (error.code === 11000) {
+      //duplicate key
+      console.log(error)
+      return res.json({ status: 'error', error: 'Already in list' })
+    }
+    throw error;
+  }
+  
+  res.json({ status: 'success', data: 'successfully added to' })
+  
+})
+app.post('/api/like', async (req, res) => {
+  let profile = JSON.parse(Buffer.from(req.body.token.split('.')[1], 
+    'base64').toString('ascii'));
+  let uid = profile.uid
+ 
+  try {
+    const response = await User.findOneAndUpdate(
+      { 'uid': uid },
+      {
+        $addToSet: {
+          likedList:
+          {
+            _id: req.body.book.bookId,
+            'bookId': req.body.book.bookId,
+            'bookImage': req.body.book.bookImage,
+            'bookTitle': req.body.book.bookTitle,
+            'bookAuthor': req.body.book.bookAuthor,
+            'bookInformation': req.body.book.bookInformation,
+            'bookISBN10' : req.body.book.bookISBN10,
+            'bookISBN13' : req.body.book.bookISBN13,
+            'bookPreviewLink': req.body.book.bookPreviewLink
+          }
+        }
+      }) 
+      //adds book to recent activities 
+    const user=new RecentActivity({
+    uid: uid, 
+    bookId: req.body.book.bookId, 
+    bookTitle: req.body.book.bookTitle, 
+    bookActivity: ' liked ',
+    activityLocation: ''});
   await user.save(function(err, data){
     if(err) return console.log(err);
   });
@@ -152,16 +194,35 @@ app.post('/api/signup', async (req, res) => {
   if (!pwd || typeof pwd !== 'string') {
     return res.json({ status: 'error', error: 'Invalid password' })
   }
+  if (uid.length < 6 ) {
+    return res.json({ status: 'error',
+     error: 'Username must be at least 6 characters long' })
+  }
+  if (pwd.length < 6 || (!/\d/.test(pwd))) {
+    return res.json({ status: 'error',
+     error: 'Password must be at least 6 characters long and contain a number' })
+  }
   const password = await bcrypt.hash(pwd, 10);
+  var dateObject = new Date();
+  var date = dateObject.getDate();
+  var month = (dateObject.getMonth() + 1);
+  var year = dateObject.getFullYear();
+  let dateDisplay = `${month}/${date}/${year}`; 
   try {
     const response = await User.create({
       name,
       email,
       uid,
       password,
-      
+      dateDisplay,
     })
-    console.log('User created successfully:', response)
+    //adds user to recent activities
+    const user=new RecentActivity({
+      uid: uid,  
+      bookActivity: ' created an account',});
+    await user.save(function(err, data){
+      if(err) return console.log(err);
+    });
   } catch (error) {
     if (error.code === 11000) {
       //duplicate key
@@ -182,9 +243,9 @@ app.get('/authCheck', async (req, res) => {
       'base64').toString('ascii'));
       let uid = profile.uid
     try{
-      const response = await User.findOne({ uid }).select('myList.bookId');
-      console.log(response.myList);
-      return res.send({ status: 'success', userMyList: response.myList});
+      const response = await User.findOne({ uid }, {myList: {bookId: 1} , likedList: {bookId: 1}});
+      console.log(response.likedList, response.myList, "authChecked");
+      return res.send({ status: 'success', userMyList: response.myList, userLikedList: response.likedList});
     }
     catch(error){
       return res.send({status: 'error', error: 'no user'})
@@ -275,7 +336,6 @@ app.get('/authorBook', function (req, res) {
   '&maxResults=30&fields=kind,items(id, volumeInfo/*)')
     .then(function (response) {
       response.data.items.forEach(function(data) {
-        console.log(data);
         data['bookId'] = data['id'];
         data['bookImage'] = data.volumeInfo['imageLinks'] === undefined ? "" : data.volumeInfo.imageLinks['thumbnail'] 
         data['bookTitle'] = data.volumeInfo['title'];
@@ -313,5 +373,7 @@ app.get('/profile', async (req, res) => {
   const user = await User.findOne({ uid }).lean()
   res.send({ status: 'success', profile: user });
 })
+//Gets user information for account
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT);

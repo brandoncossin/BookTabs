@@ -3,10 +3,18 @@ import React from 'react';
 const Blog = (props) =>{
     return(
         <div className="container">
+            
+            <br></br>
+            <p>This is the Blog where I will post progress and website updates on. </p>
             {props.isLoggedIn && (
-          <p>Thanks for creating an account</p>
-        )}
-        <p>This is the Blog where I will post progress or whatever on</p>
+                <div>
+          <b>Thanks for creating an account. This project means a lot to mean. Back in May I was rejected from all
+              the internship opportunities I applied for. This gave me the motivation I needed to learn the MERN
+              stack and create a worthwhile application.
+          </b>
+          </div>
+        )}        
+        <br></br>
         <div>
             <p>-7/11/2021: Tonight I finished setting up the feature for adding to list.
                 This site has come a long way, it actually originally started as a movie
@@ -24,6 +32,18 @@ const Blog = (props) =>{
         <div>
             <p>-8/07/2021: Added functionality to search by author, and for books to have custom urls that 
                 can be used to find individual books.
+            </p>
+        </div>
+        <div>
+            <p>-8/22/2021: Finishing up last few tasks before MVP deployment.
+                Working on bug checks, "like" feature, and making sure login 
+                credentials are secure(long passwords, making sure email is real).
+            </p>
+        </div>
+        <div>
+            <p>-8/26/2021: I have been coding up final touches to prepare for deployment. Making sure every page has 
+                a loading component and buttons are all the same and working as intended. Alos going to clean up
+                the profile list portion since it is not as mobile responsive.
             </p>
         </div>
         </div>

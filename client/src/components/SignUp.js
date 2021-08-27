@@ -61,12 +61,11 @@ export default class SignUp extends React.Component {
             if(res.data.status === 'success'){
                 <Redirect to={{
                     pathname: "/Blog"}} />
-                  window.location.reload(); 
-                  alert('Success');
-         
+                  window.location.reload();          
             }
             else{
-                alert(res.data.error);
+                document.getElementById("errormessage").innerHTML = res.data.error;
+                //alert(res.data.error);
             }
         });
     }
@@ -75,7 +74,7 @@ export default class SignUp extends React.Component {
 
     render() {
         return (
-            <section className="container-fluid">
+            <section className="container-fluid ">
                 <section className="row justify-content-center">
                     <form
                         method="post"

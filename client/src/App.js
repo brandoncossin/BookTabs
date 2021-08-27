@@ -6,6 +6,8 @@ import NavBar from './components/NavBar';
 import RecentActivity from './components/RecentActivity';
 import BookList from './components/BookList';
 import AuthorList from './components/AuthorList';
+import ProfileSettings from './components/Settings';
+import Destroy from './components/Destroy.js'
 import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
 import BookItem from './components/BookResult';
@@ -26,10 +28,10 @@ function App() {
   //is marked as authenticated or not
   const [isLoading, setIsLoading] = useState(true);
   const [userMyList, setUserMyList] = useState([]);
-
+  const [userLikedList, setUserLikedList] = useState([]);
   //Use Effect to launch on page load
   useEffect(() => {
-    if (sessionStorage.getItem('token') && isLoading) {
+    if (sessionStorage.getItem('token') && !isLoggedIn) {
       const token = sessionStorage.getItem('token')
       axios.get("http://localhost:8080/authCheck", {
         params: {
@@ -39,8 +41,9 @@ function App() {
       //If data is authenticated user is logged in
         .then((res) => {
           if (res.data.status !== 'error') {
-            setUserMyList(res.data.userMyList)
             SetLoggedIn(true);
+            setUserLikedList(res.data.userLikedList)
+            setUserMyList(res.data.userMyList)
             setIsLoading(false);
           }
           else {
@@ -55,7 +58,7 @@ function App() {
   else{
     setIsLoading(false);
   }
-}, [isLoading, userMyList])
+}, [isLoggedIn, userMyList, userLikedList])
   //If loading is incomplete renders a spinner
   if(isLoading){
     return <div className="text-center">
@@ -66,7 +69,6 @@ function App() {
   }
   else{
   return (
-
     <Router>
       <div className="container">
         
@@ -85,7 +87,8 @@ function App() {
           <Route path="/BookList" render={(props) => (
             <BookList {...props} 
             isLoggedIn={isLoggedIn} 
-            userMyList={userMyList}/>
+            userMyList={userMyList}
+            userLikedList={userLikedList}/>
           )} />
           <Route path="/AuthorList/:author" render={(props) => (
             <AuthorList {...props} 
@@ -95,6 +98,12 @@ function App() {
           <ProtectedRoute path="/Profile" 
           isLoggedIn={isLoggedIn}
             component={Profile} />
+          <ProtectedRoute path="/Settings" 
+          isLoggedIn={isLoggedIn} 
+            component={ProfileSettings} />
+            <ProtectedRoute path="/Destroy" 
+          isLoggedIn={isLoggedIn} 
+            component={Destroy} />
           <ProtectedRoute path="/SignUp" isLoggedIn={!isLoggedIn}
             component={SignUp} />
           <ProtectedRoute path="/LogIn" isLoggedIn={!isLoggedIn}
@@ -106,9 +115,7 @@ function App() {
           <Route path="/BookResult/:bookId" render={(props) => (
           <BookItem {...props} isLoggedIn={isLoggedIn} />
           )}/>
-          <Route path="/WriteReview" 
-          isLoggedIn={isLoggedIn} 
-          component={WriteReview} />
+          
           <Route path="*" component={() => "404 NOT FOUND"} />
 
         </Switch>

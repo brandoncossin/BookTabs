@@ -66,7 +66,11 @@ function AuthorList(props) {
                       </Link>
                  </div>
                 <div className="BookResultInformation col">
-                <h2><b><Link className="BookResultLink" as={Link} to={{pathname: `/BookResult/${book.bookId}`, state: {book: book}}} >
+                <h2><b><Link className="BookResultLink" as={Link} to={{pathname: `/BookResult/${book.bookId}`, 
+                  state: {
+                  book : book,
+                  isLoggedIn: props.isLoggedIn
+                  }}} >
                      {book.bookTitle}
                      </Link>
                      </b></h2>

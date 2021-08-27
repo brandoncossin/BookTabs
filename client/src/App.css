@@ -14,6 +14,17 @@ Home Page CSS
     display: block;
 }
 
+.circleShape{
+    padding-top: 100px;
+    margin: auto;
+    background: Linear-gradient(to right, #fb5283, #ff3527);
+    border-top-left-radius: 280px;
+    border-top-right-radius: 280px;
+    height: 140px;
+    width: 280px;
+    text-align: center;
+}
+
 .form-container {
     position: relative;
     top: 6vh;
@@ -21,7 +32,7 @@ Home Page CSS
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px 0px #000;
-    margin-bottom: 50%;
+    margin-bottom: 40%;
 }
 
 .form-container p {
@@ -31,9 +42,12 @@ Home Page CSS
     background-color: #fff;
     ;
 }
-
+.form-container h1,
 .form-container h3,
-h6 {
+.form-container h5,
+.form-container h6,
+.form-container b
+{
     background-color: #fff;
 }
 
@@ -94,7 +108,10 @@ input[type="password"] {
     text-align: center;
     margin: auto;
 }
-
+.likeIcon {
+    text-align: center;
+    margin: auto;
+}
 .homeLogos img {
     margin-top: 50px;
     height: 80px;
@@ -135,6 +152,7 @@ Book List
 }
 
 .BookResultButton {
+    height: 40px;
     padding: 5px 10px;
     border: 0;
     outline: none;
@@ -143,8 +161,22 @@ Book List
     border-radius: 10px;
     margin-bottom: 20px;
 }
-
+.likeIcon{
+    height: 40px;
+    pointer-events: none;
+    padding: 3px 10px;
+    margin-bottom: 20px;
+    outline: none;
+    color: black;
+    background:
+        linear-gradient(rgb(255, 255, 255), rgb(255, 254, 254)) padding-box,
+        /*this is your grey background*/
+        linear-gradient(to right, #fb5283, #ff3527) border-box;
+    border: 2px solid transparent;
+    border-radius: 10px;
+}
 .AddedListButton {
+    height: 40px;
     pointer-events: none;
     padding: 3px 10px;
     margin-bottom: 20px;
@@ -188,7 +220,7 @@ button {
 
 .HomeContainer {
     width: 100%;
-    min-height: 100vh;
+    min-height: 80vh;
     padding-left: 8%;
     padding-right: 8%;
     box-sizing: border-box;
@@ -306,9 +338,7 @@ Book Container for Book Result
 
 }
 
-.HomeFooter {
-    background-color: black !important;
-}
+
 
 /*
 Profile CSS
@@ -332,11 +362,12 @@ Recent Activity
     margin-left: auto;
     margin-right: auto;
     padding-left: 60px;
-    padding-top: 10px;
+    padding-right: auto;
+    padding-top: 12px;
     border: 1px solid transparent;
     border-radius: 10px;
     margin-bottom: 10px;
-    width: 100%;
+    width: 90%;
     background-color: white;
 }
 .RecentActivity p, .RecentActivity h5, .RecentActivity b{
@@ -360,7 +391,17 @@ Mobile CSS
         flex-direction: column-reverse;
         margin: 50px 0;
     }
-
+    .HomeFooter{
+        margin-top: 40px;
+    }
+    .circleShape{
+        padding-top: 90px;
+        border-top-left-radius: 240px;
+        border-top-right-radius: 240px;
+        height: 120px;
+        width: 240px;
+        text-align: center;
+    }
     .homeLogos {
         position: absolute center;
         align-items: center;
@@ -421,13 +462,9 @@ Mobile CSS
         overflow: hidden;
     }
 
-    .HomeFooter {
-        width: 100%;
-    }
+    
 
-    .navbar {
-        width: 90%;
-    }
+    
 
     /*
     Profile CSS mobile

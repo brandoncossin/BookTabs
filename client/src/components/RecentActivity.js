@@ -18,6 +18,14 @@ const [isLoading, setIsLoading] = useState(true);
             });
     }
     })
+    if(isLoading){
+        return <div className="text-center">
+          <div className="spinner-border" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      }
+      else{
     return (
         <div className="container">
             <h1>Activity</h1>
@@ -36,5 +44,6 @@ const [isLoading, setIsLoading] = useState(true);
             ))}
         </div>
     );
+                }
 }
 export default RecentActivity;
