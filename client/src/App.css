@@ -16,6 +16,7 @@ Home Page CSS
 
 .circleShape{
     padding-top: 100px;
+    margin-top: auto;
     margin: auto;
     background: Linear-gradient(to right, #fb5283, #ff3527);
     border-top-left-radius: 280px;
@@ -34,7 +35,16 @@ Home Page CSS
     box-shadow: 0px 0px 10px 0px #000;
     margin-bottom: 40%;
 }
-
+.settingPage{
+    background-color: white;
+    flex-wrap: wrap;
+}
+.container-fluid{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+}
 .form-container p {
     margin-bottom: 5px;
     padding-left: 10;
@@ -61,7 +71,7 @@ Home Page CSS
 }
 
 .SearchBar {
-    width: 90%;
+    width: 80%;
     height: 3.2rem;
     background: #f5f5f5;
     outline: none;
@@ -70,6 +80,7 @@ Home Page CSS
     padding: 0 3.5rem 0 1.5rem;
     font-size: 1.2rem;
     margin-left: 5%;
+    margin-right: 5%;
 }
 
 .SearchBar input:focus {
@@ -219,8 +230,10 @@ button {
 }
 
 .HomeContainer {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    min-height: 80vh;
+    min-height: 100vh;
     padding-left: 8%;
     padding-right: 8%;
     box-sizing: border-box;
@@ -234,7 +247,11 @@ button {
     margin: 60px 0;
 
 }
-
+.AuthorHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 /*
 Book Container for Book Result
 */
@@ -419,6 +436,7 @@ Mobile CSS
     .SearchBar {
         width: 100%;
         margin-left: 0;
+        margin-bottom: 5%;
     }
 
     .Book {

@@ -50,9 +50,26 @@ class Profile extends React.Component {
       }
     })     
   }
+  handleUnlike (i, e){
+    e.preventDefault();
+    const token = sessionStorage.getItem('token');
+    axios.post("http://localhost:8080/api/unlike", 
+    {token: token, book: this.state.likedList[i]}, 
+    {headers: {"Content-Type": "application/json"}})
+    .then((res) => {
+      if(res.data.status !== 'error'){
+        var button = document.getElementById("unlikemessage" + i);
+            button.className = "AddedResultButton mr-4";
+            button.innerHTML = "Unliked"
+            button.onClick = null }
+      else{
+        document.getElementById("removeDiv" + i).innerHTML = "Error";
+      }
+    })     
+  }
   render() {
     return (
-      <div className="ProfileContainer">
+      <div className="container-fluid">
         <h1>{this.state.uid}'s List</h1>
         <hr></hr>
         <div className="ProfileContainer">
@@ -63,7 +80,7 @@ class Profile extends React.Component {
               <th scope="col">Title/Author</th>
               <th scope="col">Title</th>
               <th scope="col">Author</th>
-              <th scope="col">Remove From List</th>
+              <th scope="col">Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -113,7 +130,7 @@ class Profile extends React.Component {
               <th scope="col">Title/Author</th>
               <th scope="col">Title</th>
               <th scope="col">Author</th>
-              <th scope="col">Remove From List</th>
+              <th scope="col">Unlike</th>
             </tr>
           </thead>
           <tbody>
@@ -141,9 +158,10 @@ class Profile extends React.Component {
                     <td><div id={"removeDiv"+ i}>
                       <button type="submit" 
                       className="HomeButton" 
-                      id={"removemessage"+ i}
-                      onClick = {(e) => this.handleRemove(i, e)} 
-                      name="submit">Unlike
+                      id={"unlikemessage"+ i}
+                      onClick = {(e) => this.handleUnlike(i, e)} 
+                      name="submit">
+                        <span style= {{color: 'white', textShadow: '0 0 0 #ff3527', background: 'transparent'}}>&#128148; Unlike</span>
                     </button>
                     </div>
                     </td>

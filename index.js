@@ -166,6 +166,36 @@ app.post('/api/remove', async (req, res) => {
   res.json({ status: 'success', data: 'successfully removed' })
 
 })
+//Allows user to unlike a book in their list
+app.post('/api/unlike', async (req, res) => {
+  const base64String = req.body.token.split('.')[1];
+  let profile = JSON.parse(Buffer.from(base64String, 
+    'base64').toString('ascii'));  
+  let uid = profile.uid; 
+  try {
+    const response = await User.updateOne(
+      { uid: uid },
+      {
+        $pull: {
+          likedList:
+          {
+            'bookId': req.body.book.bookId,
+          }
+        }
+      })
+    console.log('Removed', response)
+  }
+  catch (error) {
+    if (error.code === 11000) {
+      //duplicate key
+      console.log(error)
+      return res.json({ status: 'error', error: '' })
+    }
+    throw error;
+  }
+  res.json({ status: 'success', data: 'successfully unliked' })
+
+})
 //Allows user to login
 app.post('/api/login', async (req, res) => {
   const { uid, pwd } = req.body;
@@ -194,9 +224,13 @@ app.post('/api/signup', async (req, res) => {
   if (!pwd || typeof pwd !== 'string') {
     return res.json({ status: 'error', error: 'Invalid password' })
   }
-  if (uid.length < 6 ) {
+  if (name.length < 6 ) {
     return res.json({ status: 'error',
-     error: 'Username must be at least 6 characters long' })
+     error: 'Name must be at least 6 characters long' })
+  }
+  if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))){
+    return res.json({ status: 'error',
+    error: 'Email must be real' })
   }
   if (pwd.length < 6 || (!/\d/.test(pwd))) {
     return res.json({ status: 'error',
@@ -207,14 +241,14 @@ app.post('/api/signup', async (req, res) => {
   var date = dateObject.getDate();
   var month = (dateObject.getMonth() + 1);
   var year = dateObject.getFullYear();
-  let dateDisplay = `${month}/${date}/${year}`; 
+  let dateCreated = `${month}/${date}/${year}`;  
   try {
     const response = await User.create({
       name,
       email,
       uid,
       password,
-      dateDisplay,
+      dateCreated,
     })
     //adds user to recent activities
     const user=new RecentActivity({

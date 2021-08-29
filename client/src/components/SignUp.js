@@ -58,14 +58,13 @@ export default class SignUp extends React.Component {
         {headers: {"Content-Type": "application/json"}}
             //axios.get("https://serene-spire-91674.herokuapp.com/api/signup", { 
             ).then((res) => {
-            if(res.data.status === 'success'){
+            if(res.data.status !== 'error'){
                 <Redirect to={{
-                    pathname: "/Blog"}} />
+                    pathname: "/" }} />
                   window.location.reload();          
             }
             else{
                 document.getElementById("errormessage").innerHTML = res.data.error;
-                //alert(res.data.error);
             }
         });
     }

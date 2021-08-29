@@ -37,9 +37,9 @@ export default class Settings extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <form 
-        method="post" 
+        <div
         className="form-container">
+          <div className="settingPage">
           <h1>Account Information</h1> 
         <h1>{this.state.name}</h1>
         <hr></hr>
@@ -56,8 +56,8 @@ export default class Settings extends React.Component {
         <span id = "errormessage" style ={{color: "red" , background: "transparent"}}>Delete Account</span>
         </Link>
         <br></br>
-        </form>
-      
+        </div>
+        </div>
       </div>
       );
     }

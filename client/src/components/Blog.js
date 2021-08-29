@@ -2,7 +2,7 @@ import React from 'react';
 
 const Blog = (props) =>{
     return(
-        <div className="container">
+        <div className="container-fluid">
             
             <br></br>
             <p>This is the Blog where I will post progress and website updates on. </p>

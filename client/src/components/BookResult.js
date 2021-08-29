@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import {Link, withRouter} from "react-router-dom";
+import googlePreview from '../icons/googlePreview.png';
+import poweredByGoogle from '../icons/poweredByGoogle.png';
 
 class BookResult extends React.Component{
   constructor(props){
@@ -68,7 +70,7 @@ class BookResult extends React.Component{
       }
       else{
     return (
-      <div className="container">
+      <div className="container-fluid">
         <br></br>
           <div className="row">
           <div className="BookContainer col">
@@ -76,7 +78,14 @@ class BookResult extends React.Component{
           <hr></hr>
           <p>ISBN 10: {this.state.book.bookISBN10}</p>
           <p>ISBN 13: {this.state.book.bookISBN13}</p>
-          <a target="_blank" rel="noreferrer nofollow" href={this.state.book.bookPreviewLink}><p>Link to buy on Google</p></a>
+          
+          <a target="_blank" rel="noreferrer nofollow" href={this.state.book.bookPreviewLink}>
+          <input type="image" src={googlePreview} style={{
+        backgroundColor: 'white', marginRight: ' 50%'} } height="35"></input>
+           <input type="image" style={{
+        backgroundColor: 'white' }} src={poweredByGoogle} ></input>
+
+          </a>
           </div>
           <div className="BookContainerInformation col">
           <h1>{this.state.book.bookTitle}</h1>

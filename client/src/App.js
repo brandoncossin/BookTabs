@@ -93,7 +93,8 @@ function App() {
           <Route path="/AuthorList/:author" render={(props) => (
             <AuthorList {...props} 
             isLoggedIn={isLoggedIn} 
-            userMyList = {userMyList}/>
+            userMyList={userMyList}
+            userLikedList={userLikedList}/>
           )} />
           <ProtectedRoute path="/Profile" 
           isLoggedIn={isLoggedIn}

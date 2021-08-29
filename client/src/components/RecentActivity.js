@@ -27,7 +27,7 @@ const [isLoading, setIsLoading] = useState(true);
       }
       else{
     return (
-        <div className="container">
+        <div className="container-fluid">
             <h1>Activity</h1>
             <br></br>
             {activity.map((action, i) => (

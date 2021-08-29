@@ -4,12 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   Link
 } from "react-router-dom";
-import thumbsUpSvg from '../icons/thumbsUpIcon.svg';
+import poweredByGoogle from '../icons/poweredByGoogle.png';
 
 function BookList(props) {
   let SearchBeenLoaded = localStorage.getItem("book");
-  console.log(props.userMyList)
-  console.log(props.userLikedList)
   const [book, setBook] = useState(SearchBeenLoaded);
   let ResultsBeenLoaded = JSON.parse(localStorage.getItem("result") || '[]');
   let SearchToken = localStorage.getItem("InitialSearch");
@@ -61,6 +59,23 @@ const [result, setResult] = useState(ResultsBeenLoaded);
       }
     })     
   }
+  function handleRemove(book, i){
+    const token = sessionStorage.getItem('token');
+    axios.post("http://localhost:8080/api/remove", 
+    {token: token, 
+      book: book}, 
+    {headers: {"Content-Type": "application/json"}})
+    .then((res) => {
+      if(res.data.status !== 'error'){
+        var button = document.getElementById("removemessage" + i);
+        button.className = "AddedListButton mr-4"
+        button.innerHTML = "<span style=\" color: transparent; text-shadow: 0 0 0 #ff3527; background: white;\">&#10004;</span>Removed From List"
+          }
+      else{
+        document.getElementById("addmessage" + i).innerHTML = res.data.error;
+      }
+    })     
+  }
   function handleLike(book, i){
     const token = sessionStorage.getItem('token');
     axios.post("http://localhost:8080/api/like", 
@@ -74,6 +89,23 @@ const [result, setResult] = useState(ResultsBeenLoaded);
         button.className = "AddedListButton mr-4"
         button.innerHTML = "<span style=\" color: red; text-shadow: 0 0 0 #ff3527; background: white;\">&#9829;</span> Liked"
       }
+      else{
+        document.getElementById("addmessage" + i).innerHTML = res.data.error;
+      }
+    })     
+  }
+  function handleUnlike(book, i){
+    const token = sessionStorage.getItem('token');
+    axios.post("http://localhost:8080/api/unlike", 
+    {token: token, 
+      book: book}, 
+    {headers: {"Content-Type": "application/json"}})
+    .then((res) => {
+      if(res.data.status !== 'error'){
+        var button = document.getElementById("unlikemessage" + i);
+        button.className = "AddedListButton mr-4"
+        button.innerHTML = "<span style=\" color: red; text-shadow: 0 0 0 #ff3527; background: transparent;\">&#128148;</span>Unliked"
+          }
       else{
         document.getElementById("addmessage" + i).innerHTML = res.data.error;
       }
@@ -107,6 +139,7 @@ const [result, setResult] = useState(ResultsBeenLoaded);
               placeholder="Search for Books"
               autoComplete="off">
                 </input>
+                <img src={poweredByGoogle} className="mr-auto" ></img>
                 </form>
       </div>
         <hr></hr>
@@ -146,24 +179,34 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                  <div className="BookResultInformation row ">
                    {props.userMyList.some(thebook => thebook.bookId === book.bookId) ? 
                    <div id={"reviewmessage"}>
-                           <button className="mr-4 AddedListButton" >  
-                           Inside List
-                           </button>
-                           </div>
+                   <button type="submit" 
+                   className="mr-4 BookResultButton"
+                   id={"removemessage"+ i}
+                   onClick = {() => {
+                    handleRemove(book, i);
+                        }} 
+                   name="submit">Remove From List
+                 </button>
+                 </div>
                    : <div id={"reviewmessage"}>
-                           <button type="submit" className="mr-4 BookResultButton" 
-                           name="submit"
-                           id={"addmessage"+ i}
-                           onClick = {() => {
-                            handleAdd(book, i);
+                      <button type="submit" className="mr-4 BookResultButton" 
+                      name="submit"
+                      id={"addmessage"+ i}
+                      onClick = {() => {
+                      handleAdd(book, i);
                           }} >  
                            Add To List
                            </button>
                            </div> }
                            {props.userLikedList.some(thebook => thebook.bookId === book.bookId) ? 
                    <div id={"reviewmessage"}>
-                           <button className="mr-4 AddedListButton" >  
-                           <span style= {{color: 'red', textShadow: '0 0 0 #ff3527', background: 'white'}}>&#9829;</span> Liked
+                           <button className="mr-4 BookResultButton" 
+                           id={"unlikemessage"+ i}
+                            onClick = {() => {
+                          handleUnlike(book, i);
+                          }} 
+                          name="submit" >  
+                           <span style= {{color: 'white', textShadow: '0 0 0 #ff3527', background: 'transparent'}}>&#128148;</span> Unlike
                            </button>
                            </div>
                            : <div id={"reviewmessage"}>
@@ -174,7 +217,7 @@ const [result, setResult] = useState(ResultsBeenLoaded);
                             handleLike(book, i);
                           }} >  
                           <span style={{color: 'white', textShadow: '0 0 0 #ff3527', background: 'transparent', height: '25px'}}>		
-                          &#9829; Like Book</span>
+                          &#128150; Like Book</span>
                            </button>
                            </div>
                            } 
