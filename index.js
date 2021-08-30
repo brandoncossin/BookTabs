@@ -10,15 +10,11 @@ const User = require('./models/User.js')
 const RecentActivity = require('./models/RecentActivity.js')
 const jwt = require('jsonwebtoken')
 const path = require('path')
-app.use(express.static(path.resolve(__dirname, "./client/build")));
-app.get("*", function(request, response){
-  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
-})
+
 var corsOptions = {
   credentials: true,
   origin: "http://localhost:3000",
   optionsSuccessStatus: 200,
-
 };
 app.use(express.json());
 app.use(cookieParser());
@@ -415,6 +411,10 @@ app.get('/profile', async (req, res) => {
 //Gets user information for account
 if(process.env.NODE_ENV === 'production'){
   app.use(express.static('client/build'));
+  app.use(express.static(path.resolve(__dirname, "./client/build")));
+  app.get("*", function(request, response){
+  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"))
+})
 }
 const PORT = process.env.PORT || 8080;
 app.listen(PORT);
