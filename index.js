@@ -408,6 +408,8 @@ app.get('/profile', async (req, res) => {
   res.send({ status: 'success', profile: user });
 })
 //Gets user information for account
-
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static('client/build'));
+}
 const PORT = process.env.PORT || 8080;
 app.listen(PORT);
