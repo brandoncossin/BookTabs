@@ -9,6 +9,11 @@ const keys = require('./config/keys')
 const User = require('./models/User.js')
 const RecentActivity = require('./models/RecentActivity.js')
 const jwt = require('jsonwebtoken')
+const path = require('path')
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.get("*", function(request, response){
+  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+})
 var corsOptions = {
   credentials: true,
   origin: "http://localhost:3000",
