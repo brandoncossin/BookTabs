@@ -20,7 +20,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
 
-
+//Gets user information for account
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static('client/build'));
+  app.use(express.static(path.resolve(__dirname, "./client/build")));
+  
+}
 //Allows mongodb connection
 mongoose.connect(keys.mongoURI, {
   useNewUrlParser: true,
@@ -308,13 +313,6 @@ app.get('/profile', async (req, res) => {
   const user = await User.findOne({ uid }).lean()
   res.send({ status: 'success', profile: user });
 })
-//Gets user information for account
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static('client/build'));
-  app.use(express.static(path.resolve(__dirname, "./client/build")));
-  app.get("*", function(request, response){
-    response.sendFile(path.resolve(__dirname, "./client/build", "index.html"))
-  })
-}
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT);
