@@ -15,7 +15,6 @@ import HomePage from './components/HomePage.js';
 import Profile from './components/Profile.js'
 import Blog from './components/Blog.js'
 import Footer from './components/Footer.js'
-import WriteReview from './components/WriteReview.js'
 import {
   BrowserRouter as Router,
   Switch,
