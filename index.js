@@ -23,7 +23,7 @@ app.use(cors(corsOptions));
 //Gets user information for account
 if(process.env.NODE_ENV === 'production'){
   app.use(express.static('client/build'));
-
+  
 }
 //Allows mongodb connection
 mongoose.connect(keys.mongoURI, {
@@ -312,9 +312,15 @@ app.get('/profile', async (req, res) => {
   const user = await User.findOne({ uid }).lean()
   res.send({ status: 'success', profile: user });
 })
-const path = require('path');
+
+
+//Gets user information for account
+if(process.env.NODE_ENV === 'production'){
+  const path = require('path');
   app.get("*", function(request, response){
     response.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html' ))
   })
+}
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT);
