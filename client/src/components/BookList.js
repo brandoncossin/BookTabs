@@ -13,9 +13,9 @@ function BookList(props) {
   //Checks if tokens for search are set
   useEffect(() => {
     if(book !== null && SearchToken === "initialized"){
-      axios.get("http://localhost:8080/", {
-      //axios.get("https://serene-spire-91674.herokuapp.com/", {
-      params: {
+      //axios.get("http://localhost:8080/", {
+        axios.get("https://serene-spire-91674.herokuapp.com/recentActivity", {      
+          params: {
       book: book
     }})
       .then(data => {
@@ -43,8 +43,8 @@ const [result, setResult] = useState(ResultsBeenLoaded);
     event.preventDefault();
     localStorage.setItem("book", book);
     //Location of API call
-    axios.get("http://localhost:8080/",{
-    //axios.get("https://serene-spire-91674.herokuapp.com/", {
+    //axios.get("http://localhost:8080/",{
+    axios.get("https://serene-spire-91674.herokuapp.com/", {
     params: {
     userId: sessionStorage.getItem('token'),
     book: book
