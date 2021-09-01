@@ -31,9 +31,11 @@ mongoose.connect(keys.mongoURI, {
 app.get('/recentActivity', async (req, res) => {
   try{
     const response = await RecentActivity.find().sort({_id: -1}).limit(12);
+    console.log(response);
     res.send({status: 'success', data: response});
   }
   catch(error){
+    console(error);
     res.send({status: 'error', data: error})
   }
 })
