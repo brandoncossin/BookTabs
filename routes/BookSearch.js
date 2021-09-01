@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require('axios');
 const keys = require('../config/keys')
 //All Books
-router.get('/', function (req, res) {
+router.get('/bookSearch', function (req, res) {
   //Sends back books based on the title search request
   //Cleans up the products returned
   let param = req.query.book
