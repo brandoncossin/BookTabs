@@ -13,7 +13,8 @@ const path = require('path')
 
 var corsOptions = {
   credentials: true,
-  origin: "http://localhost:3000",
+  origin: "https://serene-spire-91674.herokuapp.com",
+  //origin: "http://localhost:3000",
   optionsSuccessStatus: 200,
 };
 app.use(express.json());
