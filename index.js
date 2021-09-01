@@ -20,11 +20,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
 
-//Gets user information for account
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static('client/build'));
-  
-}
 //Allows mongodb connection
 mongoose.connect(keys.mongoURI, {
   useNewUrlParser: true,
@@ -312,7 +307,12 @@ app.get('/profile', async (req, res) => {
   const user = await User.findOne({ uid }).lean()
   res.send({ status: 'success', profile: user });
 })
-
+//Middleware? Will it work I hope so
+//Gets user information for account
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static('client/build'));
+  
+}
 
 //Gets user information for account
 if(process.env.NODE_ENV === 'production'){
