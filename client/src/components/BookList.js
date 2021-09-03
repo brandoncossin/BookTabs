@@ -13,8 +13,8 @@ function BookList(props) {
   //Checks if tokens for search are set
   useEffect(() => {
     if(book !== null && SearchToken === "initialized"){
-      //axios.get("http://localhost:8080/", {
-        axios.get("https://serene-spire-91674.herokuapp.com/bookSearch", {      
+      axios.get("http://localhost:8080/bookSearch", {
+        //axios.get("https://serene-spire-91674.herokuapp.com/bookSearch", {      
           params: {
       book: book
     }})
@@ -43,8 +43,8 @@ const [result, setResult] = useState(ResultsBeenLoaded);
     event.preventDefault();
     localStorage.setItem("book", book);
     //Location of API call
-    //axios.get("http://localhost:8080/",{
-    axios.get("https://serene-spire-91674.herokuapp.com/", {
+    axios.get("http://localhost:8080/bookSearch",{
+    //axios.get("https://serene-spire-91674.herokuapp.com/bookSearch", {
     params: {
     userId: sessionStorage.getItem('token'),
     book: book
@@ -77,7 +77,7 @@ const [result, setResult] = useState(ResultsBeenLoaded);
               placeholder="Search for Books"
               autoComplete="off">
                 </input>
-                <img src={poweredByGoogle} className="mr-auto" ></img>
+                <img src={poweredByGoogle} className="mr-auto" alt="Powered by Google"></img>
                 </form>
       </div>
         <hr></hr>

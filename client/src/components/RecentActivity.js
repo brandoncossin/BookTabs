@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link, Redirect } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 const RecentActivity = (props) => {
 const [activity, setActivity] = useState([]);
 const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         if(isLoading){
-          axios.get("https://serene-spire-91674.herokuapp.com/recentActivity", {
-        //axios.get("http://localhost:8080/recentActivity", {
+        axios.get("http://localhost:8080/recentActivity", {
+          //axios.get("https://serene-spire-91674.herokuapp.com/recentActivity", {
             params: {
             }
         })

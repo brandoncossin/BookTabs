@@ -22,7 +22,7 @@ export default function AuthorList(props) {
     if(isLoading){
       console.log(author)
       axios.get("http://localhost:8080/authorBook", {
-      //axios.get("https://serene-spire-91674.herokuapp.com/", {
+      //axios.get("https://serene-spire-91674.herokuapp.com/authorBook", {
       params: {
       author: author,
     }})
@@ -32,14 +32,14 @@ export default function AuthorList(props) {
       });
       setIsLoading(false)    
     }
-  }, [result, isLoading, props]);
+  }, [result, isLoading, props, author]);
 
     return ( 
       <div className="container mt-10">
        <div className="AuthorHeader">
         
           <h3>Books by {author} </h3>
-          <img src={poweredByGoogle} ></img>
+          <img src={poweredByGoogle} alt="Powered by Google"></img>
         </div>
         <hr></hr>
         <BookMap books={result} 

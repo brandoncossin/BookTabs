@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Link, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import googlePreview from '../icons/googlePreview.png';
 import poweredByGoogle from '../icons/poweredByGoogle.png';
 
@@ -12,6 +12,7 @@ class BookResult extends React.Component{
       isLoggedIn: props?.location?.state?.isLoggedIn,
       isLoading: true,
       bookId: this.props.match.params.id,
+      inUserMyList: props?.location?.state?.inUserMyList,
     }
     this.handleAdd = this.handleAdd.bind(this);
     this.handleLike = this.handleLike.bind(this);
@@ -21,7 +22,9 @@ class BookResult extends React.Component{
   handleAdd(event){
     event.preventDefault();
     const token = sessionStorage.getItem('token');
-      axios.post("http://localhost:8080/api/add", {book: this.state.book, token: token}, 
+      axios.post("http://localhost:8080/api/add", 
+      //axios.post("https://serene-spire-91674.herokuapp.com/api/add", 
+      {book: this.state.book, token: token}, 
       {headers: {"Content-Type": "application/json"}})
       .then((res) => {
         if(res.data.status !== 'error'){
@@ -50,7 +53,7 @@ class BookResult extends React.Component{
     else{
       const bookId = match.params.bookId;
       axios.get("http://localhost:8080/book", {
-      //axios.get("https://serene-spire-91674.herokuapp.com/", {
+      //axios.get("https://serene-spire-91674.herokuapp.com/book", {
       params: {
       id: bookId
     }})
@@ -81,9 +84,9 @@ class BookResult extends React.Component{
           
           <a target="_blank" rel="noreferrer nofollow" href={this.state.book.bookPreviewLink}>
           <input type="image" src={googlePreview} style={{
-        backgroundColor: 'white', marginRight: ' 50%'} } height="35"></input>
+        backgroundColor: 'white', marginRight: ' 50%'} } height="35" alt="Buy on Google"></input>
            <input type="image" style={{
-        backgroundColor: 'white' }} src={poweredByGoogle} ></input>
+        backgroundColor: 'white' }} src={poweredByGoogle} alt="Powered by Google"></input>
 
           </a>
           </div>
@@ -99,18 +102,27 @@ class BookResult extends React.Component{
           
           {this.state.isLoggedIn && (
           <div className="BookContainerInformation row m-auto">
+            {this.state.inUserMyList ?
                   <div classname="mr-4" id={"reviewmessage"}>
+                    <button type="submit" className="mr-4 HomeButton" 
+                    onClick = {this.handleAdd}
+                    id={"listmessage"}
+                    name="submit">Remove From List
+                    </button>
+                    </div>
+                    :
+                    <div classname="mr-4" id={"reviewmessage"}>
                     <button type="submit" className="mr-4 HomeButton" 
                     onClick = {this.handleAdd}
                     id={"listmessage"}
                     name="submit">Add To List
                     </button>
                     </div>
+            }
                     <div classname="" id={"reviewmessage"}>
-                    <Link className="BookResultLink" 
-                    as={Link} to={{pathname: '/WriteReview/', state: {book: this.state.book, isLoggedIn: true}}} >
-                    <button type="submit" className="mr-4 HomeButton" name="submit">Submit a Review</button>
-                    </Link>
+                    <button type="submit" className="mr-4 HomeButton" name="submit"> 
+                    <span style={{color: 'white', textShadow: '0 0 0 #ff3527', background: 'transparent', height: '25px'}}>		
+                  &#128150; Like Book</span></button>
                     </div>
                     </div>
                     )}

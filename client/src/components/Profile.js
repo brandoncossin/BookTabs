@@ -18,7 +18,9 @@ class Profile extends React.Component {
   componentDidMount() {
     if (sessionStorage.getItem('token')) {
       const token = sessionStorage.getItem('token')
-      axios.get("http://localhost:8080/profile", {
+      axios.get("http://localhost:8080/profile", 
+     // axios.get("https://serene-spire-91674.herokuapp.com/profile",
+      {
         params: {
           token: token
         }
@@ -37,6 +39,7 @@ class Profile extends React.Component {
     e.preventDefault();
     const token = sessionStorage.getItem('token');
     axios.post("http://localhost:8080/api/remove", 
+    //axios.post("https://serene-spire-91674.herokuapp.com/api/remove", 
     {token: token, book: this.state.myList[i]}, 
     {headers: {"Content-Type": "application/json"}})
     .then((res) => {
@@ -53,7 +56,8 @@ class Profile extends React.Component {
   handleUnlike (i, e){
     e.preventDefault();
     const token = sessionStorage.getItem('token');
-    axios.post("http://localhost:8080/api/unlike", 
+    axios.post("http://localhost:8080/api/unlike",
+    //axios.post("https://serene-spire-91674.herokuapp.com/api/unlike",  
     {token: token, book: this.state.likedList[i]}, 
     {headers: {"Content-Type": "application/json"}})
     .then((res) => {

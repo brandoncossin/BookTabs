@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link, Redirect } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 function Destroy (){
@@ -46,7 +47,24 @@ function Destroy (){
   }
   else{
   return (
-      <div>Hi</div>
+    <section className="container-fluid ">
+        <form method="post" className="form-container">
+            <h3>Delete Account?</h3>
+            <h6 className="card-subtitle mb-2 text-muted text-center">You'll permanently lose your: </h6>
+            
+            <h6 className="card-subtitle mb-2 text-muted text-center">- Account </h6>
+            <h6 className="card-subtitle mb-2 text-muted text-center">- Saved Books </h6>
+            <h6 className="card-subtitle mb-2 text-muted text-center">- Liked Books </h6>
+            <span id = "errormessage" style ={{color: "red" , background: "transparent"}}></span>
+            <p>Your Password</p>
+            <input type="password" name="pwd"  autoComplete="off"
+             placeholder="Type your name"></input>
+            
+            <br></br>
+            <button type="submit" className="HomeButton" name="submit">Sign Up</button>
+            <br></br>
+        </form>
+</section>
   )}
 }
 export default Destroy;

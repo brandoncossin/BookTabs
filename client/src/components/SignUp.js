@@ -54,9 +54,11 @@ export default class SignUp extends React.Component {
         e.preventDefault();
         //If Handle Validation is false, request is not sent
         if(this.handleValidation()){
-        await axios.post("http://localhost:8080/api/signup", this.state, 
+        await axios.post("http://localhost:8080/api/signup", 
+        //await axios.post("https://serene-spire-91674.herokuapp.com/api/signup", 
+
+        this.state, 
         {headers: {"Content-Type": "application/json"}}
-            //axios.get("https://serene-spire-91674.herokuapp.com/api/signup", { 
             ).then((res) => {
             if(res.data.status !== 'error'){
                 <Redirect to={{

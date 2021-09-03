@@ -18,7 +18,10 @@ export default class Settings extends React.Component {
   componentDidMount() {
     if (sessionStorage.getItem('token')) {
       const token = sessionStorage.getItem('token')
-      axios.get("http://localhost:8080/profile", {
+      axios.get("http://localhost:8080/profile", 
+      //axios.get("https://serene-spire-91674.herokuapp.com/profile", 
+
+      {
         params: {
           token: token
         }
@@ -39,7 +42,6 @@ export default class Settings extends React.Component {
       <div className="container-fluid">
         <div
         className="form-container">
-          <div className="settingPage">
           <h1>Account Information</h1> 
         <h1>{this.state.name}</h1>
         <hr></hr>
@@ -51,12 +53,10 @@ export default class Settings extends React.Component {
         <Link as={Link} to="/Profile" ><h5> Liked Books: ({this.state.likedList.length})</h5>
         </Link>
         <br></br>
-        
         <Link as={Link} to="/Destroy">
         <span id = "errormessage" style ={{color: "red" , background: "transparent"}}>Delete Account</span>
         </Link>
         <br></br>
-        </div>
         </div>
       </div>
       );

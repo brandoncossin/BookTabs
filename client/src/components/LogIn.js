@@ -34,9 +34,10 @@ handleChange(event) {
 handleSubmit(e) {
     e.preventDefault(); 
     if(this.handleValidation()){
-    axios.post("http://localhost:8080/api/login", this.state, 
+    axios.post("http://localhost:8080/api/login", 
+    //axios.post("https://serene-spire-91674.herokuapp.com/api/login", 
+    this.state, 
     {headers: {"Content-Type": "application/json"}}
-        //axios.get("https://serene-spire-91674.herokuapp.com/api/login", { 
         ).then((res) => {
           if(res.data.status !== 'error'){
             console.log(res.data.data); 

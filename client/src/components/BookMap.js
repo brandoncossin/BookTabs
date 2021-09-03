@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
@@ -9,6 +9,7 @@ function BookMap (props){
     function handleAdd(book, i){
         const token = sessionStorage.getItem('token');
         axios.post("http://localhost:8080/api/add", 
+        //axios.post("https://serene-spire-91674.herokuapp.com/api/add",
         { 
           book: book,
           token: token}, 
@@ -27,6 +28,7 @@ function BookMap (props){
       function handleRemove(book, i){
         const token = sessionStorage.getItem('token');
         axios.post("http://localhost:8080/api/remove", 
+        //axios.post("https://serene-spire-91674.herokuapp.com/api/remove", 
         {token: token, 
           book: book}, 
         {headers: {"Content-Type": "application/json"}})
@@ -43,7 +45,8 @@ function BookMap (props){
       }
       function handleLike(book, i){
         const token = sessionStorage.getItem('token');
-        axios.post("http://localhost:8080/api/like", 
+        axios.post("http://localhost:8080/api/like",
+        //axios.post("https://serene-spire-91674.herokuapp.com/api/like", 
         { 
           book: book,
           token: token}, 
@@ -62,6 +65,7 @@ function BookMap (props){
       function handleUnlike(book, i){
         const token = sessionStorage.getItem('token');
         axios.post("http://localhost:8080/api/unlike", 
+        //axios.post("https://serene-spire-91674.herokuapp.com/api/unlike", 
         {token: token, 
           book: book}, 
         {headers: {"Content-Type": "application/json"}})
