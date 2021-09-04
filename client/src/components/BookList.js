@@ -24,12 +24,6 @@ function BookList(props) {
       });
       localStorage.setItem("InitialSearch", "");    
     }
-    /*
-    for(let j = 0; j < result.length; j++){
-      var button = document.getElementById("addmessage" + j);
-        button.className = "mr-4 BookResultButton"
-    }
-    */
   }, [SearchToken, book]
     
 );

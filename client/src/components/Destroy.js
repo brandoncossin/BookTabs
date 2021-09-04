@@ -51,17 +51,16 @@ function Destroy (){
         <form method="post" className="form-container">
             <h3>Delete Account?</h3>
             <h6 className="card-subtitle mb-2 text-muted text-center">You'll permanently lose your: </h6>
-            
             <h6 className="card-subtitle mb-2 text-muted text-center">- Account </h6>
             <h6 className="card-subtitle mb-2 text-muted text-center">- Saved Books </h6>
-            <h6 className="card-subtitle mb-2 text-muted text-center">- Liked Books </h6>
+            <h6 className="card-subtitle mb-2 text-muted justify-content-left">- Liked Books </h6>
             <span id = "errormessage" style ={{color: "red" , background: "transparent"}}></span>
             <p>Your Password</p>
             <input type="password" name="pwd"  autoComplete="off"
-             placeholder="Type your name"></input>
+             placeholder="Type your password"></input>
             
             <br></br>
-            <button type="submit" className="HomeButton" name="submit">Sign Up</button>
+            <button type="submit" className="HomeButton" name="submit">Delete</button>
             <br></br>
         </form>
 </section>

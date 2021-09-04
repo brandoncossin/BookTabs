@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 function BookMap (props){
+  console.log(props.userMyList)
     function handleAdd(book, i){
         const token = sessionStorage.getItem('token');
         axios.post("http://localhost:8080/api/add", 
@@ -91,8 +92,8 @@ function BookMap (props){
           state: {
           book : book,
           isLoggedIn: props.isLoggedIn,
-          inUserMyList: props.userMyList.some(thebook => thebook.bookId === book.bookId),
-          inUserLikedList: props.userLikedList.some(thebook => thebook.bookId === book.bookId),
+          userMyList: props.userMyList,
+          inUserLikedList: props.userLikedList,
           }}} >
             <img src={book.bookImage} alt={book.bookTitle} />
                </Link>
@@ -102,8 +103,8 @@ function BookMap (props){
           state: {
           book : book,
           isLoggedIn: props.isLoggedIn,
-          inUserMyList: props.userMyList.some(thebook => thebook.bookId === book.bookId),
-          inUserLikedList: props.userLikedList.some(thebook => thebook.bookId === book.bookId),
+          userMyList: props.userMyList,
+          inUserLikedList: props.userLikedList,
           }}} >
               {book.bookTitle}
               </Link>

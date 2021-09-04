@@ -7,16 +7,20 @@ import poweredByGoogle from '../icons/poweredByGoogle.png';
 class BookResult extends React.Component{
   constructor(props){
     super(props);
+    const {match} = this.props
     this.state = {
       book: props?.location?.state?.book,
-      isLoggedIn: props?.location?.state?.isLoggedIn,
+      isLoggedIn: this.props.isLoggedIn,
       isLoading: true,
-      bookId: this.props.match.params.id,
-      inUserMyList: props?.location?.state?.inUserMyList,
+      bookId: match.params.bookId,
+      userMyList: this?.props?.userMyList,
     }
     this.handleAdd = this.handleAdd.bind(this);
     this.handleLike = this.handleLike.bind(this);
     this.handleReview = this.handleReview.bind(this);
+    console.log(this.props.isLoggedIn);
+    console.log(this.props.userMyList);
+
   }
   //Handles adding book to list
   handleAdd(event){
@@ -46,16 +50,14 @@ class BookResult extends React.Component{
     event.preventDefault();
   }
   componentDidMount() {
-    const { match, location, history } = this.props
     if(this.state.book){
       this.setState({isLoading : false})
     }
     else{
-      const bookId = match.params.bookId;
-      axios.get("http://localhost:8080/book", {
+       axios.get("http://localhost:8080/book", {
       //axios.get("https://serene-spire-91674.herokuapp.com/book", {
       params: {
-      id: bookId
+      id: this.state.bookId
     }})
       .then(data => {
         this.setState({book : data.data});
@@ -102,8 +104,8 @@ class BookResult extends React.Component{
           
           {this.state.isLoggedIn && (
           <div className="BookContainerInformation row m-auto">
-            {this.state.inUserMyList ?
-                  <div classname="mr-4" id={"reviewmessage"}>
+            {this.state.userMyList.some(thebook => thebook.bookId === this.state.bookId) ?
+                  <div className="mr-4" id={"reviewmessage"}>
                     <button type="submit" className="mr-4 HomeButton" 
                     onClick = {this.handleAdd}
                     id={"listmessage"}
@@ -111,15 +113,14 @@ class BookResult extends React.Component{
                     </button>
                     </div>
                     :
-                    <div classname="mr-4" id={"reviewmessage"}>
+                    <div className="mr-4" id={"reviewmessage"}>
                     <button type="submit" className="mr-4 HomeButton" 
                     onClick = {this.handleAdd}
                     id={"listmessage"}
                     name="submit">Add To List
                     </button>
-                    </div>
-            }
-                    <div classname="" id={"reviewmessage"}>
+                    </div>}
+                    <div className="" id={"reviewmessage"}>
                     <button type="submit" className="mr-4 HomeButton" name="submit"> 
                     <span style={{color: 'white', textShadow: '0 0 0 #ff3527', background: 'transparent', height: '25px'}}>		
                   &#128150; Like Book</span></button>

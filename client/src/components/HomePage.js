@@ -4,7 +4,7 @@ import globeSvg from '../icons/globeIcon.svg';
 import bookSvg from '../icons/bookIcon.svg';
 import noteSvg from '../icons/noteIcon.svg';
 
-const HomePage = (props) =>{
+const HomePage = (props) => {
   let history = useHistory();
   const [book, setBook] = useState("");
   function handleChange(event) {

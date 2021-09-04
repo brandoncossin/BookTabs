@@ -40,9 +40,9 @@ function App() {
       //If data is authenticated user is logged in
         .then((res) => {
           if (res.data.status !== 'error') {
-            SetLoggedIn(true);
-            setUserLikedList(res.data.userLikedList)
             setUserMyList(res.data.userMyList)
+            setUserLikedList(res.data.userLikedList)
+            SetLoggedIn(true);
             setIsLoading(false);
           }
           else {
@@ -89,6 +89,14 @@ function App() {
             userMyList={userMyList}
             userLikedList={userLikedList}/>
           )} />
+
+          <Route path="/BookResult/:bookId" render={(props) => (
+            <BookItem {...props} 
+            isLoggedIn={isLoggedIn} 
+            userMyList={userMyList}
+            userLikedList={userLikedList}/>
+          )}/>
+
           <Route path="/AuthorList/:author" render={(props) => (
             <AuthorList {...props} 
             isLoggedIn={isLoggedIn} 
@@ -112,9 +120,7 @@ function App() {
             <Blog {...props} isLoggedIn={isLoggedIn} />
           )}
           />
-          <Route path="/BookResult/:bookId" render={(props) => (
-          <BookItem {...props} isLoggedIn={isLoggedIn} />
-          )}/>
+          
           
           <Route path="*" component={() => "404 NOT FOUND"} />
 

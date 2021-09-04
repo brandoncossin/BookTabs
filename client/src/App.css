@@ -80,8 +80,8 @@ Home Page CSS
     border-radius: 1.625rem;
     padding: 0 3.5rem 0 1.5rem;
     font-size: 1.2rem;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 .SearchBar input:focus {
