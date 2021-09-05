@@ -38,7 +38,7 @@ class BookResult extends React.Component{
           var button = document.getElementById("listmessage");
           button.className = "AddedResultButton mr-4";
         button.innerHTML = "<span style=\" color: transparent; text-shadow: 0 0 0 #ff3527; background: white;\">&#10004;</span>Added To List"
-        }
+      }
         else{
           document.getElementById("listmessage").innerHTML = res.data.error;
         }
@@ -47,6 +47,21 @@ class BookResult extends React.Component{
   //Handles Like
   handleLike(event){
     event.preventDefault();
+    const token = sessionStorage.getItem('token');
+      axios.post("http://localhost:8080/api/like", 
+      //axios.post("https://serene-spire-91674.herokuapp.com/api/like", 
+      {book: this.state.book, token: token}, 
+      {headers: {"Content-Type": "application/json"}})
+      .then((res) => {
+        if(res.data.status !== 'error'){
+          var button = document.getElementById("likedlistmessage");
+          button.className = "AddedResultButton mr-4";
+          button.innerHTML = "<span style=\" color: red; text-shadow: 0 0 0 #ff3527; background: white;\">&#9829;</span> Liked"
+        }
+        else{
+          document.getElementById("likedlistmessage").innerHTML = res.data.error;
+        }
+      })
   }
  // Removes book from My List
  handleRemove(event){
@@ -59,15 +74,34 @@ class BookResult extends React.Component{
   {headers: {"Content-Type": "application/json"}})
   .then((res) => {
     if(res.data.status !== 'error'){
-      var button = document.getElementById("removemessage");
-      button.className = "AddedListButton mr-4"
-      button.innerHTML = "<span style=\" color: transparent; text-shadow: 0 0 0 #ff3527; background: white;\">&#10004;</span>Removed From List"
-      
-    }
+      var button = document.getElementById("listmessage");
+          button.className = "AddedResultButton mr-4";
+        button.innerHTML = "<span style=\" color: transparent; text-shadow: 0 0 0 #ff3527; background: white;\">&#10004;</span>Removed From List"
+        }
     else{
-      document.getElementById("addmessage").innerHTML = res.data.error;
+      document.getElementById("listmessage").innerHTML = res.data.error;
     }
   })     
+}
+ // Removes book from My List
+ handleUnlike(event){
+  event.preventDefault();
+ const token = sessionStorage.getItem('token');
+ axios.post("http://localhost:8080/api/unlike", 
+ //axios.post("https://serene-spire-91674.herokuapp.com/api/unlike", 
+ {token: token, 
+   book: this.state.book}, 
+ {headers: {"Content-Type": "application/json"}})
+ .then((res) => {
+  if(res.data.status !== 'error'){
+    var button = document.getElementById("likedlistmessage");
+        button.className = "AddedResultButton mr-4";
+      button.innerHTML = "<span style=\" color: red; text-shadow: 0 0 0 #ff3527; background: transparent;\">&#128148;</span> Unliked"
+      }
+  else{
+    document.getElementById("likedlistmessage").innerHTML = res.data.error;
+  }
+ })     
 }
   componentDidMount() {
     if(this.state.book){
@@ -128,7 +162,7 @@ class BookResult extends React.Component{
             {this.state.userMyList.some(thebook => thebook.bookId === this.state.bookId) ?
                   <div className="mr-4" id={"reviewmessage"}>
                     <button type="submit" className="mr-4 HomeButton" 
-                    onClick = {this.handleAdd}
+                    onClick = {this.handleRemove}
                     id={"listmessage"}
                     name="submit">Remove From List
                     </button>
@@ -143,15 +177,20 @@ class BookResult extends React.Component{
                     </div>}
                     {this.state.userLikedList.some(thebook => thebook.bookId === this.state.bookId) ?
                       <div className="" id={"reviewmessage"}>
-                    <button type="submit" className="mr-4 HomeButton" name="submit"> 
-                    <span style={{color: 'white', textShadow: '0 0 0 #ff3527', background: 'transparent', height: '25px'}}>		
-                  &#128150; Unlike</span></button>
+                    <button type="submit" className="mr-4 HomeButton" 
+                    onClick = {this.handleUnlike}
+                    id={"likedlistmessage"}
+                    name="submit"> 
+                    <span style= {{color: 'white', textShadow: '0 0 0 #ff3527', background: 'transparent'}}>&#128148;</span> Unlike</button>
                     </div>
                     :
                     <div className="" id={"reviewmessage"}>
-                    <button type="submit" className="mr-4 HomeButton" name="submit"> 
+                    <button type="submit" className="mr-4 HomeButton" 
+                    onClick = {this.handleLike}
+                    id={"likedlistmessage"}
+                    name="submit"> 
                     <span style={{color: 'white', textShadow: '0 0 0 #ff3527', background: 'transparent', height: '25px'}}>		
-                  &#128150; Like Book</span></button>
+                    &#128150; Like Book</span></button>
                     </div>
       }
                     </div>

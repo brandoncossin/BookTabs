@@ -47,7 +47,7 @@ function BookMap (props){
             setUserMyList(userMyList.filter((e)=>(e.bookId !== book.bookId)))
           }
           else{
-            document.getElementById("addmessage" + i).innerHTML = res.data.error;
+            document.getElementById("remove" + i).innerHTML = res.data.error;
           }
         })     
       }
@@ -69,7 +69,7 @@ function BookMap (props){
             setUserLikedList(prevArray => [...prevArray, arrayBook])
           }
           else{
-            document.getElementById("addmessage" + i).innerHTML = res.data.error;
+            document.getElementById("likemessage" + i).innerHTML = res.data.error;
           }
         })     
       }
@@ -90,7 +90,7 @@ function BookMap (props){
 
           }
           else{
-            document.getElementById("addmessage" + i).innerHTML = res.data.error;
+            document.getElementById("unlikemessage" + i).innerHTML = res.data.error;
           }
         })     
       }

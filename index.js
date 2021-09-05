@@ -208,7 +208,6 @@ app.post('/api/unlike', async (req, res) => {
 app.post('/api/login', async (req, res) => {
   const { uid, pwd } = req.body;
   const user = await User.findOne({ uid }).lean()
-  console.log(user)
   if (!user) {
     return res.json({ status: 'error', error: 'Invalid username' })
   }
@@ -297,7 +296,59 @@ app.get('/authCheck', async (req, res) => {
   }
 })
 
-
+//pre-check for deletion
+app.get('/deleteCheck', async (req, res) => {
+  
+  try {
+    jwt.verify(JSON.parse(req.query.token), keys.ACCESS_TOKEN_SECRET);
+    let profile = JSON.parse(Buffer.from(req.query.token.split('.')[1], 
+      'base64').toString('ascii'));
+      let uid = profile.uid
+    try{
+      const response = await User.findOne({ uid }, {"uid": 1, "name": 1});
+      console.log(response, "authChecked");
+      return res.send({ status: 'success', uid: response.uid});
+    }
+    catch(error){
+      return res.send({status: 'error', error: 'no user'})
+    }
+  } catch (err) {
+    return res.send({ status: 'error', error: 'Improper Token' });
+  }
+})
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//destroys users account from the MongoDb
+app.post('/api/destroy', async (req, res) => {
+  const {token, uid, pwd } = req.body;
+  try {
+    jwt.verify(JSON.parse(token), keys.ACCESS_TOKEN_SECRET);
+    let profile = JSON.parse(Buffer.from(token.split('.')[1], 
+      'base64').toString('ascii'));
+      if(uid != profile.uid){
+        return res.send({ status: 'error', error: 'Improper Token' });
+      }   
+    try{
+      const user = await User.findOne({ uid }).lean()
+      if (!user) {
+        return res.json({ status: 'error', error: 'Invalid username' })
+      }
+      if (await bcrypt.compare(pwd, user.password)) {
+      const response = await User.findOneAndDelete({uid: uid});
+      console.log(response, "authChecked");
+      return res.send({ status: 'success', response: response});
+      }
+      else{
+        console.log("wrong pw")
+        return res.send({ status: 'error', error: "Wrong Password"});
+      }
+    }
+    catch(error){
+      return res.send({status: 'error', error: 'no user'})
+    }
+  } catch (err) {
+    return res.send({ status: 'error', error: 'Improper Token' });
+  }
+})
 //gets profile page for logged in user
 //This uses JWT token
 app.get('/profile', async (req, res) => {

@@ -114,7 +114,7 @@ class Profile extends React.Component {
                       className="HomeButton" 
                       id={"removemessage"+ i}
                       onClick = {(e) => this.handleRemove(i, e)} 
-                      name="submit">Remove From List
+                      name="submit">Remove
                     </button>
                     </div>
                     </td>

@@ -33,6 +33,7 @@ function App() {
     if (sessionStorage.getItem('token') && !isLoggedIn) {
       const token = sessionStorage.getItem('token')
       axios.get("http://localhost:8080/authCheck", {
+      //axios.get("https://serene-spire-91674.herokuapp.com/authCheck", {
         params: {
           token: token
         }
