@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Redirect, useParams } from "react-router-dom";
 import poweredByGoogle from '../icons/poweredByGoogle.png';
 import BookMap from './BookMap';
+
 export default function AuthorList(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState([]);
@@ -33,7 +34,16 @@ export default function AuthorList(props) {
       setIsLoading(false)    
     }
   }, [result, isLoading, props, author]);
-
+  if(isLoading){
+    return(
+      <div className="text-center">
+          <div className="spinner-border" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+    )
+  }
+  else{
     return ( 
       <div className="container mt-10">
        <div className="AuthorHeader">
@@ -47,6 +57,6 @@ export default function AuthorList(props) {
         userLikedList={props.userLikedList}
         isLoggedIn={props.isLoggedIn}></BookMap>
       </div>
-    );
+    );}
 }
 

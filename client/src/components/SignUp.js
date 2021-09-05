@@ -1,10 +1,10 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link, Redirect } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import '../App.css';
 import axios from 'axios';
 
-export default class SignUp extends React.Component {
+ class SignUp extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -56,13 +56,11 @@ export default class SignUp extends React.Component {
         if(this.handleValidation()){
         await axios.post("http://localhost:8080/api/signup", 
         //await axios.post("https://serene-spire-91674.herokuapp.com/api/signup", 
-
         this.state, 
         {headers: {"Content-Type": "application/json"}}
             ).then((res) => {
             if(res.data.status !== 'error'){
-                <Redirect to={{
-                    pathname: "/" }} />
+                this.props.history.push("/LogIn")
                   window.location.reload();          
             }
             else{
@@ -81,7 +79,7 @@ export default class SignUp extends React.Component {
                         method="post"
                         className="form-container"
                         onSubmit={this.handleSubmit}>
-                        <h3>Sign up with Book Tabs</h3>
+                        <h3>Sign up with BookTabs</h3>
                         <h6 className="card-subtitle mb-2 text-muted">Create your account. It's free and only takes a minute.</h6>
                         <span id = "errormessage" style ={{color: "red" , background: "transparent"}}></span>
                         <p>Name</p>
@@ -109,3 +107,4 @@ export default class SignUp extends React.Component {
         );
     }
 }
+export default withRouter(SignUp)

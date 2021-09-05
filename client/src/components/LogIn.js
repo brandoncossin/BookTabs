@@ -40,7 +40,6 @@ handleSubmit(e) {
     {headers: {"Content-Type": "application/json"}}
         ).then((res) => {
           if(res.data.status !== 'error'){
-            console.log(res.data.data); 
             sessionStorage.setItem('token', JSON.stringify(res.data.data));
             <Redirect to={{
               pathname: "/" }} />
@@ -61,7 +60,7 @@ render(){
         method="post" 
         className="form-container"
         onSubmit={this.handleSubmit}> 
-        <h3>Sign in to Book Tabs</h3>
+        <h3>Sign in to BookTabs</h3>
         <h6 className="card-subtitle mb-2 text-muted">Welcome back. Sign in with your account.</h6>
         <span id = "errormessage" style ={{color: "red" , background: "transparent"}}></span>
         <p> Username</p>

@@ -272,7 +272,7 @@ app.post('/api/signup', async (req, res) => {
     }
     throw error;
   }
-  res.send({ status: 'success' })
+  return res.send({ status: 'success', response: "accounted created" })
 })
 //Checks authorization using JWT
 //Checks the token matches the key

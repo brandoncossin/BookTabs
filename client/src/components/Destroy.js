@@ -71,6 +71,7 @@ handleSubmit(e){
           ).then((res) => {
             if(res.data.status !== 'error'){
               alert("Account successfully deleted");
+              sessionStorage.removeItem('token');
               <Redirect to={{
                 pathname: "/" }} />
               window.location.reload();          
