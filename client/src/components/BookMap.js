@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
@@ -6,7 +6,10 @@ import {
 } from "react-router-dom";
 
 function BookMap (props){
-  console.log(props.userMyList)
+  const [userMyList, setUserMyList] = useState(props?.userMyList)
+  const [userLikedList, setUserLikedList] = useState(props?.userLikedList)
+  console.log(userMyList)
+  //Adds book to My List
     function handleAdd(book, i){
         const token = sessionStorage.getItem('token');
         axios.post("http://localhost:8080/api/add", 
@@ -20,12 +23,15 @@ function BookMap (props){
             var button = document.getElementById("addmessage" + i);
             button.className = "AddedListButton mr-4"
             button.innerHTML = "<span style=\" color: transparent; text-shadow: 0 0 0 #ff3527; background: white;\">&#10004;</span>Added To List"
+            var arrayBook = {"bookId": book.bookId}
+            setUserMyList(prevArray => [...prevArray, arrayBook])
           }
           else{
             document.getElementById("addmessage" + i).innerHTML = res.data.error;
           }
         })     
       }
+      // Removes book from My List
       function handleRemove(book, i){
         const token = sessionStorage.getItem('token');
         axios.post("http://localhost:8080/api/remove", 
@@ -38,12 +44,14 @@ function BookMap (props){
             var button = document.getElementById("removemessage" + i);
             button.className = "AddedListButton mr-4"
             button.innerHTML = "<span style=\" color: transparent; text-shadow: 0 0 0 #ff3527; background: white;\">&#10004;</span>Removed From List"
-              }
+            setUserMyList(userMyList.filter((e)=>(e.bookId !== book.bookId)))
+          }
           else{
             document.getElementById("addmessage" + i).innerHTML = res.data.error;
           }
         })     
       }
+      // Adds book to Liked List
       function handleLike(book, i){
         const token = sessionStorage.getItem('token');
         axios.post("http://localhost:8080/api/like",
@@ -57,12 +65,15 @@ function BookMap (props){
             var button = document.getElementById("likemessage" + i);
             button.className = "AddedListButton mr-4"
             button.innerHTML = "<span style=\" color: red; text-shadow: 0 0 0 #ff3527; background: white;\">&#9829;</span> Liked"
+            var arrayBook = {"bookId": book.bookId}
+            setUserLikedList(prevArray => [...prevArray, arrayBook])
           }
           else{
             document.getElementById("addmessage" + i).innerHTML = res.data.error;
           }
         })     
       }
+      // Removes Book from Liked List
       function handleUnlike(book, i){
         const token = sessionStorage.getItem('token');
         axios.post("http://localhost:8080/api/unlike", 
@@ -75,7 +86,9 @@ function BookMap (props){
             var button = document.getElementById("unlikemessage" + i);
             button.className = "AddedListButton mr-4"
             button.innerHTML = "<span style=\" color: red; text-shadow: 0 0 0 #ff3527; background: transparent;\">&#128148;</span>Unliked"
-              }
+            setUserLikedList(userLikedList.filter((e)=>(e.bookId !== book.bookId)))
+
+          }
           else{
             document.getElementById("addmessage" + i).innerHTML = res.data.error;
           }
@@ -92,8 +105,8 @@ function BookMap (props){
           state: {
           book : book,
           isLoggedIn: props.isLoggedIn,
-          userMyList: props.userMyList,
-          inUserLikedList: props.userLikedList,
+          userMyList: userMyList,
+          userLikedList: userLikedList,
           }}} >
             <img src={book.bookImage} alt={book.bookTitle} />
                </Link>
@@ -103,8 +116,8 @@ function BookMap (props){
           state: {
           book : book,
           isLoggedIn: props.isLoggedIn,
-          userMyList: props.userMyList,
-          inUserLikedList: props.userLikedList,
+          userMyList: userMyList,
+          userLikedList: userLikedList,
           }}} >
               {book.bookTitle}
               </Link>

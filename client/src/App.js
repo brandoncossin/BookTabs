@@ -40,9 +40,9 @@ function App() {
       //If data is authenticated user is logged in
         .then((res) => {
           if (res.data.status !== 'error') {
+            SetLoggedIn(true);
             setUserMyList(res.data.userMyList)
             setUserLikedList(res.data.userLikedList)
-            SetLoggedIn(true);
             setIsLoading(false);
           }
           else {

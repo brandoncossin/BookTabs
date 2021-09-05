@@ -13,14 +13,17 @@ class BookResult extends React.Component{
       isLoggedIn: this.props.isLoggedIn,
       isLoading: true,
       bookId: match.params.bookId,
-      userMyList: this?.props?.userMyList,
+      userMyList: props?.location?.state?.userMyList|| this?.props?.userMyList,
+      userLikedList: props?.location?.state?.userLikedList|| this?.props?.userLikedList,
+      // first element assigned would be a temp passed from book map
+      // second element would be from the app js, so if user traverses here
+      // from another path besides book
     }
+    console.log(this.state.userMyList)
     this.handleAdd = this.handleAdd.bind(this);
     this.handleLike = this.handleLike.bind(this);
-    this.handleReview = this.handleReview.bind(this);
-    console.log(this.props.isLoggedIn);
-    console.log(this.props.userMyList);
-
+    this.handleRemove = this.handleRemove.bind(this);
+    this.handleUnlike = this.handleUnlike.bind(this);
   }
   //Handles adding book to list
   handleAdd(event){
@@ -45,10 +48,27 @@ class BookResult extends React.Component{
   handleLike(event){
     event.preventDefault();
   }
-  //Handles Remove
-  handleReview(event){
-    event.preventDefault();
-  }
+ // Removes book from My List
+ handleRemove(event){
+   event.preventDefault();
+  const token = sessionStorage.getItem('token');
+  axios.post("http://localhost:8080/api/remove", 
+  //axios.post("https://serene-spire-91674.herokuapp.com/api/remove", 
+  {token: token, 
+    book: this.state.book}, 
+  {headers: {"Content-Type": "application/json"}})
+  .then((res) => {
+    if(res.data.status !== 'error'){
+      var button = document.getElementById("removemessage");
+      button.className = "AddedListButton mr-4"
+      button.innerHTML = "<span style=\" color: transparent; text-shadow: 0 0 0 #ff3527; background: white;\">&#10004;</span>Removed From List"
+      
+    }
+    else{
+      document.getElementById("addmessage").innerHTML = res.data.error;
+    }
+  })     
+}
   componentDidMount() {
     if(this.state.book){
       this.setState({isLoading : false})
@@ -64,6 +84,7 @@ class BookResult extends React.Component{
         this.setState({isLoading : false})
       });
     }
+    
     }
     render(){
       if(this.state.isLoading){
@@ -120,11 +141,19 @@ class BookResult extends React.Component{
                     name="submit">Add To List
                     </button>
                     </div>}
+                    {this.state.userLikedList.some(thebook => thebook.bookId === this.state.bookId) ?
+                      <div className="" id={"reviewmessage"}>
+                    <button type="submit" className="mr-4 HomeButton" name="submit"> 
+                    <span style={{color: 'white', textShadow: '0 0 0 #ff3527', background: 'transparent', height: '25px'}}>		
+                  &#128150; Unlike</span></button>
+                    </div>
+                    :
                     <div className="" id={"reviewmessage"}>
                     <button type="submit" className="mr-4 HomeButton" name="submit"> 
                     <span style={{color: 'white', textShadow: '0 0 0 #ff3527', background: 'transparent', height: '25px'}}>		
                   &#128150; Like Book</span></button>
                     </div>
+      }
                     </div>
                     )}
           </div>

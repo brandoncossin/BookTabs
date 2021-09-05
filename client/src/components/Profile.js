@@ -126,6 +126,7 @@ class Profile extends React.Component {
         </table>
         </div>
         <h1>Liked Books</h1>
+        <hr></hr>
         <div className="ProfileContainer">
         <table className="table ml-0">
           <thead className="thead-dark">
@@ -134,7 +135,7 @@ class Profile extends React.Component {
               <th scope="col">Title/Author</th>
               <th scope="col">Title</th>
               <th scope="col">Author</th>
-              <th scope="col">Unlike</th>
+              <th scope="col">Remove</th>
             </tr>
           </thead>
           <tbody>
